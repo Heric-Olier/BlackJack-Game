@@ -102,8 +102,6 @@ header h1 {
   }
 }
 
-
-
 .bet {
   margin-bottom: 30px;
 }
@@ -119,4 +117,8 @@ header h1 {
   color:  var(--color-light);
   margin: 0 26px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.swal2-popup.swal2-toast {
+  box-shadow: 0 0 0.625em #000000d1 !important;
 }
