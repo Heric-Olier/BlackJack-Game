@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BlackJack Game</title>
+    <title>Blackjack Game</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/reset.css" />
@@ -17,6 +17,16 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+
+     <!---- favicon ---->
+
+     <link
+     rel="shortcut icon"
+     href="./assets/images/logo-favi.svg"
+     type="image/x-icon"
+   />
+
+  
   </head>
   <body>
     <!-- nav -->
@@ -78,11 +88,15 @@
           <div class="col-12">
             <div class="card bg-transparent text-center">
               <div class="card-body d-flex justify-content-center flex-column align-items-center">
-                <h5 class="card-title text-white">Blackjack Game</h5>
+               <img src="assets/images/Blackjack-logo.svg" alt="logo" class="logo" />
                 <p class="card-text text-white">
                   This is a simple blackjack game. The goal is to get as close
                   to 21 as possible without going over.
                 </p>
+                <p class="card-text text-warning">
+                  Select your bet amount and click the "Start Game" button to start
+                </p>
+
                 <!--chips-->
                 <div class="chips d-flex justify-content-center align-items-center flex-wrap">
                   <div class="chip" id="chip-10" data-value="10">
@@ -100,7 +114,7 @@
                 </div>
 
                 <!--bet-->
-                <div class="bet d-flex justify-content-center align-items-center flex-wrap">
+                <div class="bet d-flex justify-content-center align-items-center">
                   <div class="bet-amount">
                     <span id="bet-amount" data-bet-amount>0</span>
                   </div>
