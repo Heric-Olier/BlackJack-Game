@@ -90,7 +90,7 @@ header h1 {
 
 .bet-amount span,
 .bet-balance span {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color:  var(--color-light);
   margin: 0 26px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
