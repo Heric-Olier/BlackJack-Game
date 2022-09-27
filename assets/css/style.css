@@ -164,12 +164,13 @@ header h1 {
   background-color: var(--color-dark);
   padding: 0.4rem 1.2rem;
   border-radius: 0.35rem;
+  margin-bottom: -0.7rem;
  
 }
 
 .dealer__cards,
 .player__cards {
-  margin: 24px 0;
+  margin: 26px 0;
   position: relative;
 }
 
@@ -193,7 +194,7 @@ header h1 {
 
 .player__card {
   position: relative;
-  left: -40%;
+  left: -55%;
 }
 
 .dealer__card--front img,
@@ -211,7 +212,7 @@ header h1 {
   background-color: var(--color-light);
   border-radius: 5px;
   position: absolute;
-  left: -120px;
+  left: 140px;
   top: 140px;
   z-index: 1;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
