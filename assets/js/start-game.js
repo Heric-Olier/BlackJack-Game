@@ -31,6 +31,7 @@ const startGame = () => {
     cardGameHome.classList.add("d-none");
     cardGameBoard.classList.remove("d-none");
     body.classList.add("game-start");
+    betamount.innerHTML = chip.dataset.value;
   }
 };
 

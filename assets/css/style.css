@@ -18,7 +18,7 @@ body.game-start {
 
 @media (max-width: 480px) {
   body.game-start {
-    background-image: url(../images/background-blackjack-mobile.png);
+    background-image: url(../images/background-blackjack-mobile-home.png);
   }
 
   body {
@@ -73,7 +73,6 @@ header h1 {
   transition: all 0.3s ease;
 }
 /* reduce the size of the logo in small devices */
-
 @media (max-width: 320px) {
   .logo {
     width: 13rem;
@@ -106,7 +105,7 @@ header h1 {
 
 .chip {
   margin: 8px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.596);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.795);
   border-radius: 50%;
   animation: rotate 3.5s linear infinite;
 }
@@ -125,9 +124,30 @@ header h1 {
   margin-bottom: 30px;
 }
 
+.bet-game {
+  margin: -22px 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  );
+  border: 2px solid rgb(5, 119, 71);
+  border-radius: 10px;
+  padding: 2px;
+
+}
+
 .bet-image img {
   width: 42px;
   height: 42px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.527);
+  border-radius: 50%;
+}
+
+.bet-image-game img {
+  width: 34px;
+  height: 34px;
+
 }
 
 .bet-amount span,
@@ -154,11 +174,12 @@ header h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 24px;
 }
 
 .title-dealer,
 .title-player {
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
   /* text-shadow: 0 0 10px rgba(0, 0, 0, 0.644); */
   background-color: var(--color-dark);
@@ -172,11 +193,12 @@ header h1 {
 .player__cards {
   margin: 26px 0;
   position: relative;
+  justify-content: center;
 }
 
 .dealer__cards img,
 .player__card img {
-  width: 140px;
+  width: 135px;
   position: relative;
   left: 100%;
   margin-left: -100px;
@@ -194,7 +216,7 @@ header h1 {
 
 .player__card {
   position: relative;
-  left: -55%;
+  left: -50%;
 }
 
 .dealer__card--front img,
@@ -212,8 +234,8 @@ header h1 {
   background-color: var(--color-light);
   border-radius: 5px;
   position: absolute;
-  left: 140px;
-  top: 140px;
+  left: 130px;
+  top: 130px;
   z-index: 1;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
@@ -230,6 +252,7 @@ header h1 {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .btn-hit-container,
