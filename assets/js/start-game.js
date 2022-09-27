@@ -8,6 +8,7 @@ const betamount = document.querySelector("[data-bet-amount]");
 const cardGameHome = document.getElementById("card__game-home");
 const cardGameBoard = document.getElementById("card__game-board");
 const btnStartGame = document.getElementById("btn-start-game");
+const body = document.querySelector("body");
 
 // funcion para seleccionar la apuesta
 const selectBet = (chip) => {
@@ -29,6 +30,7 @@ const startGame = () => {
   } else {
     cardGameHome.classList.add("d-none");
     cardGameBoard.classList.remove("d-none");
+    body.classList.add("game-start");
   }
 };
 

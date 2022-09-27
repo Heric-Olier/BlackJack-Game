@@ -4,11 +4,26 @@
 }
 
 body {
-  background-image: url(../images/background-blackjack.png);
+  background-image: url(../images/background-blackjack-2.png);
   background-size: cover;
   background-position: center;
   height: 100vh;
   width: 100vw;
+  /* transition: all 0.4s ease; */
+}
+
+body.game-start {
+  background-image: url(../images/background-blackjack-active.png);
+}
+
+@media (max-width: 480px) {
+  body.game-start {
+    background-image: url(../images/background-blackjack-mobile.png);
+  }
+
+  body {
+    background-image: url(../images/background-blackjack-mobile-home.png);
+  }
 }
 
 header {
@@ -68,7 +83,7 @@ header h1 {
 
 .card-text {
   font-size: 1.2rem;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.877);
   margin: 20px 0;
 }
 
@@ -87,7 +102,7 @@ header h1 {
 
 .chip {
   margin: 8px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.596);
   border-radius: 50%;
   animation: rotate 3.5s linear infinite;
 }
@@ -96,7 +111,7 @@ header h1 {
   0% {
     transform: rotate(0deg);
   }
-  
+
   100% {
     transform: rotate(360deg);
   }
@@ -114,9 +129,9 @@ header h1 {
 .bet-amount span,
 .bet-balance span {
   font-size: 1.8rem;
-  color:  var(--color-light);
+  color: var(--color-light);
   margin: 0 26px;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.644);
   transition: all 0.3s ease;
 }
 
