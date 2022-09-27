@@ -117,6 +117,11 @@ header h1 {
   color:  var(--color-light);
   margin: 0 26px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.btn {
+  padding: 0.375rem 3.75rem !important;
 }
 
 .swal2-popup.swal2-toast {

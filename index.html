@@ -86,7 +86,8 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <div class="card bg-transparent text-center">
+            <!-- Start Game home section  -->
+            <div class="card bg-transparent text-center" id="card__game-home">
               <div class="card-body d-flex justify-content-center flex-column align-items-center">
                <img src="assets/images/Blackjack-logo.svg" alt="logo" class="logo" />
                 <p class="card-text text-white">
@@ -130,6 +131,45 @@
                 <a href="#" class="btn btn-danger" id="btn-start-game">Start Game</a>
               </div>
             </div>
+             <!-- End Game home section  -->
+              <!-- Start Game board section  -->
+            <div class="card bg-transparent text-center d-none" id="card__game-board">
+              <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                <div class="game-board">
+                  <div class="dealer">
+                    <div class="dealer__cards">
+                      <div class="dealer__card dealer__card--back">
+                        <img src="assets/images/card-back.png" alt="card-back" />
+                      </div>
+                      <div class="dealer__card dealer__card--front">
+                        <img src="assets/images/card-back.png" alt="card-back" />
+                      </div>
+                    </div>
+                    <div class="dealer__score">
+                      <span id="dealer-score">0</span>
+                    </div>
+                  </div>
+                  <div class="player">
+                    <div class="player__cards">
+                      <div class="player__card player__card--back">
+                        <img src="assets/images/card-back.png" alt="card-back" />
+                      </div>
+                      <div class="player__card player__card--front">
+                        <img src="assets/images/card-back.png" alt="card-back" />
+                      </div>
+                    </div>
+                    <div class="player__score">
+                      <span id="player-score">0</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="game-board__actions">
+                  <a href="#" class="btn btn-danger" id="btn-hit">Hit</a>
+                  <a href="#" class="btn btn-danger" id="btn-stand">Stand</a>
+                </div>
+              </div>
+            </div>
+            <!-- End Game board section  -->
           </div>
         </div>
       </div>
