@@ -137,6 +137,7 @@
               <div class="card-body d-flex justify-content-center flex-column align-items-center">
                 <div class="game-board">
                   <div class="dealer">
+                    <h1 class="title-dealer text-white">Dealer</h1>
                     <div class="dealer__cards d-flex">
                       <div class="dealer__card dealer__card--front">
                         <img src="assets/cards/10C.png" alt="card-back" />
@@ -150,6 +151,7 @@
                     </div>
                   </div>
                   <div class="player">
+                    <h1 class="title-player text-white">Player</h1>
                     <div class="player__cards d-flex">
                       <!-- <div class="player__card player__card--back">
                         <img src="assets/images/card-back.png" alt="card-back" />
@@ -165,8 +167,23 @@
                   </div>
                 </div>
                 <div class="game-board__actions">
-                  <a href="#" class="btn btn-danger" id="btn-hit">Hit</a>
-                  <a href="#" class="btn btn-danger" id="btn-stand">Stand</a>
+                  <div class="btn-hit-container">
+                    <a href="#" class="btn btn-success" id="btn-hit">
+                      <img src="assets/images/btn-hit-icon.svg" alt="btn hit icon">
+                    </a>
+                    <span>Hit</span>
+                  </div>
+                  <div class="btn-stand-container">
+                    <a href="#" class="btn btn-danger" id="btn-stand">
+                      <img src="assets/images/btn-stand-icon.svg" alt="btn stand icon">
+                    </a>
+                    <span>Stand</span>
+                </div>
+                <div class="btn-double-container">
+                  <a href="#" class="btn btn-primary" id="btn-double">
+                    <img src="assets/images/btn-double-icon.svg" alt="btn double icon">
+                  </a>
+                  <span>Double</span>
                 </div>
               </div>
             </div>

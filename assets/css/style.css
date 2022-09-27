@@ -156,9 +156,20 @@ header h1 {
   align-items: center;
 }
 
+.title-dealer,
+.title-player {
+  font-size: 1.2rem;
+  text-align: center;
+  /* text-shadow: 0 0 10px rgba(0, 0, 0, 0.644); */
+  background-color: var(--color-dark);
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.35rem;
+ 
+}
+
 .dealer__cards,
 .player__cards {
-  margin: 40px 0;
+  margin: 24px 0;
   position: relative;
 }
 
@@ -212,3 +223,59 @@ header h1 {
   color: var(--color-dark);
   font-weight: bold;
 }
+
+.game-board__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.btn-hit-container,
+.btn-stand-container,
+.btn-double-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 14px;
+}
+
+.btn-hit-container span,
+.btn-stand-container span,
+.btn-double-container span {
+  font-size: 1rem;
+  color: var(--color-light);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.644);
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+#btn-hit,
+#btn-stand,
+#btn-double {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 60px;
+  height: 60px;
+  padding: 0 !important;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
+  transition: all 0.3s ease;
+}
+
+.btn-hit-container img,
+.btn-stand-container img,
+.btn-double-container img {
+  width: 25px;
+  transition: all 0.3s ease;
+}
+
+.btn-double-container img {
+  width: 34px;
+}
+
