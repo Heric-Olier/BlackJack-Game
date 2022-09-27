@@ -168,6 +168,16 @@ header h1 {
   position: relative;
   left: 100%;
   margin-left: -100px;
+  transition: all 0.35s ease-in-out;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
+}
+
+.dealer__cards img:hover,
+.player__card img:hover,
+.player__card--front img:first-child:hover {
+  transform: scale(1.08);
+  z-index: 1;
 }
 
 .player__card {
