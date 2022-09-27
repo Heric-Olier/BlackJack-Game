@@ -35,6 +35,10 @@ header {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
+.navbar-brand {
+  font-size: 1.05rem !important;
+}
+
 header h1 {
   font-size: 1.2rem;
   font-family: "Roboto", sans-serif;
@@ -141,4 +145,60 @@ header h1 {
 
 .swal2-popup.swal2-toast {
   box-shadow: 0 0 0.625em #000000d1 !important;
+}
+
+/* Game Section */
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dealer__cards,
+.player__cards {
+  margin: 40px 0;
+  position: relative;
+}
+
+.dealer__cards img,
+.player__card img {
+  width: 140px;
+  position: relative;
+  left: 100%;
+  margin-left: -100px;
+}
+
+.player__card {
+  position: relative;
+  left: -40%;
+}
+
+.dealer__card--front img,
+.player__card--front img:first-child {
+  transform: rotate(-5deg);
+}
+
+.dealer__score,
+.player__score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 28px;
+  background-color: var(--color-light);
+  border-radius: 5px;
+  position: absolute;
+  left: -120px;
+  top: 140px;
+  z-index: 1;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dealer__score span,
+.player__score span {
+  font-size: 1.2rem;
+  color: var(--color-dark);
+  font-weight: bold;
 }
