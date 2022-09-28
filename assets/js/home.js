@@ -1,18 +1,15 @@
 import { alertMessage } from "./alerts.js";
 
 const body = document.querySelector("body");
-const chip10 = document.getElementById("chip-10");
-const chip25 = document.getElementById("chip-25");
-const chip50 = document.getElementById("chip-50");
-const chip100 = document.getElementById("chip-100");
-const chip250 = document.getElementById("chip-250");
-const betAmount = document.querySelector("[data-bet-amount]");
+const betAmountContainer = document.querySelector(".bet-amount-container");
+const betAmount = document.getElementById("bet-amount");
 const betAmountGame = document.querySelector("[data-bet-amount-game]");
 const cardGameHome = document.getElementById("card__game-home");
-const betBalance = document.querySelector("[data-bet-balance]");
+const betBalance = document.getElementById("bet-balance");
 const cardGameBoard = document.getElementById("card__game-board");
 const menuBtn = document.getElementById("menu-btn");
 
+betBalance.innerHTML = 2000; 
 
 // funcion para mostrar el menu
 menuBtn.addEventListener("click", () => {
@@ -22,7 +19,8 @@ menuBtn.addEventListener("click", () => {
 
 // funcion para seleccionar la apuesta
 const selectBet = (chip) => {
-  betAmount.innerHTML = parseInt(betAmount.innerHTML) + parseInt(chip.dataset.value); // sumar el valor del chip al monto de la apuesta
+  betAmount.innerHTML =
+    chip.getAttribute("data-value") * 1 + betAmount.innerHTML * 1; // 1 para convertir el string a numero
 };
 
 const chip = document.querySelectorAll(".chip");
@@ -31,9 +29,26 @@ chip.forEach((chip) => {
     const audio = new Audio("assets/audio/Poker_Chip_Single.mp3");
     audio.play();
     selectBet(chip);
+    //agregamos la chip seleccionada al contenedor de apuesta
+    chip.cloneNode(true).classList.add("chip-selected");
+    betAmountContainer.appendChild(chip.cloneNode(true));
+
+    if (betAmount.innerHTML > betBalance.innerHTML * 1) {
+      // 1 para convertir el string a numero
+      alertMessage.fire({
+        icon: "error",
+        title: "insufficient funds",
+      });
+      // bloqueamos el valor de la apuesta
+      betAmount.innerHTML = betBalance.innerHTML;
+      chip.style.pointerEvents = "none";
+      
+    } else {
+      //volvemos a mostrar el contenedor de apuesta
+      betAmountContainer.style.display = "flex";
+    }
   });
 });
-
 
 // // funcion para iniciar el juego
 // const startGame = () => {

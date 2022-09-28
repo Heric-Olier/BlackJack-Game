@@ -92,7 +92,7 @@ header {
 }
 
 .fa-bars:hover {
- opacity: 0.8;
+  opacity: 0.8;
 }
 
 .card-title {
@@ -114,7 +114,7 @@ header {
 }
 
 .chips {
- margin-top: 6px;
+  margin-top: 6px;
 }
 
 .chips img {
@@ -177,8 +177,33 @@ header {
   font-size: 1.14rem;
   font-weight: 500;
   color: var(--color-light);
-
   transition: all 0.3s ease;
+}
+
+.bet-amount-container {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  width: 300px !important;
+  position: relative;
+}
+
+.bet-amount-container img {
+  position: absolute;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.295);
+  border: 1px solid rgba(0, 0, 0, 0.342);
+  border-radius: 50%;
+  width: 66px;
+  transition: all 0.3s ease;
+}
+
+.bet-amount-container:first-child {
+  margin-top: 100px;
+}
+
+.bet-amount-container img:hover {
+  transform: scale(1.2);
 }
 
 .btn {
@@ -199,7 +224,9 @@ header {
   transform: translateX(-50%);
 }
 
-.title-home {position: relative;}
+.title-home {
+  position: relative;
+}
 
 /* arrow animated */
 .fa-angles-down {
@@ -227,7 +254,6 @@ header {
     transform: translateX(-50%) translateY(0);
   }
 }
-
 
 .bottom-frame {
   width: 100%;
