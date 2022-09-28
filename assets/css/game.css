@@ -1,0 +1,137 @@
+:root {
+  --color-dark: #121212;
+  --color-light: #f5f5f5;
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.title-dealer,
+.title-player {
+  font-size: 1rem;
+  text-align: center;
+  /* text-shadow: 0 0 10px rgba(0, 0, 0, 0.644); */
+  background-color: var(--color-dark);
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.35rem;
+  margin-bottom: -0.7rem;
+}
+
+.dealer__cards,
+.player__cards {
+  margin: 26px 0;
+  position: relative;
+  justify-content: center;
+}
+
+.dealer__cards img,
+.player__card img {
+  width: 135px;
+  position: relative;
+  left: 100%;
+  margin-left: -100px;
+  transition: all 0.35s ease-in-out;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
+}
+
+.dealer__cards img:hover,
+.player__card img:hover,
+.player__card--front img:first-child:hover {
+  transform: scale(1.08);
+  z-index: 1;
+}
+
+.player__card {
+  position: relative;
+  left: -50%;
+}
+
+.dealer__card--front img,
+.player__card--front img:first-child {
+  transform: rotate(-5deg);
+}
+
+.dealer__score,
+.player__score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 28px;
+  background-color: var(--color-light);
+  border-radius: 5px;
+  position: absolute;
+  left: 130px;
+  top: 130px;
+  z-index: 1;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.dealer__score span,
+.player__score span {
+  font-size: 1.2rem;
+  color: var(--color-dark);
+  font-weight: bold;
+}
+
+.game-board__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-hit-container,
+.btn-stand-container,
+.btn-double-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 14px;
+}
+
+.btn-hit-container span,
+.btn-stand-container span,
+.btn-double-container span {
+  font-size: 1rem;
+  color: var(--color-light);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.644);
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+#btn-hit,
+#btn-stand,
+#btn-double {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 60px;
+  height: 60px;
+  padding: 0 !important;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
+  transition: all 0.3s ease;
+}
+
+.btn-hit-container img,
+.btn-stand-container img,
+.btn-double-container img {
+  width: 25px;
+  transition: all 0.3s ease;
+}
+
+.btn-double-container img {
+  width: 34px;
+}
