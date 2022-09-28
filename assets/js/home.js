@@ -8,6 +8,7 @@ const cardGameHome = document.getElementById("card__game-home");
 const betBalance = document.getElementById("bet-balance");
 const cardGameBoard = document.getElementById("card__game-board");
 const menuBtn = document.getElementById("menu-btn");
+const chips = document.querySelectorAll(".chip");
 
 betBalance.innerHTML = 2000; 
 
@@ -41,11 +42,14 @@ chip.forEach((chip) => {
       });
       // bloqueamos el valor de la apuesta
       betAmount.innerHTML = betBalance.innerHTML;
-      chip.style.pointerEvents = "none";
+      chips.forEach((chip) => {
+        chip.style.pointerEvents = "none";
+      });
       
     } else {
-      //volvemos a mostrar el contenedor de apuesta
-      betAmountContainer.style.display = "flex";
+      chips.forEach((chip) => {
+        chip.style.pointerEvents = "auto";
+      });
     }
   });
 });
