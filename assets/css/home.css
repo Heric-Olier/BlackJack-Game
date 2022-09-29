@@ -83,7 +83,7 @@ header {
   transition: all 0.3s ease;
   cursor: pointer;
   position: absolute;
-  right: 0;
+  right: 5px;
   top: 40px;
   text-align: center;
   font-size: 1.2rem;
@@ -109,9 +109,8 @@ header {
 .chip {
   border-radius: 50%;
   /* animation: rotate 3.5s linear infinite; */
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.61);
   transition: all 0.3s ease;
-  margin: 2px 0;
+  margin: 2px;
 }
 
 .chips {
@@ -121,7 +120,7 @@ header {
 .chips img {
   width: 66px;
   cursor: pointer;
-  border: 2px solid rgba(3, 3, 3, 0.664);
+  box-shadow: 0 0 8px 2px rgb(0 0 0 / 79%);
   border-radius: 50%;
   transition: all 0.3s ease;
 }
@@ -177,6 +176,7 @@ header {
 .bet-balance span {
   font-size: 1.24rem;
   font-weight: 500;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.651);
   color: var(--color-light);
   transition: all 0.3s ease;
 }
@@ -185,8 +185,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 70px;
-  margin-left: 70px;
+  margin-top: 80px;
+  margin-left: 80px;
 }
 
 .bet-amount-container {
@@ -195,11 +195,9 @@ header {
   justify-content: center;
   align-items: center;
   position: absolute;
- bottom: -28rem;
+  bottom: 16rem;
   left: 48%;
   transform: translateX(-48%);
-
-
 }
 
 .bet-amount-container img {
@@ -207,10 +205,9 @@ header {
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.432);
   border: 1px solid rgba(0, 0, 0, 0.288);
   border-radius: 50%;
-  width: 66px;
+  width: 76px;
   transition: all 0.4s ease-in-out;
 }
-
 
 /* animation for the chips entrance */
 
@@ -230,7 +227,7 @@ header {
   }
 }
 
-.bet-amount-container img{
+.bet-amount-container img {
   animation-delay: 0.1s;
 }
 

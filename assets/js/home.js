@@ -2,7 +2,7 @@ import { alertMessage } from "./alerts.js";
 
 const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
-const betAmount = document.getElementById("bet-amount");
+const betAmount = document.getElementById("bet-amount-home");
 const betAmountGame = document.querySelector("[data-bet-amount-game]");
 const cardGameHome = document.getElementById("card__game-home");
 const betBalance = document.getElementById("bet-balance");
@@ -20,8 +20,7 @@ menuBtn.addEventListener("click", () => {
 
 // funcion para seleccionar la apuesta
 const selectBet = (chip) => {
-  betAmount.innerHTML =
-    chip.getAttribute("data-value") * 1 + betAmount.innerHTML * 1; // 1 para convertir el string a numero
+  betAmount.innerHTML = chip.getAttribute("data-value") * 1 + betAmount.innerHTML * 1; // 1 para convertir el string a numero
 };
 
 const chip = document.querySelectorAll(".chip");
@@ -29,10 +28,10 @@ chip.forEach((chip) => {
   chip.addEventListener("click", () => {
     const audio = new Audio("assets/audio/Poker_Chip_Single.mp3");
     audio.play();
-    selectBet(chip);
     //agregamos la chip seleccionada al contenedor de apuesta
     chip.cloneNode(true).classList.add("chip-selected");
     betAmountContainer.appendChild(chip.cloneNode(true));
+    selectBet(chip);
 
     if (betAmount.innerHTML > betBalance.innerHTML * 1) {
       // 1 para convertir el string a numero
