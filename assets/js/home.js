@@ -9,29 +9,43 @@ const betBalance = document.getElementById("bet-balance");
 const cardGameBoard = document.getElementById("card__game-board");
 const menuBtn = document.getElementById("menu-btn");
 const chips = document.querySelectorAll(".chip");
+const titleHome = document.querySelector(".title-home");
+const btnsActionHome = document.querySelector(".btn-action-home-container");
+const btnClearBet = document.getElementById("btn-clear");
 
-betBalance.innerHTML = 2000; 
+betBalance.innerHTML = 2000;
 
 // funcion para mostrar el menu
+const audio = new Audio("assets/audio/Switch_Click.mp3");
 menuBtn.addEventListener("click", () => {
-  const audio = new Audio("assets/audio/Switch_Click.mp3");
   audio.play();
 });
 
 // funcion para seleccionar la apuesta
 const selectBet = (chip) => {
-  betAmount.innerHTML = chip.getAttribute("data-value") * 1 + betAmount.innerHTML * 1; // 1 para convertir el string a numero
+  betAmount.innerHTML =
+    chip.getAttribute("data-value") * 1 + betAmount.innerHTML * 1; // 1 para convertir el string a numero
+    
 };
+
+let restaureBetAmountContainer = betAmountContainer.innerHTML;
+let restaureBetAmount = betAmount.innerHTML;
+console.log(restaureBetAmount);
 
 const chip = document.querySelectorAll(".chip");
 chip.forEach((chip) => {
   chip.addEventListener("click", () => {
+    
+    selectBet(chip);
+
+    titleHome.classList.add("hidden");
+    betAmountContainer.classList.add("visible");
+    btnsActionHome.classList.add("visible");
     const audio = new Audio("assets/audio/Poker_Chip_Single.mp3");
     audio.play();
     //agregamos la chip seleccionada al contenedor de apuesta
     chip.cloneNode(true).classList.add("chip-selected");
     betAmountContainer.appendChild(chip.cloneNode(true));
-    selectBet(chip);
 
     if (betAmount.innerHTML > betBalance.innerHTML * 1) {
       // 1 para convertir el string a numero
@@ -44,12 +58,25 @@ chip.forEach((chip) => {
       chips.forEach((chip) => {
         chip.style.pointerEvents = "none";
       });
-      
     } else {
-      chips.forEach((chip) => {
-        chip.style.pointerEvents = "auto";
-      });
+      
     }
+  });
+});
+
+
+btnClearBet.addEventListener("click", () => {
+  audio.play();
+  betAmountContainer.classList.remove("visible");
+  betAmountContainer.innerHTML = "";
+  setTimeout(() => {
+    betAmountContainer.innerHTML = restaureBetAmountContainer;
+    betAmount.innerHTML = restaureBetAmount;
+  }, 0);
+  titleHome.classList.remove("hidden");
+  btnsActionHome.classList.remove("visible");
+  chips.forEach((chip) => {
+    chip.style.pointerEvents = "auto";
   });
 });
 

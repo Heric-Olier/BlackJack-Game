@@ -190,7 +190,7 @@ header {
 }
 
 .bet-amount-container {
-  display: flex;
+  display: none;
   flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
@@ -198,6 +198,17 @@ header {
   bottom: 16rem;
   left: 48%;
   transform: translateX(-48%);
+}
+
+.bet-amount-container.visible {
+  display: flex;
+}
+
+@media (max-width: 480px) {
+  .bet-amount-container {
+    left: 36%;
+    transform: translateX(-36%);
+  }
 }
 
 .bet-amount-container img {
@@ -255,6 +266,13 @@ header {
 
 .title-home {
   position: relative;
+  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  opacity: 1;
+}
+
+.title-home.hidden {
+  opacity: 0;
+  transform: translateY(100px);
 }
 
 /* arrow animated */
@@ -282,6 +300,20 @@ header {
   100% {
     transform: translateX(-50%) translateY(0);
   }
+}
+
+.btn-action-home-container {
+  width: 100%;
+  position: absolute;
+  bottom: 8rem;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.btn-action-home-container.visible {
+  transform: scale(1);
+  opacity: 1;
 }
 
 .bottom-frame {

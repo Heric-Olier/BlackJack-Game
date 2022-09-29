@@ -90,7 +90,9 @@
 
 .btn-hit-container,
 .btn-stand-container,
-.btn-double-container {
+.btn-double-container,
+.btn-clear-container,
+.btn-start-game-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,7 +102,9 @@
 
 .btn-hit-container span,
 .btn-stand-container span,
-.btn-double-container span {
+.btn-double-container span,
+.btn-clear-container span,
+.btn-start-game-container span {
   font-size: 1rem;
   color: var(--color-light);
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.644);
@@ -110,13 +114,14 @@
 
 #btn-hit,
 #btn-stand,
-#btn-double {
+#btn-double,
+#btn-clear,
+#btn-start-game {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  width: 60px;
-  height: 60px;
+  width: 54px;
+  height: 54px;
   padding: 0 !important;
   font-size: 1rem;
   font-weight: bold;
@@ -125,9 +130,32 @@
   transition: all 0.3s ease;
 }
 
+#btn-clear,
+#btn-start-game {
+  font-size: 2.4rem;
+}
+
+#btn-start-game {
+  border: 2px solid var(--color-light);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .btn-hit-container img,
 .btn-stand-container img,
-.btn-double-container img {
+.btn-double-container img,
+#btn-start-game img {
   width: 25px;
   transition: all 0.3s ease;
 }

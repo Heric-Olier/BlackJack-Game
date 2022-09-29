@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blackjack Game</title>
 
-     <!-- fontawesome kit -->
+    <!-- fontawesome kit -->
 
-     <script
-     src="https://kit.fontawesome.com/4d63ed8f35.js"
-     crossorigin="anonymous"
-   ></script>
+    <script
+      src="https://kit.fontawesome.com/4d63ed8f35.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/reset.css" />
@@ -111,7 +111,7 @@
               <div
                 class="card-body d-flex justify-content-center flex-column align-items-center"
               >
-              <i class="fa-solid fa-bars" id="menu-btn"></i>
+                <i class="fa-solid fa-bars" id="menu-btn"></i>
                 <img
                   src="assets/images/Blackjack-logo.svg"
                   alt="logo"
@@ -125,13 +125,7 @@
                   Select your bet amount and click the "Start Game" button to start
                 </p> -->
 
-              
-
                 <!--bet-->
-                 
-                 
-             
-
 
                 <!-- <a class="btn btn-danger" id="btn-start-game">Start Game</a> -->
               </div>
@@ -232,18 +226,39 @@
     </main>
     <div class="bottom-frame">
       <div class="bet-amount-container">
-
-        <div class="bet-amount">
-          <span id="bet-amount-home" data-bet-amount=""></span>
-        </div>          
+          <div class="bet-amount-center d-flex justify-content-center align-items-center flex-wrap">
+          <div class="bet-amount">
+            <span id="bet-amount-home" data-bet-amount=""></span>
+          </div>
+        </div> 
       </div>
       <div class="title-home">
         <h1 class="title-home__text text-light text-center">Place Your Bet</h1>
-        <!--arrow animated-->
         <i class="fa-solid fa-angles-down"></i>
       </div>
-        <!--chips-->
-        <div
+      <!-- Start Btn home section  -->
+      <div class="btn-action-home-container">
+        <div class="btn-action-home d-flex justify-content-around align-items-center flex-wrap">
+          <div class="btn-clear-container">
+            <a href="#" class="btn btn-danger btn-home" id="btn-clear">
+              <i class="fa-solid fa-times"></i>
+            </a>
+            <span>Clear</span>
+          </div>
+          <div class="btn-start-game-container">
+            <a href="#" class="btn btn-success btn-home" id="btn-start-game">
+              <img
+              src="assets/images/btn-hit-icon.svg"
+              alt="btn hit icon"
+            />
+            </a>
+            <span>Deal</span>
+          </div>
+        </div>
+      </div>
+      <!-- End Btn home section  -->
+      <!--chips-->
+      <div
         class="chips d-flex justify-content-center align-items-center flex-wrap"
       >
         <div class="chip" id="chip-10" data-value="10">
@@ -256,16 +271,10 @@
           <img src="assets/images/poker-chip-50.png" alt="chip-50" />
         </div>
         <div class="chip" id="chip-100" data-value="100">
-          <img
-            src="assets/images/poker-chip-100.png"
-            alt="chip-100"
-          />
+          <img src="assets/images/poker-chip-100.png" alt="chip-100" />
         </div>
         <div class="chip" id="chip-250" data-value="250">
-          <img
-            src="assets/images/poker-chip-250.png"
-            alt="chip-250"
-          />
+          <img src="assets/images/poker-chip-250.png" alt="chip-250" />
         </div>
       </div>
     </div>
