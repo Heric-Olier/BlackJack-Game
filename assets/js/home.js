@@ -50,7 +50,7 @@ chip.forEach((chip) => {
         icon: "error",
         title: "insufficient funds",
       });
-      betAmount.innerHTML = restaureBetAmount;
+      betAmount.innerHTML = betBalance.innerHTML * 1;
       chips.forEach((chip) => {
         chip.style.pointerEvents = "none";
         // no seleccionar chips con el mouse
