@@ -82,7 +82,7 @@ main {
   }
 }
 
-.fa-bars {
+.menu-btn {
   color: var(--color-dark);
   background-color: var(--color-light);
   border-radius: 50%;
@@ -92,14 +92,24 @@ main {
   position: absolute;
   right: 5px;
   top: 40px;
+  transform: translate(0, 0);
+  opacity: 1;
+  visibility: visible;
   text-align: center;
   font-size: 1.2rem;
   font-weight: bold;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.45s ease-in-out;
 }
 
-.fa-bars:hover {
-  opacity: 0.8;
+.menu-btn.hidden {
+  transform: translate(200px, 0) scale(0);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.menu-btn:hover {
+  filter: brightness(0.6);
 }
 
 .card-title {
@@ -120,20 +130,31 @@ main {
   margin: 2px;
 }
 
-.chips {
-  margin-top: 6px;
+.chips-container {
+  position: absolute;
+  width: 100%;
+  margin-top: 20px;
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: all 0.3s ease;
 }
 
-.chips img {
+.chips-container.hidden {
+  opacity: 0;
+  transform: translate(0, 10px) scale(0);
+  pointer-events: none;
+}
+
+.chips-container img {
   width: 66px;
   cursor: pointer;
   box-shadow: 0 0 8px 2px rgb(0 0 0 / 79%);
   border-radius: 50%;
 }
 
-.chips img:active {
+.chips-container img:active {
   /*oscurece la imagen*/
-  filter: contrast( 1.5 ) brightness( 0.5 );
+  filter: contrast(1.5) brightness(0.5);
 }
 
 @keyframes rotate {
@@ -194,7 +215,7 @@ main {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.651);
   color: var(--color-light);
   transition: all 0.3s ease;
-  margin-top: -20rem;
+  margin-top: -22rem;
 }
 
 .bet-amount,
@@ -211,6 +232,12 @@ main {
   align-items: center;
   position: absolute;
   width: 100%;
+  transition: all 0.45s ease-in-out;
+}
+
+.bet-amount-container.start-game {
+ /* translate the bet amount container to calc center */
+  transform: translate(-36%, -10rem) ;
 }
 
 .bet-amount-container.visible {
@@ -227,10 +254,7 @@ main {
   width: 100%;
 }
 
-
-
 /* animation for the chips entrance */
-
 
 .bet-chip-container img {
   animation-delay: 0.2s;
@@ -242,18 +266,18 @@ main {
   bottom: 16rem;
 }
 
-.bet-amount-center .chip img  {
+.bet-amount-center .chip img {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.432);
   border: 1px solid rgba(0, 0, 0, 0.288);
   border-radius: 50%;
-  width: 76px;
+  width: 66px;
   transition: all 0.4s ease-in-out;
 }
 
-.bet-amount-center .chip img  {
+.bet-amount-center .chip img {
   animation: chip-entrance 0.25s ease-in-out 0.1s forwards;
 }
 
@@ -289,7 +313,7 @@ main {
 .title-home {
   position: absolute;
   width: 100%;
-  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transition: all 0.45s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   opacity: 1;
 }
 
@@ -329,13 +353,12 @@ main {
   width: 100%;
   position: absolute;
   bottom: 8rem;
-  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 .btn-action-home {
   opacity: 0;
   transform: scale(0);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.45s ease-in-out;
 }
 
 .btn-action-home.visible {
@@ -345,7 +368,7 @@ main {
 
 .bottom-frame {
   width: 100%;
-  height: 86px;
+  height: 100px;
   position: absolute;
   bottom: 0;
   left: 0;

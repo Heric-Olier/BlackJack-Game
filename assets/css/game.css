@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 24px;
+  margin-top: -50px;
 }
 
 .title-dealer,
@@ -19,7 +19,7 @@
   background-color: var(--color-dark);
   padding: 0.4rem 1.2rem;
   border-radius: 0.35rem;
-  margin-bottom: -0.7rem;
+  margin-bottom: 1.2rem;
 }
 
 .dealer__cards,
@@ -31,10 +31,10 @@
 
 .dealer__cards img,
 .player__card img {
-  width: 135px;
+  width: 128px;
   position: relative;
   left: 100%;
-  margin-left: -100px;
+  margin-left: -90px;
   transition: all 0.35s ease-in-out;
   border-radius: 12px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
@@ -84,8 +84,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  width: 100%;
+  position: absolute;
+  bottom: 40px;
+  opacity: 0;
+  transform: translate(0, 10px);
+  transition: all 0.45s ease-in-out;
+}
+
+.game-board__actions.visible {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
 .btn-hit-container,
@@ -97,7 +106,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0 14px;
+  margin: 0 20px;
 }
 
 .btn-hit-container span,
@@ -107,7 +116,7 @@
 .btn-start-game-container span {
   font-size: 1rem;
   color: var(--color-light);
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.644);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.822);
   margin-top: 5px;
   font-weight: 500;
 }
@@ -126,7 +135,7 @@
   font-size: 1rem;
   font-weight: bold;
   border-radius: 50%;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.719);
   transition: all 0.3s ease;
 }
 
