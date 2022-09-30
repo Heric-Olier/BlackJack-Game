@@ -82,7 +82,7 @@ btnClearBet.addEventListener("click", () => {
 const btnStartGame = document.getElementById("btn-start-game");
 btnStartGame.addEventListener("click", () => {
   audio.play();
-  menuBtn.classList.add("hidden");
+  // menuBtn.classList.add("hidden");
   btnsActionHome.classList.remove("visible");
   chipsContainer.classList.add("hidden");
   gameBoardbtns.classList.add("visible");
@@ -116,6 +116,7 @@ const btnRestartGame = document.getElementById("btn-restart-game");
 btnRestartGame.addEventListener("click", () => {
   audio.play();
   menuBtn.classList.remove("hidden");
+  titleHome.classList.remove("hidden");
   chipsContainer.classList.remove("hidden");
   gameBoardbtns.classList.remove("visible");
   cardGameBoard.classList.add("d-none");
