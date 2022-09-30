@@ -3,7 +3,6 @@ import { alertMessage } from "./alerts.js";
 const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
 const betAmount = document.getElementById("bet-amount-home");
-const betAmountGame = document.querySelector("[data-bet-amount-game]");
 const cardGameHome = document.getElementById("card__game-home");
 const betBalance = document.getElementById("bet-balance");
 const cardGameBoard = document.getElementById("card__game-board");
@@ -18,6 +17,18 @@ const gameBoardbtns = document.querySelector(".game-board__actions");
 
 betBalance.innerHTML = 2000;
 let restaureBetBalance = betBalance.innerHTML;
+
+// guardamos el valor del balance en localstorage
+const saveBalance = () => {
+  localStorage.setItem("balance", betBalance.innerHTML);
+};
+
+const restoreBalance = () => {
+  if (localStorage.getItem("balance")) {
+    betBalance.innerHTML = localStorage.getItem("balance");
+  }
+};
+restoreBalance();
 
 // funcion para mostrar el menu
 const audio = new Audio("assets/audio/Switch_Click.mp3");
@@ -43,23 +54,30 @@ chip.forEach((chip) => {
     btnsActionHome.classList.add("visible");
     const audio = new Audio("assets/audio/Poker_Chip_Single.mp3");
     audio.play();
+    saveBalance();
+    restoreBalance();
     //agregamos la chip seleccionada al contenedor de apuesta
     chip.cloneNode(true).classList.add("chip-selected");
     betChipContainer.appendChild(chip.cloneNode(true));
     if (betAmount.innerHTML > betBalance.innerHTML * 1) {
       alertMessage.fire({
         icon: "error",
-        title: "insufficient funds",
+        title: "insufficient funds.",
       });
       betAmount.innerHTML = betBalance.innerHTML * 1;
       chips.forEach((chip) => {
         chip.style.pointerEvents = "none";
         // no seleccionar chips con el mouse
         chip.style.userSelect = "none";
-
-        
       });
-    } else {
+    }
+    if (betBalance.innerHTML == 0) {
+      btnStartGame.classList.add("disabled");
+      alertMessage.fire({
+        timer: 5000,
+        icon: "error",
+        title: "Insufficient funds to play, please restart the game.",
+      });
     }
   });
 });
@@ -89,8 +107,8 @@ btnStartGame.addEventListener("click", () => {
   cardGameBoard.classList.remove("d-none");
   betAmountContainer.classList.add("start-game");
   betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
+  saveBalance();
 });
-
 
 // // funcion para iniciar el juego
 // const startGame = () => {
@@ -110,12 +128,12 @@ btnStartGame.addEventListener("click", () => {
 
 // btnStartGame.addEventListener("click", startGame);
 
-
 // funcion para reiniciar el juego
 const btnRestartGame = document.getElementById("btn-restart-game");
 btnRestartGame.addEventListener("click", () => {
   audio.play();
-  menuBtn.classList.remove("hidden");
+  // menuBtn.classList.remove("hidden");
+  btnStartGame.classList.remove("disabled");
   titleHome.classList.remove("hidden");
   chipsContainer.classList.remove("hidden");
   gameBoardbtns.classList.remove("visible");
@@ -124,8 +142,11 @@ btnRestartGame.addEventListener("click", () => {
   betAmount.innerHTML = "";
   betChipContainer.innerHTML = restaureBetAmountContainer;
   betBalance.innerHTML = restaureBetBalance;
+  btnsActionHome.classList.remove("visible");
+  chips.forEach((chip) => {
+    chip.style.pointerEvents = "auto";
+  });
+  saveBalance();
 });
-
-
 
 export { selectBet, btnStartGame };

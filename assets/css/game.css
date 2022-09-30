@@ -161,6 +161,12 @@
   }
 }
 
+#btn-start-game.disabled {
+  cursor: not-allowed;
+  animation: none;
+  filter: grayscale(100%);
+}
+
 .btn-hit-container img,
 .btn-stand-container img,
 .btn-double-container img,
