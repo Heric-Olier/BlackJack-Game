@@ -129,11 +129,12 @@ main {
   cursor: pointer;
   box-shadow: 0 0 8px 2px rgb(0 0 0 / 79%);
   border-radius: 50%;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 .chips img:hover {
-  transform: scale(1.2);
+  /*oscurece la imagen*/
+  filter: contrast( 1.5 ) brightness( 0.5 );
 }
 
 @keyframes rotate {
@@ -266,12 +267,6 @@ main {
   100% {
     opacity: 1;
   }
-}
-
-
-
-.bet-chip-container img:hover {
-  transform: scale(1.2);
 }
 
 .btn {
