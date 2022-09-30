@@ -188,38 +188,64 @@ main {
   transition: all 0.3s ease;
 }
 
-.bet-amount {
+.bet-amount-home span {
+  font-size: 1.24rem;
+  font-weight: 500;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.651);
+  color: var(--color-light);
+  transition: all 0.3s ease;
+  margin-top: -20rem;
+}
+
+.bet-amount,
+.bet-amount-home {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 80px;
-  margin-left: 80px;
 }
 
 .bet-amount-container {
-  display: none;
+  display: flex;
   flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 16rem;
-  left: 48%;
-  transform: translateX(-48%);
+  width: 100%;
 }
 
 .bet-amount-container.visible {
   display: flex;
 }
 
-@media (max-width: 480px) {
-  .bet-amount-container {
-    left: 36%;
-    transform: translateX(-36%);
-  }
+.bet-chip-container {
+  display: flex;
+  position: absolute;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  bottom: 18rem;
+  width: 100%;
 }
 
-.bet-amount-container img {
+
+
+/* animation for the chips entrance */
+
+
+.bet-chip-container img {
+  animation-delay: 0.2s;
+}
+
+.bet-amount-center {
+  flex-direction: column-reverse;
   position: absolute;
+  bottom: 16rem;
+}
+
+.bet-amount-center .chip img  {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.432);
   border: 1px solid rgba(0, 0, 0, 0.288);
   border-radius: 50%;
@@ -227,29 +253,24 @@ main {
   transition: all 0.4s ease-in-out;
 }
 
-/* animation for the chips entrance */
-
-.bet-amount-container img {
-  animation: chip-entrance 0.3s ease-in-out 0.1s forwards;
+.bet-amount-center .chip img  {
+  animation: chip-entrance 0.25s ease-in-out 0.1s forwards;
 }
 
 @keyframes chip-entrance {
   0% {
-    transform: translateY(200px);
+    transform: translateY(240px);
     opacity: 0;
   }
 
   100% {
-    transform: translateY(0);
     opacity: 1;
   }
 }
 
-.bet-amount-container img {
-  animation-delay: 0.1s;
-}
 
-.bet-amount-container img:hover {
+
+.bet-chip-container img:hover {
   transform: scale(1.2);
 }
 
@@ -314,12 +335,16 @@ main {
   width: 100%;
   position: absolute;
   bottom: 8rem;
-  transform: scale(0);
-  opacity: 0;
   transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.btn-action-home-container.visible {
+.btn-action-home {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-action-home.visible {
   transform: scale(1);
   opacity: 1;
 }

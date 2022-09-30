@@ -10,8 +10,9 @@ const cardGameBoard = document.getElementById("card__game-board");
 const menuBtn = document.getElementById("menu-btn");
 const chips = document.querySelectorAll(".chip");
 const titleHome = document.querySelector(".title-home");
-const btnsActionHome = document.querySelector(".btn-action-home-container");
+const btnsActionHome = document.querySelector(".btn-action-home");
 const btnClearBet = document.getElementById("btn-clear");
+const betChipContainer = document.querySelector(".bet-amount-center");
 
 betBalance.innerHTML = 2000;
 
@@ -28,7 +29,7 @@ const selectBet = (chip) => {
     
 };
 
-let restaureBetAmountContainer = betAmountContainer.innerHTML;
+let restaureBetAmountContainer = betChipContainer.innerHTML;
 let restaureBetAmount = betAmount.innerHTML;
 console.log(restaureBetAmount);
 
@@ -39,13 +40,13 @@ chip.forEach((chip) => {
     selectBet(chip);
 
     titleHome.classList.add("hidden");
-    betAmountContainer.classList.add("visible");
+   
     btnsActionHome.classList.add("visible");
     const audio = new Audio("assets/audio/Poker_Chip_Single.mp3");
     audio.play();
     //agregamos la chip seleccionada al contenedor de apuesta
     chip.cloneNode(true).classList.add("chip-selected");
-    betAmountContainer.appendChild(chip.cloneNode(true));
+    betChipContainer.appendChild(chip.cloneNode(true));
 
     if (betAmount.innerHTML > betBalance.innerHTML * 1) {
       // 1 para convertir el string a numero
@@ -53,8 +54,7 @@ chip.forEach((chip) => {
         icon: "error",
         title: "insufficient funds",
       });
-      // bloqueamos el valor de la apuesta
-      betAmount.innerHTML = betBalance.innerHTML;
+      betAmount.innerHTML = restaureBetAmount;
       chips.forEach((chip) => {
         chip.style.pointerEvents = "none";
       });
@@ -67,11 +67,12 @@ chip.forEach((chip) => {
 
 btnClearBet.addEventListener("click", () => {
   audio.play();
-  betAmountContainer.classList.remove("visible");
-  betAmountContainer.innerHTML = "";
+ 
+  betChipContainer.innerHTML = restaureBetAmountContainer;
   setTimeout(() => {
-    betAmountContainer.innerHTML = restaureBetAmountContainer;
+    
     betAmount.innerHTML = restaureBetAmount;
+    
   }, 0);
   titleHome.classList.remove("hidden");
   btnsActionHome.classList.remove("visible");
