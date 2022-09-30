@@ -7,8 +7,6 @@ body {
   background-image: url(../images/background-blackjack-2.png);
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  width: 100vw;
   position: relative;
 }
 
@@ -30,6 +28,15 @@ header {
   background-color: var(--color-dark);
   height: 65px;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .navbar {
   background-color: var(--color-dark);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
@@ -265,14 +272,15 @@ header {
 }
 
 .title-home {
-  position: relative;
+  position: absolute;
+  width: 100%;
   transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   opacity: 1;
 }
 
 .title-home.hidden {
   opacity: 0;
-  transform: translateY(100px);
+  transform: translateY(50px);
 }
 
 /* arrow animated */
