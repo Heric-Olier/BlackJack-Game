@@ -112,6 +112,11 @@ main {
   filter: brightness(0.6);
 }
 
+.fa-times {
+  font-size: 30px;
+  cursor: pointer;
+}
+
 .card-title {
   font-size: 2.8rem;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -375,3 +380,18 @@ main {
   background-image: url(../images/background-blackjack-bottom.png);
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.63);
 }
+
+/* Modal Bootstrap */
+
+.fade {
+  backdrop-filter: blur(8px);
+}
+
+.modal-dialog {
+  margin: 1.5rem;
+}
+
+.modal-content {
+  border-radius: 0.5rem !important;
+}
+

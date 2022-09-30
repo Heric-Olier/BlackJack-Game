@@ -17,6 +17,7 @@ const betChipContainer = document.querySelector(".bet-amount-center");
 const gameBoardbtns = document.querySelector(".game-board__actions");
 
 betBalance.innerHTML = 2000;
+let restaureBetBalance = betBalance.innerHTML;
 
 // funcion para mostrar el menu
 const audio = new Audio("assets/audio/Switch_Click.mp3");
@@ -108,5 +109,22 @@ btnStartGame.addEventListener("click", () => {
 // };
 
 // btnStartGame.addEventListener("click", startGame);
+
+
+// funcion para reiniciar el juego
+const btnRestartGame = document.getElementById("btn-restart-game");
+btnRestartGame.addEventListener("click", () => {
+  audio.play();
+  menuBtn.classList.remove("hidden");
+  chipsContainer.classList.remove("hidden");
+  gameBoardbtns.classList.remove("visible");
+  cardGameBoard.classList.add("d-none");
+  betAmountContainer.classList.remove("start-game");
+  betAmount.innerHTML = "";
+  betChipContainer.innerHTML = restaureBetAmountContainer;
+  betBalance.innerHTML = restaureBetBalance;
+});
+
+
 
 export { selectBet, btnStartGame };
