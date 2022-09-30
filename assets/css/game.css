@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: -50px;
+  margin-top: -65px;
 }
 
 .title-dealer,
@@ -19,7 +19,7 @@
   background-color: var(--color-dark);
   padding: 0.4rem 1.2rem;
   border-radius: 0.35rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.8rem;
 }
 
 .dealer__cards,
@@ -31,7 +31,7 @@
 
 .dealer__cards img,
 .player__card img {
-  width: 128px;
+  width: 136px;
   position: relative;
   left: 100%;
   margin-left: -90px;
@@ -67,8 +67,8 @@
   background-color: var(--color-light);
   border-radius: 5px;
   position: absolute;
-  left: 130px;
-  top: 130px;
+  left: 156px;
+  top: 156px;
   z-index: 1;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
