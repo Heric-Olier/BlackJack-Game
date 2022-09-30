@@ -53,6 +53,10 @@ chip.forEach((chip) => {
       betAmount.innerHTML = restaureBetAmount;
       chips.forEach((chip) => {
         chip.style.pointerEvents = "none";
+        // no seleccionar chips con el mouse
+        chip.style.userSelect = "none";
+
+        
       });
     } else {
     }
