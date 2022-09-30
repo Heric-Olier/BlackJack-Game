@@ -74,9 +74,9 @@ chip.forEach((chip) => {
     if (betBalance.innerHTML == 0) {
       btnStartGame.classList.add("disabled");
       alertMessage.fire({
-        timer: 5000,
+        timer: 6000,
         icon: "error",
-        title: "Insufficient funds to play, please restart the game.",
+        title: "Insufficient funds to play, please restart the game in the menu.",
       });
     }
   });
@@ -143,6 +143,13 @@ btnRestartGame.addEventListener("click", () => {
   betChipContainer.innerHTML = restaureBetAmountContainer;
   betBalance.innerHTML = restaureBetBalance;
   btnsActionHome.classList.remove("visible");
+  swal.fire({
+    icon: "success",
+    title: "Game restarted!",
+    showConfirmButton: false,
+    timerProgressBar: true,
+    timer: 1500,
+  });
   chips.forEach((chip) => {
     chip.style.pointerEvents = "auto";
   });

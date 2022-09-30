@@ -8,6 +8,7 @@ body {
   background-size: cover;
   background-position: center;
   position: relative;
+  user-select: none;
 }
 
 body.game-start {
@@ -395,3 +396,14 @@ main {
   border-radius: 0.5rem !important;
 }
 
+.footer__content-copyright p {
+  color: var(--color-dark);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.footer__content-copyright p a,
+.fa-heart {
+  color: #06462C;
+  font-weight: bold;
+}
