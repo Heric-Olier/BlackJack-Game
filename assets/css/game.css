@@ -19,7 +19,7 @@
   background-color: var(--color-dark);
   padding: 0.4rem 1.2rem;
   border-radius: 0.35rem;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .dealer__cards,
@@ -31,10 +31,10 @@
 
 .dealer__cards img,
 .player__card img {
-  width: 136px;
+  width: 124px;
   position: relative;
   left: 100%;
-  margin-left: -90px;
+  margin-left: -80px;
   transition: all 0.35s ease-in-out;
   border-radius: 12px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
