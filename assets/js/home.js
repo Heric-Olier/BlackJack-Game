@@ -1,5 +1,5 @@
 import { alertMessage } from "./alerts.js";
-import { createDeck, takeCard } from "./game.js";
+import { createDeck, takeCard, valueCard, showPlayerPoints, showDealerPoints } from "./game.js";
 
 const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
@@ -120,24 +120,29 @@ const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 btnStartGame.addEventListener("click", () => {
   audio.play();
   setTimeout(() => {
-    takeCard();
+    console.log("player points");
+    showPlayerPoints();
     playerCardFirstChild.classList.add("active");
     playerScoreContainer.classList.add("active");
     // dealerScoreContainer.classList.add("active");
     audioCard.play();
   }, 500);
   setTimeout(() => {
-    takeCard();
+    console.log("dealer points");
+    showDealerPoints();
     dealerCardFirstChild.classList.add("active");
+    dealerScoreContainer.classList.add("active");
     audioCard.play();
   }, 1200);
   setTimeout(() => {
-    takeCard();
+    console.log("player points");
+    showPlayerPoints();
     playerCardSecondChild.classList.add("active");
     audioCard.play();
   }, 1900);
   setTimeout(() => {
-    takeCard();
+    console.log("dealer points");
+    showDealerPoints();
     dealerCardSecondChild.classList.add("active");
     audioCard.play();
   }, 2600);

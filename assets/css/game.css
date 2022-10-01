@@ -11,7 +11,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 530px;
+  min-height: 540px;
   overflow: hidden;
   margin: 50px 0;
 }
@@ -240,7 +240,10 @@
   }
 }
 
-#btn-start-game.disabled {
+#btn-start-game.disabled,
+#btn-hit.disabled,
+#btn-stand.disabled,
+#btn-double.disabled {
   cursor: not-allowed;
   animation: none;
   filter: grayscale(100%);
