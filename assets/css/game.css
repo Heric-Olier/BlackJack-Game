@@ -8,7 +8,24 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: -65px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 530px;
+  overflow: hidden;
+  margin: 50px 0;
+}
+
+.card-body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.player,
+.dealer {
+  width: 100%;
+  height: 100%;
 }
 
 .title-dealer,
@@ -24,25 +41,69 @@
 
 .dealer__cards,
 .player__cards {
-  margin: 26px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 34px 0;
   position: relative;
   justify-content: center;
 }
 
 .dealer__cards img,
-.player__card img {
+.player__cards img {
   width: 130px;
-  position: relative;
+  position: absolute;
   left: 100%;
   margin-left: -86px;
-  transition: all 0.35s ease-in-out;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1.2) 0.55s;
   border-radius: 12px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
 }
 
+
+.player__cards img:first-child,
+.dealer__cards img:first-child {
+  transform: translateX(100%) rotate(-5deg);
+}
+
+.player__cards img:nth-child(2),
+.dealer__cards img:nth-child(2) {
+  transform: translateX(100%);
+}
+
+.player__cards img:first-child.active {
+  left: 50%;
+  margin-left: -80px;
+  top: 0;
+  transform: translate(0, 0) rotate(-5deg);
+}
+
+.dealer__cards img:first-child.active {
+  left: 50%;
+  margin-left: -80px;
+  bottom: 0;
+  transform: translate(0, 0) rotate(-5deg);
+}
+
+.player__cards img:nth-child(2).active {
+  left: 50%;
+  margin-left: -50px;
+  top: 0;
+  transform: translate(0, 0);
+}
+
+.dealer__cards img:nth-child(2).active {
+  left: 50%;
+  margin-left: -50px;
+  bottom: 0;
+  transform: translate(0, 0);
+}
+
+
 .dealer__cards img:hover,
-.player__card img:hover,
-.player__card--front img:first-child:hover {
+.player__cards img:hover {
   transform: scale(1.08);
   z-index: 1;
 }
@@ -50,11 +111,6 @@
 .player__card {
   position: relative;
   left: -50%;
-}
-
-.dealer__card--front img,
-.player__card--front img:first-child {
-  transform: rotate(-5deg);
 }
 
 .dealer__score,
@@ -67,11 +123,34 @@
   background-color: var(--color-light);
   border-radius: 5px;
   position: absolute;
-  left: 156px;
-  top: 156px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
+
+.dealer__score {
+  top: 200px;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1.2) 0.65s;
+  transform: scale(0);
+}
+
+.player__score {
+  bottom: 0;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1.2) 0.65s;
+  transform: scale(0);
+}
+.player__score.active {
+  bottom: 240px;
+  transform: scale(1);
+}
+
+.dealer__score.active {
+  top: 0;
+  transform: scale(1);
+}
+
+
 
 .dealer__score span,
 .player__score span {

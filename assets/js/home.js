@@ -17,6 +17,13 @@ const gameBoardbtns = document.querySelector(".game-board__actions");
 const btnRestartGame = document.getElementById("btn-restart-game");
 const btnStartGame = document.getElementById("btn-start-game");
 
+const playerCardFirstChild = document.querySelector(".player__cards img:first-child");
+const playerCardSecondChild = document.querySelector(".player__cards img:nth-child(2)");
+const dealerCardFirstChild = document.querySelector(".dealer__cards img:first-child");
+const dealerCardSecondChild = document.querySelector(".dealer__cards img:nth-child(2)");
+const playerScoreContainer = document.querySelector(".player__score");
+const dealerScoreContainer = document.querySelector(".dealer__score");
+
 betBalance.innerHTML = 2000;
 let restaureBetBalance = betBalance.innerHTML;
 
@@ -32,7 +39,6 @@ const restoreBalance = () => {
 };
 restoreBalance();
 
-// funcion para mostrar el menu
 const audio = new Audio("assets/audio/Switch_Click.mp3");
 menuBtn.addEventListener("click", () => {
   audio.play();
@@ -100,16 +106,39 @@ btnClearBet.addEventListener("click", () => {
   });
 });
 
+const audioCard = new Audio("assets/audio/Card_Deal.mp3");
+
 // funcion para iniciar el juego
 btnStartGame.addEventListener("click", () => {
   audio.play();
-  // menuBtn.classList.add("hidden");
+  setTimeout(() => {
+  playerCardFirstChild.classList.add("active");
+  playerScoreContainer.classList.add("active");
+  // dealerScoreContainer.classList.add("active");
+  audioCard.play();
+  }, 500);
+  setTimeout(() => {
+  playerCardSecondChild.classList.add("active");
+  audioCard.play();
+  }, 1200);
+  setTimeout(() => {
+  dealerCardFirstChild.classList.add("active");
+  audioCard.play();
+  }, 1900);
+  setTimeout(() => {
+  dealerCardSecondChild.classList.add("active");
+  audioCard.play();
+  }, 2600);
+  setTimeout(() => {
+  gameBoardbtns.classList.add("visible");
+  }, 2800);
+  menuBtn.classList.add("hidden");
   btnsActionHome.classList.remove("visible");
   chipsContainer.classList.add("hidden");
-  gameBoardbtns.classList.add("visible");
-  cardGameBoard.classList.remove("d-none");
+  // cardGameBoard.classList.remove("d-none");
   betAmountContainer.classList.add("start-game");
   betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
+
   saveBalance();
 });
 
@@ -139,19 +168,6 @@ btnRestartGame.addEventListener("click", () => {
   });
   saveBalance();
 });
-
-// cuando agregamos las fichas al contenedor de apuesta se eliminan cada 3 segundos para que solo queden las ultimas 5 fichas
-
-const removeChip = () => {
-  const chipsSelected = document.querySelectorAll(".bet-amount-center .chip img");
-  for (let i = 0; i < chipsSelected.length; i++) {
-    if (chipsSelected.length > 5) {
-      chipsSelected[i] - chipsSelected[i].remove(); 
-    }
-   
-    
-  }
-};
 
 
 

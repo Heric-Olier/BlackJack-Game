@@ -66,7 +66,6 @@ main {
 }
 
 .card {
-  margin-top: 40px;
   border: none !important;
 }
 
@@ -93,19 +92,19 @@ main {
   position: absolute;
   right: 5px;
   top: 40px;
-  transform: translate(0, 0);
+  transform: scale(1);
   opacity: 1;
   visibility: visible;
   text-align: center;
   font-size: 1.2rem;
   font-weight: bold;
+  z-index: 3;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   transition: all 0.45s ease-in-out;
 }
 
 .menu-btn.hidden {
-  transform: translate(200px, 0) scale(0);
-  visibility: hidden;
+  transform: scale(0);
   opacity: 0;
 }
 

@@ -115,7 +115,9 @@
                   </button>
                 </div>
               </div>
-              <div class="modal-footer d-flex justify-content-center align-items-center">
+              <div
+                class="modal-footer d-flex justify-content-center align-items-center"
+              >
                 <div class="footer__content-copyright">
                   <p>
                     Copyright © 2022 | Coded with
@@ -184,43 +186,45 @@
             <!-- End Game home section  -->
             <!-- Start Game board section  -->
             <div
-              class="card bg-transparent text-center d-none"
+              class="card bg-transparent text-center d-flex justify-content-center align-items-center"
               id="card__game-board"
             >
-              <div
-                class="card-body d-flex justify-content-center flex-column align-items-center"
-              >
-                <div class="game-board">
+              <div class="game-board">
+                <div
+                  class="card-body d-flex justify-content-center flex-column align-items-center"
+                >
                   <div class="dealer">
-                    <h1 class="title-dealer text-white">Dealer</h1>
+                    <!-- <h1 class="title-dealer text-white">Dealer</h1> -->
                     <div class="dealer__cards d-flex">
-                      <div class="dealer__card dealer__card--front">
-                        <img src="assets/cards/10C.png" alt="card-back" />
-                      </div>
-                      <div class="dealer__card dealer__card--back">
-                        <img
-                          src="assets/cards/red_back-alt.png"
-                          alt="card-back"
-                        />
-                      </div>
-                      <div class="dealer__score">
-                        <span id="dealer-score">0</span>
-                      </div>
+                      <img id="card-dealer-front" src="assets/cards/10C.png" alt="card-front" />
+                      <img id="card-dealer-back"
+                        src="assets/cards/red_back-alt.png"
+                        alt="card-back"
+                      />
+                    </div>
+                    <div class="dealer__score">
+                      <span id="dealer-score">0</span>
                     </div>
                   </div>
+
                   <div class="player">
-                    <h1 class="title-player text-white">Player</h1>
+                    <!-- <h1 class="title-player text-white">Player</h1> -->
                     <div class="player__cards d-flex">
-                      <!-- <div class="player__card player__card--back">
-                        <img src="assets/images/card-back.png" alt="card-back" />
-                      </div> -->
-                      <div class="player__card player__card--front">
-                        <img src="assets/cards/3S.png" alt="card-front" />
-                        <img src="assets/cards/6D.png" alt="card-front" />
-                      </div>
-                      <div class="player__score">
-                        <span id="player-score">0</span>
-                      </div>
+                      <img
+                        class="card-rotate card-back"
+                        id="card-player-back"
+                        src="assets/cards/3S.png"
+                        alt="card-back"
+                      />
+                      <img
+                        class="card-rotate card-front"
+                        id="card-player-front"
+                        src="assets/cards/6D.png"
+                        alt="card-front"
+                      />
+                    </div>
+                    <div class="player__score">
+                      <span id="player-score">0</span>
                     </div>
                   </div>
                 </div>
@@ -309,19 +313,39 @@
               class="chips d-flex justify-content-center align-items-center flex-wrap"
             >
               <div class="chip" id="chip-10" data-value="10">
-                <img class="chip-bottom" src="assets/images/poker-chip-10.png" alt="chip-10" />
+                <img
+                  class="chip-bottom"
+                  src="assets/images/poker-chip-10.png"
+                  alt="chip-10"
+                />
               </div>
               <div class="chip" id="chip-25" data-value="25">
-                <img class="chip-bottom" src="assets/images/poker-chip-25.png" alt="chip-25" />
+                <img
+                  class="chip-bottom"
+                  src="assets/images/poker-chip-25.png"
+                  alt="chip-25"
+                />
               </div>
               <div class="chip" id="chip-50" data-value="50">
-                <img class="chip-bottom" src="assets/images/poker-chip-50.png" alt="chip-50" />
+                <img
+                  class="chip-bottom"
+                  src="assets/images/poker-chip-50.png"
+                  alt="chip-50"
+                />
               </div>
               <div class="chip" id="chip-100" data-value="100">
-                <img class="chip-bottom" src="assets/images/poker-chip-100.png" alt="chip-100" />
+                <img
+                  class="chip-bottom"
+                  src="assets/images/poker-chip-100.png"
+                  alt="chip-100"
+                />
               </div>
               <div class="chip" id="chip-250" data-value="250">
-                <img class="chip-bottom" src="assets/images/poker-chip-250.png" alt="chip-250" />
+                <img
+                  class="chip-bottom"
+                  src="assets/images/poker-chip-250.png"
+                  alt="chip-250"
+                />
               </div>
             </div>
           </div>
