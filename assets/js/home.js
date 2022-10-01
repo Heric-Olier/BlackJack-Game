@@ -1,9 +1,9 @@
 import { alertMessage } from "./alerts.js";
+import { createDeck, takeCard } from "./game.js";
 
 const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
 const betAmount = document.getElementById("bet-amount-home");
-const cardGameHome = document.getElementById("card__game-home");
 const betBalance = document.getElementById("bet-balance");
 const cardGameBoard = document.getElementById("card__game-board");
 const menuBtn = document.getElementById("menu-btn");
@@ -17,10 +17,18 @@ const gameBoardbtns = document.querySelector(".game-board__actions");
 const btnRestartGame = document.getElementById("btn-restart-game");
 const btnStartGame = document.getElementById("btn-start-game");
 
-const playerCardFirstChild = document.querySelector(".player__cards img:first-child");
-const playerCardSecondChild = document.querySelector(".player__cards img:nth-child(2)");
-const dealerCardFirstChild = document.querySelector(".dealer__cards img:first-child");
-const dealerCardSecondChild = document.querySelector(".dealer__cards img:nth-child(2)");
+const playerCardFirstChild = document.querySelector(
+  ".player__cards img:first-child"
+);
+const playerCardSecondChild = document.querySelector(
+  ".player__cards img:nth-child(2)"
+);
+const dealerCardFirstChild = document.querySelector(
+  ".dealer__cards img:first-child"
+);
+const dealerCardSecondChild = document.querySelector(
+  ".dealer__cards img:nth-child(2)"
+);
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
 
@@ -112,25 +120,29 @@ const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 btnStartGame.addEventListener("click", () => {
   audio.play();
   setTimeout(() => {
-  playerCardFirstChild.classList.add("active");
-  playerScoreContainer.classList.add("active");
-  // dealerScoreContainer.classList.add("active");
-  audioCard.play();
+    takeCard();
+    playerCardFirstChild.classList.add("active");
+    playerScoreContainer.classList.add("active");
+    // dealerScoreContainer.classList.add("active");
+    audioCard.play();
   }, 500);
   setTimeout(() => {
-  playerCardSecondChild.classList.add("active");
-  audioCard.play();
+    takeCard();
+    dealerCardFirstChild.classList.add("active");
+    audioCard.play();
   }, 1200);
   setTimeout(() => {
-  dealerCardFirstChild.classList.add("active");
-  audioCard.play();
+    takeCard();
+    playerCardSecondChild.classList.add("active");
+    audioCard.play();
   }, 1900);
   setTimeout(() => {
-  dealerCardSecondChild.classList.add("active");
-  audioCard.play();
+    takeCard();
+    dealerCardSecondChild.classList.add("active");
+    audioCard.play();
   }, 2600);
   setTimeout(() => {
-  gameBoardbtns.classList.add("visible");
+    gameBoardbtns.classList.add("visible");
   }, 2800);
   menuBtn.classList.add("hidden");
   btnsActionHome.classList.remove("visible");
@@ -168,7 +180,5 @@ btnRestartGame.addEventListener("click", () => {
   });
   saveBalance();
 });
-
-
 
 export { selectBet, btnStartGame };
