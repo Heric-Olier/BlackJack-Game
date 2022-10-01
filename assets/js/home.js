@@ -14,6 +14,8 @@ const btnsActionHome = document.querySelector(".btn-action-home");
 const btnClearBet = document.getElementById("btn-clear");
 const betChipContainer = document.querySelector(".bet-amount-center");
 const gameBoardbtns = document.querySelector(".game-board__actions");
+const btnRestartGame = document.getElementById("btn-restart-game");
+const btnStartGame = document.getElementById("btn-start-game");
 
 betBalance.innerHTML = 2000;
 let restaureBetBalance = betBalance.innerHTML;
@@ -46,6 +48,7 @@ const selectBet = (chip) => {
 let restaureBetAmountContainer = betChipContainer.innerHTML;
 let restaureBetAmount = betAmount.innerHTML;
 
+// funcion para seleccionar la apuesta
 const chip = document.querySelectorAll(".chip");
 chip.forEach((chip) => {
   chip.addEventListener("click", () => {
@@ -76,7 +79,8 @@ chip.forEach((chip) => {
       alertMessage.fire({
         timer: 6000,
         icon: "error",
-        title: "Insufficient funds to play, please restart the game in the menu.",
+        title:
+          "Insufficient funds to play, please restart the game in the menu.",
       });
     }
   });
@@ -97,7 +101,6 @@ btnClearBet.addEventListener("click", () => {
 });
 
 // funcion para iniciar el juego
-const btnStartGame = document.getElementById("btn-start-game");
 btnStartGame.addEventListener("click", () => {
   audio.play();
   // menuBtn.classList.add("hidden");
@@ -110,26 +113,7 @@ btnStartGame.addEventListener("click", () => {
   saveBalance();
 });
 
-// // funcion para iniciar el juego
-// const startGame = () => {
-//   if (betAmount.innerHTML == 0) {
-//     alertMessage.fire({
-//       icon: "error",
-//       title: "Please select a bet amount!",
-//     });
-//   } else {
-//     betAmountGame.innerHTML = betAmount.innerHTML; // asigna el valor de la apuesta al juego
-//     betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML; // resta el valor de la apuesta al balance
-//     cardGameHome.classList.add("d-none"); // oculta el home
-//     cardGameBoard.classList.remove("d-none");
-//     body.classList.add("game-start"); // agrega la clase para el fondo del juego
-//   }
-// };
-
-// btnStartGame.addEventListener("click", startGame);
-
 // funcion para reiniciar el juego
-const btnRestartGame = document.getElementById("btn-restart-game");
 btnRestartGame.addEventListener("click", () => {
   audio.play();
   // menuBtn.classList.remove("hidden");
@@ -155,5 +139,20 @@ btnRestartGame.addEventListener("click", () => {
   });
   saveBalance();
 });
+
+// cuando agregamos las fichas al contenedor de apuesta se eliminan cada 3 segundos para que solo queden las ultimas 5 fichas
+
+const removeChip = () => {
+  const chipsSelected = document.querySelectorAll(".bet-amount-center .chip img");
+  for (let i = 0; i < chipsSelected.length; i++) {
+    if (chipsSelected.length > 5) {
+      chipsSelected[i] - chipsSelected[i].remove(); 
+    }
+   
+    
+  }
+};
+
+
 
 export { selectBet, btnStartGame };
