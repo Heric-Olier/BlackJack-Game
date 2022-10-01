@@ -207,7 +207,7 @@ main {
     rgba(0, 0, 0, 0.712)
   );
 
-  border: 1px solid rgb(5, 119, 71);
+  border: 1px solid rgb(5 119 50);
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.747);
   border-radius: 50px;
   padding: 0 7px;
