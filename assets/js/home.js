@@ -186,4 +186,4 @@ btnRestartGame.addEventListener("click", () => {
   saveBalance();
 });
 
-export { selectBet, btnStartGame };
+export { selectBet, btnStartGame, restoreBalance, saveBalance };

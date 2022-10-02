@@ -6,6 +6,8 @@ import { alertMessage } from "./alerts.js";
 const btnHit = document.getElementById("btn-hit");
 const btnStand = document.getElementById("btn-stand");
 const btnDouble = document.getElementById("btn-double");
+const playerScoreContainer = document.querySelector('.player__score');
+const dealerScoreContainer = document.querySelector('.dealer__score');
 const playerScore = document.getElementById("player-score");
 const dealerScore = document.getElementById("dealer-score");
 const gameBoardbtns = document.querySelector(".game-board__actions");
@@ -69,6 +71,7 @@ btnHit.addEventListener("click", () => {
             title: 'You lost',
         });
         }, 500);
+        playerScoreContainer.classList.add('bg-danger');
         gameBoardbtns.classList.remove("visible");
     } else if (playerPoints === 21) {
         setTimeout(() => {
@@ -78,6 +81,7 @@ btnHit.addEventListener("click", () => {
         });
         disableButtons();
         }, 500);
+        playerScoreContainer.classList.add('bg-success');
     } else {
         return; 
     }
