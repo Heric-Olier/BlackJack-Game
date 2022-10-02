@@ -1,5 +1,11 @@
 import { alertMessage } from "./alerts.js";
-import { createDeck, takeCard, valueCard, showPlayerPoints, showDealerPoints } from "./game.js";
+import {
+  createDeck,
+  takeCard,
+  valueCard,
+  createPlayerCard,
+  createDealerCard,
+} from "./game.js";
 
 const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
@@ -119,31 +125,36 @@ const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 // funcion para iniciar el juego
 btnStartGame.addEventListener("click", () => {
   audio.play();
+  createDeck();
   setTimeout(() => {
     console.log("player points");
-    showPlayerPoints();
-    playerCardFirstChild.classList.add("active");
+    
+    createPlayerCard();
+    // playerCardFirstChild.classList.add("active");
+    // playerScoreContainer.classList.add("active");
     playerScoreContainer.classList.add("active");
-    // dealerScoreContainer.classList.add("active");
     audioCard.play();
   }, 500);
   setTimeout(() => {
     console.log("dealer points");
-    showDealerPoints();
-    dealerCardFirstChild.classList.add("active");
+    
+    createDealerCard();
+    // dealerCardFirstChild.classList.add("active");
     dealerScoreContainer.classList.add("active");
     audioCard.play();
   }, 1200);
   setTimeout(() => {
     console.log("player points");
-    showPlayerPoints();
-    playerCardSecondChild.classList.add("active");
+    createPlayerCard();
+ 
+    // playerCardSecondChild.classList.add("active");
     audioCard.play();
   }, 1900);
   setTimeout(() => {
     console.log("dealer points");
-    showDealerPoints();
-    dealerCardSecondChild.classList.add("active");
+
+    createDealerCard();
+    // dealerCardSecondChild.classList.add("active");
     audioCard.play();
   }, 2600);
   setTimeout(() => {

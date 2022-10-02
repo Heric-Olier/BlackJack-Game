@@ -63,6 +63,7 @@
 }
 
 
+
 .player__cards img:first-child,
 .dealer__cards img:first-child {
   transform: translateX(100%) rotate(-5deg);
@@ -73,28 +74,28 @@
   transform: translateX(100%);
 }
 
-.player__cards img:first-child.active {
+.player__cards img:first-child {
   left: 50%;
   margin-left: -80px;
   top: 0;
   transform: translate(0, 0) rotate(-5deg);
 }
 
-.dealer__cards img:first-child.active {
+.dealer__cards img:first-child {
   left: 50%;
   margin-left: -80px;
   bottom: 0;
   transform: translate(0, 0) rotate(-5deg);
 }
 
-.player__cards img:nth-child(2).active {
+.player__cards img:nth-child(2) {
   left: 50%;
   margin-left: -50px;
   top: 0;
   transform: translate(0, 0);
 }
 
-.dealer__cards img:nth-child(2).active {
+.dealer__cards img:nth-child(2) {
   left: 50%;
   margin-left: -50px;
   bottom: 0;
