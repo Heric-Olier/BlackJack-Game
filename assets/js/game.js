@@ -100,10 +100,10 @@ const disableButtons = () => {
 
 // Esta función me permite crear una carta para el jugador
 const createPlayerCard = () => {
-  const card = valueCard(takeCard());
-  playerPoints += card;
+  const card = takeCard();
+  const cardValue = valueCard(card);
+  playerPoints += cardValue;
   playerScore.innerText = playerPoints;
-  
   const cardImg = document.createElement("img");
   cardImg.src = `assets/cards/${card}.png`;
   playerCardsContainer.append(cardImg);
@@ -112,9 +112,10 @@ const createPlayerCard = () => {
 
 // Esta función me permite crear una carta para el dealer
 const createDealerCard = () => {
-    const card = valueCard(takeCard());
-    dealerPoints += card;
-    dealerScore.innerText = dealerPoints;
+  const card = takeCard();
+  const cardValue = valueCard(card);
+  dealerPoints += cardValue;
+  dealerScore.innerText = dealerPoints;
   const cardImg = document.createElement("img");
   cardImg.src = `assets/cards/${card}.png`;
   dealerCardsContainer.append(cardImg);
@@ -124,8 +125,6 @@ const createDealerCard = () => {
 
 export {
   createDeck,
-  takeCard,
-  valueCard,
   createPlayerCard,
   createDealerCard,
 };

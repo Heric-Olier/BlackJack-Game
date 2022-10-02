@@ -1,8 +1,6 @@
 import { alertMessage } from "./alerts.js";
 import {
   createDeck,
-  takeCard,
-  valueCard,
   createPlayerCard,
   createDealerCard,
 } from "./game.js";
