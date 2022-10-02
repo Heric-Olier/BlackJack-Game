@@ -60,8 +60,8 @@ const takeCard = () => {
   return card;
 };
 
+const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 btnHit.addEventListener("click", () => {
-  const audioCard = new Audio("assets/audio/Card_Deal.mp3");
   audioCard.play();
   // Al hacer click en el botón de HIT se ejecuta esta función que toma una carta
   createPlayerCard();
@@ -113,10 +113,29 @@ const createPlayerCard = () => {
     cardImg.classList.add("active");
   }, 100);
 
-  // playerCardsContainer.children[0].classList.add("active"); // Agregamos la clase active a la primera carta
-  // playerCardsContainer.children[1].classList.add("active"); // Agregamos la clase active a la segunda carta
-  console.log({ card });
+  if (playerPoints > 21) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "error",
+        title: "You lost",
+      });
+    }, 500);
+    playerScoreContainer.classList.add("bg-danger");
+    disableButtons();
+  } else if (playerPoints === 21) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "success",
+        title: "Blackjack",
+      });
+      disableButtons();
+    }, 500);
+    playerScoreContainer.classList.add("bg-success");
+  } else {
+    return;
+  }
 };
+
 
 // Esta función me permite crear una carta para el dealer
 const createDealerCard = () => {
@@ -129,33 +148,91 @@ const createDealerCard = () => {
   dealerCardsContainer.append(cardImg);
   setTimeout(() => {
     cardImg.classList.add("active");
-    replaceDealerCard();
-
   }, 100);
-  
+
+  if (dealerPoints === 21) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "error",
+        title: "Dealer wins",
+      });
+      disableButtons();
+    }, 500);
+    dealerScoreContainer.classList.add("bg-success");
+  } else{
+    return;
+  }
+
   console.log({ card });
 };
 
 // esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
-const replaceDealerCard = () => {
+const replaceDealerBackCard = () => {
   const cardImg = dealerCardsContainer.children[1];
   const cardImgBack = document.createElement("img");
   cardImgBack.src = `assets/cards/red_back-alt.png`;
   cardImg.parentNode.replaceChild(cardImgBack, cardImg);
   setTimeout(() => {
-  cardImgBack.classList.add("active");
+    cardImgBack.classList.add("active");
   }, 100);
-
-
-
 };
 
-
-
-
-
-export {
-  createDeck,
-  createPlayerCard,
-  createDealerCard,
+const dealerTurn = () => {
+  if (dealerPoints < 21 && dealerPoints < playerPoints) {
+    createDealerCard();
+    setTimeout(() => {
+      dealerTurn();
+    }, 1000);
+  } else if (dealerPoints > 21) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "success",
+        title: "You win",
+      });
+      disableButtons();
+    }, 500);
+    dealerScoreContainer.classList.add("bg-danger");
+  } else if (dealerPoints === 21) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "error",
+        title: "You lost",
+      });
+      disableButtons();
+    }, 500);
+    dealerScoreContainer.classList.add("bg-success");
+  } else if (dealerPoints > playerPoints) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "error",
+        title: "You lost",
+      });
+      disableButtons();
+    }, 500);
+    dealerScoreContainer.classList.add("bg-success");
+  } else if (dealerPoints < playerPoints) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "success",
+        title: "You win",
+      });
+      disableButtons();
+    }, 500);
+    dealerScoreContainer.classList.add("bg-success");
+  } else {
+    setTimeout(() => {
+      swal.fire({
+        icon: "info",
+        title: "Draw",
+      });
+      disableButtons();
+    }, 500);
+  }
 };
+
+btnStand.addEventListener("click", () => {
+  audioCard.play();
+  dealerTurn();
+});
+
+export { createDeck, createPlayerCard, createDealerCard };

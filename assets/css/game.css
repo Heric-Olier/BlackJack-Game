@@ -60,7 +60,6 @@
   transition: cubic-bezier(0.075, 0.82, 0.165, 1.2) 0.5s all;
   border-radius: 12px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
-  image-rendering: optimizeSpeed;
 }
 
 .player__cards img:first-child,
