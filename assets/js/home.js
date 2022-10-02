@@ -1,9 +1,5 @@
 import { alertMessage } from "./alerts.js";
-import {
-  createDeck,
-  createPlayerCard,
-  createDealerCard,
-} from "./game.js";
+import { createDeck, createPlayerCard, createDealerCard } from "./game.js";
 
 const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
@@ -20,22 +16,10 @@ const betChipContainer = document.querySelector(".bet-amount-center");
 const gameBoardbtns = document.querySelector(".game-board__actions");
 const btnRestartGame = document.getElementById("btn-restart-game");
 const btnStartGame = document.getElementById("btn-start-game");
+const btnDouble = document.getElementById("btn-double");
 
-const playerCardFirstChild = document.querySelector(
-  ".player__cards img:first-child"
-);
-const playerCardSecondChild = document.querySelector(
-  ".player__cards img:nth-child(2)"
-);
-const dealerCardFirstChild = document.querySelector(
-  ".dealer__cards img:first-child"
-);
-const dealerCardSecondChild = document.querySelector(
-  ".dealer__cards img:nth-child(2)"
-);
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
-const playerCardsContainer = document.querySelector(".player__cards");
 
 betBalance.innerHTML = 2000;
 let restaureBetBalance = betBalance.innerHTML;
@@ -51,6 +35,16 @@ const restoreBalance = () => {
   }
 };
 restoreBalance();
+
+const restaureBetBalanceCero = () => {
+  if (betBalance.innerHTML < 0) {
+    betBalance.innerHTML = 0;
+    window.location.reload();
+  }
+  saveBalance();
+};
+
+restaureBetBalanceCero();
 
 const audio = new Audio("assets/audio/Switch_Click.mp3");
 menuBtn.addEventListener("click", () => {
@@ -93,7 +87,7 @@ chip.forEach((chip) => {
         chip.style.userSelect = "none";
       });
     }
-    if (betBalance.innerHTML == 0) {
+    if (betBalance.innerHTML === 0) {
       btnStartGame.classList.add("disabled");
       alertMessage.fire({
         timer: 4000,
@@ -128,31 +122,25 @@ btnStartGame.addEventListener("click", () => {
   setTimeout(() => {
     console.log("player points");
     createPlayerCard();
-    // playerCardFirstChild.classList.add("active");
     // playerScoreContainer.classList.add("active");
     playerScoreContainer.classList.add("active");
     audioCard.play();
   }, 500);
   setTimeout(() => {
     console.log("dealer points");
-    
+
     createDealerCard();
-    // dealerCardFirstChild.classList.add("active");
     dealerScoreContainer.classList.add("active");
     audioCard.play();
   }, 1200);
   setTimeout(() => {
     console.log("player points");
     createPlayerCard();
- 
-    // playerCardSecondChild.classList.add("active");
     audioCard.play();
   }, 1900);
   setTimeout(() => {
     console.log("dealer points");
-
     createDealerCard();
-    // dealerCardSecondChild.classList.add("active");
     audioCard.play();
   }, 2600);
   setTimeout(() => {
@@ -164,6 +152,12 @@ btnStartGame.addEventListener("click", () => {
   // cardGameBoard.classList.remove("d-none");
   betAmountContainer.classList.add("start-game");
   betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
+
+if (betAmount.innerHTML > betBalance.innerHTML * 1) {
+  btnDouble.classList.add("disabled");
+} else {
+  btnDouble.classList.remove("disabled");
+}
 
   saveBalance();
 });
@@ -195,4 +189,18 @@ btnRestartGame.addEventListener("click", () => {
   saveBalance();
 });
 
-export { selectBet, btnStartGame, restoreBalance, saveBalance };
+// funcion para doblar la apuesta
+const doubleBet = () => {
+  audio.play();
+  createPlayerCard();
+  betAmount.innerHTML = betAmount.innerHTML * 1;
+  betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
+  btnDouble.classList.add("disabled");
+  alertMessage.fire({
+    icon: "success",
+    title: "Bet doubled!",
+  });
+  saveBalance();
+};
+
+export { selectBet, btnStartGame, restoreBalance, saveBalance, doubleBet };

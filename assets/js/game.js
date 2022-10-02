@@ -1,6 +1,7 @@
 import "./home.js";
 import * as underscore from "./underscore-min.js";
 import { alertMessage } from "./alerts.js";
+import { doubleBet } from "./home.js";
 
 // Referencias del HTML
 const btnHit = document.getElementById("btn-hit");
@@ -71,7 +72,7 @@ btnHit.addEventListener("click", () => {
         icon: "error",
         title: "You lost",
       });
-    }, 500);
+    }, 700);
     playerScoreContainer.classList.add("bg-danger");
     // gameBoardbtns.classList.remove("visible");
   } else if (playerPoints === 21) {
@@ -81,7 +82,7 @@ btnHit.addEventListener("click", () => {
         title: "You win",
       });
       disableButtons();
-    }, 500);
+    }, 700);
     playerScoreContainer.classList.add("bg-success");
   } else {
     return;
@@ -119,7 +120,7 @@ const createPlayerCard = () => {
         icon: "error",
         title: "You lost",
       });
-    }, 500);
+    }, 700);
     playerScoreContainer.classList.add("bg-danger");
     disableButtons();
   } else if (playerPoints === 21) {
@@ -129,7 +130,7 @@ const createPlayerCard = () => {
         title: "Blackjack",
       });
       disableButtons();
-    }, 500);
+    }, 700);
     playerScoreContainer.classList.add("bg-success");
   } else {
     return;
@@ -157,7 +158,7 @@ const createDealerCard = () => {
         title: "Dealer wins",
       });
       disableButtons();
-    }, 500);
+    }, 700);
     dealerScoreContainer.classList.add("bg-success");
   } else{
     return;
@@ -190,7 +191,7 @@ const dealerTurn = () => {
         title: "You win",
       });
       disableButtons();
-    }, 500);
+    }, 700);
     dealerScoreContainer.classList.add("bg-danger");
   } else if (dealerPoints === 21) {
     setTimeout(() => {
@@ -199,7 +200,7 @@ const dealerTurn = () => {
         title: "You lost",
       });
       disableButtons();
-    }, 500);
+    }, 700);
     dealerScoreContainer.classList.add("bg-success");
   } else if (dealerPoints > playerPoints) {
     setTimeout(() => {
@@ -208,7 +209,7 @@ const dealerTurn = () => {
         title: "You lost",
       });
       disableButtons();
-    }, 500);
+    }, 700);
     dealerScoreContainer.classList.add("bg-success");
   } else if (dealerPoints < playerPoints) {
     setTimeout(() => {
@@ -217,7 +218,7 @@ const dealerTurn = () => {
         title: "You win",
       });
       disableButtons();
-    }, 500);
+    }, 700);
     dealerScoreContainer.classList.add("bg-success");
   } else {
     setTimeout(() => {
@@ -226,13 +227,40 @@ const dealerTurn = () => {
         title: "Draw",
       });
       disableButtons();
-    }, 500);
+    }, 700);
   }
 };
 
 btnStand.addEventListener("click", () => {
   audioCard.play();
   dealerTurn();
+});
+
+btnDouble.addEventListener("click", () => {
+  doubleBet();
+  if (playerPoints > 21) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "error",
+        title: "You lost",
+      });
+      disableButtons();
+    }, 500);
+    playerScoreContainer.classList.add("bg-danger");
+  } else if (playerPoints === 21) {
+    setTimeout(() => {
+      swal.fire({
+        icon: "success",
+        title: "You win",
+      });
+      disableButtons();
+    }, 500);
+    playerScoreContainer.classList.add("bg-success");
+  } else {
+    setTimeout(() => {
+    dealerTurn();
+    }, 1200);
+  }
 });
 
 export { createDeck, createPlayerCard, createDealerCard };
