@@ -61,6 +61,8 @@ const takeCard = () => {
 };
 
 btnHit.addEventListener("click", () => {
+  const audioCard = new Audio("assets/audio/Card_Deal.mp3");
+  audioCard.play();
   // Al hacer click en el botón de HIT se ejecuta esta función que toma una carta
   createPlayerCard();
   if (playerPoints > 21) {
@@ -71,7 +73,7 @@ btnHit.addEventListener("click", () => {
       });
     }, 500);
     playerScoreContainer.classList.add("bg-danger");
-    gameBoardbtns.classList.remove("visible");
+    // gameBoardbtns.classList.remove("visible");
   } else if (playerPoints === 21) {
     setTimeout(() => {
       swal.fire({
@@ -107,6 +109,12 @@ const createPlayerCard = () => {
   const cardImg = document.createElement("img");
   cardImg.src = `assets/cards/${card}.png`;
   playerCardsContainer.append(cardImg);
+  setTimeout(() => {
+    cardImg.classList.add("active");
+  }, 100);
+
+  // playerCardsContainer.children[0].classList.add("active"); // Agregamos la clase active a la primera carta
+  // playerCardsContainer.children[1].classList.add("active"); // Agregamos la clase active a la segunda carta
   console.log({ card });
 };
 
@@ -119,8 +127,13 @@ const createDealerCard = () => {
   const cardImg = document.createElement("img");
   cardImg.src = `assets/cards/${card}.png`;
   dealerCardsContainer.append(cardImg);
+  setTimeout(() => {
+    cardImg.classList.add("active");
+  }, 100);
   console.log({ card });
 };
+
+
 
 
 export {

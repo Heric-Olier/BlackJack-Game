@@ -74,34 +74,90 @@
   transform: translateX(100%);
 }
 
-.player__cards img:first-child {
+.player__cards img:first-child.active {
   left: 50%;
   margin-left: -80px;
   top: 0;
   transform: translate(0, 0) rotate(-5deg);
+  
 }
 
-.dealer__cards img:first-child {
+.dealer__cards img:first-child.active {
   left: 50%;
   margin-left: -80px;
   bottom: 0;
   transform: translate(0, 0) rotate(-5deg);
 }
 
-.player__cards img:nth-child(2) {
+.player__cards img:nth-child(2).active {
   left: 50%;
   margin-left: -50px;
   top: 0;
   transform: translate(0, 0);
 }
 
-.dealer__cards img:nth-child(2) {
+.dealer__cards img:nth-child(2).active {
   left: 50%;
   margin-left: -50px;
   bottom: 0;
   transform: translate(0, 0);
 }
 
+.player__cards img:nth-child(3).active {
+  left: 50%;
+  margin-left: -20px;
+  top: 0;
+  transform: translate(0, 0);
+}
+
+.dealer__cards img:nth-child(3).active {
+  left: 50%;
+  margin-left: -20px;
+  bottom: 0;
+  transform: translate(0, 0);
+}
+
+.player__cards img:nth-child(4).active {
+  left: 50%;
+  margin-left: 10px;
+  top: 0;
+  transform: translate(0, 0);
+}
+
+.dealer__cards img:nth-child(4).active {
+  left: 50%;
+  margin-left: 10px;
+  bottom: 0;
+  transform: translate(0, 0);
+}
+
+.player__cards img:nth-child(5).active {
+  left: 50%;
+  margin-left: 40px;
+  top: 0;
+  transform: translate(0, 0);
+}
+
+.dealer__cards img:nth-child(5).active {
+  left: 50%;
+  margin-left: 40px;
+  bottom: 0;
+  transform: translate(0, 0);
+}
+
+.player__cards img:nth-child(6).active {
+  left: 50%;
+  margin-left: 70px;
+  top: 0;
+  transform: translate(0, 0);
+}
+
+.dealer__cards img:nth-child(6).active {
+  left: 50%;
+  margin-left: 70px;
+  bottom: 0;
+  transform: translate(0, 0);
+}
 
 .dealer__cards img:hover,
 .player__cards img:hover {

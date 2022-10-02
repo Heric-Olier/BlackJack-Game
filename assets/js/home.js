@@ -35,6 +35,7 @@ const dealerCardSecondChild = document.querySelector(
 );
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
+const playerCardsContainer = document.querySelector(".player__cards");
 
 betBalance.innerHTML = 2000;
 let restaureBetBalance = betBalance.innerHTML;
@@ -126,7 +127,6 @@ btnStartGame.addEventListener("click", () => {
   createDeck();
   setTimeout(() => {
     console.log("player points");
-    
     createPlayerCard();
     // playerCardFirstChild.classList.add("active");
     // playerScoreContainer.classList.add("active");
