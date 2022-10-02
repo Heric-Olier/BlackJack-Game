@@ -96,7 +96,7 @@ chip.forEach((chip) => {
     if (betBalance.innerHTML == 0) {
       btnStartGame.classList.add("disabled");
       alertMessage.fire({
-        timer: 6000,
+        timer: 4000,
         icon: "error",
         title:
           "Insufficient funds to play, please restart the game in the menu.",

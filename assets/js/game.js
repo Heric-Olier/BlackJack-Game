@@ -129,9 +129,27 @@ const createDealerCard = () => {
   dealerCardsContainer.append(cardImg);
   setTimeout(() => {
     cardImg.classList.add("active");
+    replaceDealerCard();
+
   }, 100);
+  
   console.log({ card });
 };
+
+// esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
+const replaceDealerCard = () => {
+  const cardImg = dealerCardsContainer.children[1];
+  const cardImgBack = document.createElement("img");
+  cardImgBack.src = `assets/cards/red_back-alt.png`;
+  cardImg.parentNode.replaceChild(cardImgBack, cardImg);
+  setTimeout(() => {
+  cardImgBack.classList.add("active");
+  }, 100);
+
+
+
+};
+
 
 
 
