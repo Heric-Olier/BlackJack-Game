@@ -43,7 +43,6 @@ const restoreBalance = () => {
 };
 restoreBalance();
 
-
 const audio = new Audio("assets/audio/Switch_Click.mp3");
 const audioChip = new Audio("assets/audio/Poker_Chip_Single.mp3");
 const audioCard = new Audio("assets/audio/Card_Deal.mp3");
@@ -113,11 +112,10 @@ btnClearBet.addEventListener("click", () => {
   });
 });
 
-
-
 // funcion para iniciar el juego
 btnStartGame.addEventListener("click", () => {
   audio.play();
+
   createDeck();
   setTimeout(() => {
     createPlayerCard();
@@ -215,6 +213,22 @@ const finishGame = () => {
     betAmountContainer.classList.remove("start-game");
     playerScoreContainer.classList.remove("active");
     dealerScoreContainer.classList.remove("active");
+    chips.forEach((chip) => {
+      chip.style.pointerEvents = "auto";
+      chip.style.userSelect = "auto";
+    });
+
+    if (betAmount.innerHTML > betBalance.innerHTML * 1) {
+      betAmount.innerHTML = betBalance.innerHTML * 1;
+    } else if (betBalance.innerHTML == 0 || betBalance.innerHTML < 0) {
+      btnStartGame.classList.add("disabled");
+      alertMessage.fire({
+        timer: 3500,
+        icon: "error",
+        title:
+          "Insufficient funds to play, please restart the game in the menu.",
+      });
+    }
     restartGame();
   }, 1500);
 };

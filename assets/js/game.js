@@ -7,6 +7,7 @@ import { doubleBet, drawEqualGame, finishGame, playerWinGame } from "./home.js";
 const btnHit = document.getElementById("btn-hit");
 const btnStand = document.getElementById("btn-stand");
 const btnDouble = document.getElementById("btn-double");
+const btnDeal = document.getElementById("btn-start-game");
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
 const playerScore = document.getElementById("player-score");
@@ -67,6 +68,18 @@ const audioClick = new Audio("assets/audio/Switch_Click.mp3");
 const audioWin = new Audio("assets/audio/Win_Sound.mp3");
 const audioLose = new Audio("assets/audio/Lose_Sound.mp3");
 
+const btnsDisabled = () => {
+  btnHit.classList.add("disabled");
+  btnStand.classList.add("disabled");
+  btnDouble.classList.add("disabled");
+};
+
+const btnsEnabled = () => {
+  btnHit.classList.remove("disabled");
+  btnStand.classList.remove("disabled");
+  btnDouble.classList.remove("disabled");
+};
+
 btnHit.addEventListener("click", () => {
   audioClick.play();
   // Al hacer click en el botón de HIT se ejecuta esta función que toma una carta
@@ -81,7 +94,9 @@ btnHit.addEventListener("click", () => {
 });
 
 const playerWins = () => {
+  dealerTurnCheck = true;
   audioWin.play();
+  btnsDisabled();
   dealerScoreContainer.classList.add("active");
   playerWinGame();
   setTimeout(() => {
@@ -97,7 +112,9 @@ const playerWins = () => {
 };
 
 const dealerWins = () => {
+  dealerTurnCheck = true;
   audioLose.play();
+  btnsDisabled();
   dealerScoreContainer.classList.add("active");
   setTimeout(() => {
     finishGame();
@@ -112,7 +129,9 @@ const dealerWins = () => {
 };
 
 const drawGame = () => {
+  dealerTurnCheck = true;
   audioLose.play();
+  btnsDisabled();
   dealerScoreContainer.classList.add("active");
   setTimeout(() => {
     drawEqualGame();
@@ -132,6 +151,8 @@ const valueCard = (card) => {
   const value = card.substring(0, card.length - 1); // Obtenemos el valor de la carta
   return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // Si el valor no es un número, entonces es una letra y le asignamos un valor, si es un número lo convertimos a un número
 };
+
+let dealerTurnCheck = false;
 
 // Esta función me permite crear una carta para el jugador
 const createPlayerCard = () => {
@@ -154,6 +175,8 @@ const createPlayerCard = () => {
   return;
 };
 
+
+
 // Esta función me permite crear una carta para el dealer
 const createDealerCard = () => {
   audioCard.play();
@@ -166,8 +189,17 @@ const createDealerCard = () => {
   dealerCardsContainer.append(cardImg);
   setTimeout(() => {
     cardImg.classList.add("active");
+    dealerCardsContainer.children[1].src = `assets/cards/red_back-alt.png`;
+    if (dealerTurnCheck === true) {
+      dealerCardsContainer.children[1].src = `assets/cards/${
+        deck[deck.length - 1]}.png`;
+      } else if (dealerTurnCheck === true ) {
+        dealerCardsContainer.children[1].src = `assets/cards/${
+          deck[deck.length - 1]}.png`;
+        }
+      
   }, 100);
-
+  
   if (dealerPoints === 21) {
     dealerWins();
   } else if (dealerPoints > 21) {
@@ -175,19 +207,9 @@ const createDealerCard = () => {
   } else {
     return;
   }
-  // if (dealerPoints === 21) {
-  //   audioLose.play();
-  //   setTimeout(() => {
-  //     swal.fire({
-  //       icon: "error",
-  //       title: "Dealer wins",
-  //     });
-  //     disableButtons();
-  //   }, 600);
-  //   dealerScoreContainer.classList.add("bg-success");
-  // }
-  // return;
 };
+
+
 
 // esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
 const replaceDealerBackCard = () => {
@@ -200,7 +222,10 @@ const replaceDealerBackCard = () => {
   }, 100);
 };
 
+// esta funcion permite reemplazar la carta
+
 const dealerTurn = () => {
+  dealerTurnCheck = true;
   if (dealerPoints < 21 && dealerPoints < playerPoints) {
     createDealerCard();
     setTimeout(() => {
@@ -267,11 +292,13 @@ const restartGame = () => {
   dealerScore.innerText = 0;
   playerCardsContainer.classList.add("game-over");
   dealerCardsContainer.classList.add("game-over");
+  dealerTurnCheck = false;
   setTimeout(() => {
-  playerCardsContainer.innerHTML = "";
-  dealerCardsContainer.innerHTML = "";
-  playerCardsContainer.classList.remove("game-over");
-  dealerCardsContainer.classList.remove("game-over");
+    btnsEnabled();
+    playerCardsContainer.innerHTML = "";
+    dealerCardsContainer.innerHTML = "";
+    playerCardsContainer.classList.remove("game-over");
+    dealerCardsContainer.classList.remove("game-over");
   }, 500);
 };
 
