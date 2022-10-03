@@ -62,8 +62,10 @@ const takeCard = () => {
 };
 
 const audioCard = new Audio("assets/audio/Card_Deal.mp3");
+const audioClick = new Audio("assets/audio/Switch_Click.mp3");
+
 btnHit.addEventListener("click", () => {
-  audioCard.play();
+  audioClick.play();
   // Al hacer click en el botón de HIT se ejecuta esta función que toma una carta
   createPlayerCard();
   if (playerPoints > 21) {
@@ -89,6 +91,32 @@ btnHit.addEventListener("click", () => {
   }
 });
 
+const playerWins = () => {
+  const audioWin = new Audio("assets/audio/Win_Sound.mp3");
+  audioWin.play();
+  setTimeout(() => {
+    swal.fire({
+      icon: "success",
+      title: "You win",
+    });
+    disableButtons();
+  }, 700);
+  playerScoreContainer.classList.add("bg-success");
+};
+
+const dealerWins = () => {
+  const audioLose = new Audio("assets/audio/Lose_Sound.mp3");
+  audioLose.play();
+  setTimeout(() => {
+    swal.fire({
+      icon: "error",
+      title: "You lost",
+    });
+    disableButtons();
+  }, 700);
+  playerScoreContainer.classList.add("bg-danger");
+};
+
 // Esta función me permite valorar una carta
 const valueCard = (card) => {
   const value = card.substring(0, card.length - 1); // Obtenemos el valor de la carta
@@ -103,6 +131,7 @@ const disableButtons = () => {
 
 // Esta función me permite crear una carta para el jugador
 const createPlayerCard = () => {
+  audioCard.play();
   const card = takeCard();
   const cardValue = valueCard(card);
   playerPoints += cardValue;
@@ -115,14 +144,7 @@ const createPlayerCard = () => {
   }, 100);
 
   if (playerPoints > 21) {
-    setTimeout(() => {
-      swal.fire({
-        icon: "error",
-        title: "You lost",
-      });
-    }, 700);
-    playerScoreContainer.classList.add("bg-danger");
-    disableButtons();
+    dealerWins();
   } else if (playerPoints === 21) {
     setTimeout(() => {
       swal.fire({
@@ -137,9 +159,9 @@ const createPlayerCard = () => {
   }
 };
 
-
 // Esta función me permite crear una carta para el dealer
 const createDealerCard = () => {
+  audioCard.play();
   const card = takeCard();
   const cardValue = valueCard(card);
   dealerPoints += cardValue;
@@ -160,11 +182,9 @@ const createDealerCard = () => {
       disableButtons();
     }, 700);
     dealerScoreContainer.classList.add("bg-success");
-  } else{
+  } else {
     return;
   }
-
-  console.log({ card });
 };
 
 // esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
@@ -184,42 +204,21 @@ const dealerTurn = () => {
     setTimeout(() => {
       dealerTurn();
     }, 1000);
+  } else if (playerPoints > 21) {
+    dealerWins();
+    return;
   } else if (dealerPoints > 21) {
-    setTimeout(() => {
-      swal.fire({
-        icon: "success",
-        title: "You win",
-      });
-      disableButtons();
-    }, 700);
-    dealerScoreContainer.classList.add("bg-danger");
+    playerWins();
+    return;
   } else if (dealerPoints === 21) {
-    setTimeout(() => {
-      swal.fire({
-        icon: "error",
-        title: "You lost",
-      });
-      disableButtons();
-    }, 700);
-    dealerScoreContainer.classList.add("bg-success");
+    dealerWins();
+    return;
   } else if (dealerPoints > playerPoints) {
-    setTimeout(() => {
-      swal.fire({
-        icon: "error",
-        title: "You lost",
-      });
-      disableButtons();
-    }, 700);
-    dealerScoreContainer.classList.add("bg-success");
+    dealerWins();
+    return;
   } else if (dealerPoints < playerPoints) {
-    setTimeout(() => {
-      swal.fire({
-        icon: "success",
-        title: "You win",
-      });
-      disableButtons();
-    }, 700);
-    dealerScoreContainer.classList.add("bg-success");
+    playerWins();
+    return;
   } else {
     setTimeout(() => {
       swal.fire({
@@ -231,35 +230,35 @@ const dealerTurn = () => {
   }
 };
 
+// Esta funcion permite que el dealer tome su turno
 btnStand.addEventListener("click", () => {
-  audioCard.play();
+  audioClick.play();
   dealerTurn();
 });
 
+// Esta funcion permite doblar la apuesta
 btnDouble.addEventListener("click", () => {
-  doubleBet();
-  if (playerPoints > 21) {
+  audioClick.play();
+  setTimeout(() => {
+    doubleBet();
+  }, 300);
+  if (playerPoints < 21) {
+    createPlayerCard();
     setTimeout(() => {
-      swal.fire({
-        icon: "error",
-        title: "You lost",
-      });
-      disableButtons();
-    }, 500);
-    playerScoreContainer.classList.add("bg-danger");
-  } else if (playerPoints === 21) {
-    setTimeout(() => {
-      swal.fire({
-        icon: "success",
-        title: "You win",
-      });
-      disableButtons();
-    }, 500);
-    playerScoreContainer.classList.add("bg-success");
+      dealerTurn();
+    }, 1000);
+    return;
+  } else if (playerPoints > 21) {
+    dealerWins();
+    return;
+  } else if (playerPoints == 21) {
+    playerWins();
+    return;
+  } else if (playerPoints !== 21 && playerPoints < dealerPoints) {
+    dealerWins();
+    return;
   } else {
-    setTimeout(() => {
-    dealerTurn();
-    }, 1200);
+    return;
   }
 });
 

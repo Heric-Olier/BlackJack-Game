@@ -138,8 +138,8 @@
 
 .player__cards img:nth-child(5).active {
   left: 50%;
-  margin-left: 40px;
-  top: 0;
+  margin-left: -49px;
+  top: 35px;
   transform: translate(0, 0);
   animation: dealer-cardflip 0.45s linear;
 }
@@ -182,7 +182,7 @@
 
 .dealer__cards img:hover,
 .player__cards img:hover {
-  transform: scale(1.08);
+  transform: scale(1.1) !important;
   z-index: 1;
 }
 
@@ -325,9 +325,10 @@
 #btn-hit.disabled,
 #btn-stand.disabled,
 #btn-double.disabled {
-  cursor: not-allowed;
-  animation: none;
-  filter: grayscale(100%);
+  cursor: not-allowed !important;
+  animation: none !important;
+  filter: grayscale(100%) !important;
+  pointer-events: none !important;
 }
 
 .btn-hit-container img,

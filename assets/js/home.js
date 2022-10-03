@@ -36,15 +36,7 @@ const restoreBalance = () => {
 };
 restoreBalance();
 
-const restaureBetBalanceCero = () => {
-  if (betBalance.innerHTML < 0) {
-    betBalance.innerHTML = 0;
-    window.location.reload();
-  }
-  saveBalance();
-};
 
-restaureBetBalanceCero();
 
 const audio = new Audio("assets/audio/Switch_Click.mp3");
 menuBtn.addEventListener("click", () => {
@@ -87,10 +79,10 @@ chip.forEach((chip) => {
         chip.style.userSelect = "none";
       });
     }
-    if (betBalance.innerHTML === 0) {
+    if (betBalance.innerHTML == 0 || betBalance.innerHTML < 0) {
       btnStartGame.classList.add("disabled");
       alertMessage.fire({
-        timer: 4000,
+        timer: 3500,
         icon: "error",
         title:
           "Insufficient funds to play, please restart the game in the menu.",
@@ -120,26 +112,21 @@ btnStartGame.addEventListener("click", () => {
   audio.play();
   createDeck();
   setTimeout(() => {
-    console.log("player points");
     createPlayerCard();
     // playerScoreContainer.classList.add("active");
     playerScoreContainer.classList.add("active");
     audioCard.play();
-  }, 500);
+  }, 600);
   setTimeout(() => {
-    console.log("dealer points");
-
     createDealerCard();
     dealerScoreContainer.classList.add("active");
     audioCard.play();
-  }, 1200);
+  }, 1300);
   setTimeout(() => {
-    console.log("player points");
     createPlayerCard();
     audioCard.play();
-  }, 1900);
+  }, 2000);
   setTimeout(() => {
-    console.log("dealer points");
     createDealerCard();
     audioCard.play();
   }, 2600);
@@ -193,14 +180,12 @@ btnRestartGame.addEventListener("click", () => {
 const doubleBet = () => {
   audio.play();
   createPlayerCard();
-  betAmount.innerHTML = betAmount.innerHTML * 1;
+  //valor de la apuesta por 2 menos el valor de la ficha seleccionada
+  betAmount.innerHTML = betAmount.innerHTML * 2;
   betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
   btnDouble.classList.add("disabled");
-  alertMessage.fire({
-    icon: "success",
-    title: "Bet doubled!",
-  });
+
   saveBalance();
 };
 
-export { selectBet, btnStartGame, restoreBalance, saveBalance, doubleBet };
+export { selectBet, restoreBalance, saveBalance, doubleBet };

@@ -132,33 +132,27 @@ main {
   border-radius: 50%;
   /* animation: rotate 3.5s linear infinite; */
   transition: all 0.3s ease;
-
 }
-
 
 .chip img {
- 
-  filter: drop-shadow(0px 4px 2.2px rgba(31, 31, 31, 0.11)) brightness(0.88);
+  filter: drop-shadow(0px 4px 2.6px rgba(31, 31, 31, 0.11)) brightness(0.95);
   border-radius: 50%;
   transition: all 0.3s ease;
-  
 }
 
-/* agregamos una ficha encima de la otra */
-
-.chip:nth-last-child(2) { 
+.chip:nth-last-child(2) {
   margin: 1px;
 }
 
-.chip:nth-last-child(3) { 
+.chip:nth-last-child(3) {
   margin: 2px;
 }
 
-.chip:nth-last-child(4) { 
+.chip:nth-last-child(4) {
   margin: 3px;
 }
 
-.chip img:nth-last-child(2) { 
+.chip img:nth-last-child(2) {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.678);
 }
 
@@ -180,15 +174,12 @@ main {
 .chips-container img {
   width: 66px;
   cursor: pointer;
-
 }
 
 .chips-container img:active {
   /*oscurece la imagen*/
   filter: contrast(1.5) brightness(0.5);
 }
-
-
 
 @keyframes rotate {
   0% {
@@ -269,8 +260,8 @@ main {
 }
 
 .bet-amount-container.start-game {
- /* translate the bet amount container to calc center */
-  transform: translate(-36%, -10rem) ;
+  /* translate the bet amount container to calc center */
+  transform: translate(-36%, -10rem);
 }
 
 .bet-amount-container.visible {
@@ -433,6 +424,6 @@ main {
 
 .footer__content-copyright p a,
 .fa-heart {
-  color: #06462C;
+  color: #06462c;
   font-weight: bold;
 }
