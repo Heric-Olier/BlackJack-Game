@@ -53,12 +53,12 @@
 
 .dealer__cards.game-over {
   transform: translateX(-50rem);
-  transition: transform 0.35s ease-in-out;
+  transition: transform 0.55s ease-in-out;
 }
 
 .player__cards.game-over {
   transform: translateX(-50rem);
-  transition: transform 0.55s ease-in-out;
+  transition: transform 1s ease-in-out;
 }
 
 .dealer__cards img,

@@ -23,6 +23,8 @@ const letterSpecials = ["A", "J", "Q", "K"];
 
 let playerPoints = 0;
 let dealerPoints = 0;
+let dealerTurnCheck = false;
+let finishGameCheck = false;
 
 // Esta función crea una nueva baraja
 const createDeck = () => {
@@ -95,10 +97,12 @@ btnHit.addEventListener("click", () => {
 
 const playerWins = () => {
   dealerTurnCheck = true;
+  finishGameCheck = true;
+  dealerScoreContainer.classList.add("active");
   audioWin.play();
   btnsDisabled();
-  dealerScoreContainer.classList.add("active");
   playerWinGame();
+  replaceDealerFrontCard();
   setTimeout(() => {
     finishGame();
     swal.fire({
@@ -113,11 +117,13 @@ const playerWins = () => {
 
 const dealerWins = () => {
   dealerTurnCheck = true;
+  finishGameCheck = true;
+  dealerScoreContainer.classList.add("active");
   audioLose.play();
   btnsDisabled();
-  dealerScoreContainer.classList.add("active");
   setTimeout(() => {
     finishGame();
+    replaceDealerFrontCard();
     swal.fire({
       icon: "error",
       title: "You lost",
@@ -130,12 +136,14 @@ const dealerWins = () => {
 
 const drawGame = () => {
   dealerTurnCheck = true;
+  finishGameCheck = true;
+  dealerScoreContainer.classList.add("active");
   audioLose.play();
   btnsDisabled();
-  dealerScoreContainer.classList.add("active");
   setTimeout(() => {
     drawEqualGame();
     finishGame();
+    replaceDealerFrontCard();
     swal.fire({
       icon: "info",
       title: "Draw",
@@ -152,80 +160,11 @@ const valueCard = (card) => {
   return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // Si el valor no es un número, entonces es una letra y le asignamos un valor, si es un número lo convertimos a un número
 };
 
-let dealerTurnCheck = false;
-
-// Esta función me permite crear una carta para el jugador
-const createPlayerCard = () => {
-  audioCard.play();
-  const card = takeCard();
-  const cardValue = valueCard(card);
-  playerPoints += cardValue;
-  playerScore.innerText = playerPoints;
-  const cardImg = document.createElement("img");
-  cardImg.src = `assets/cards/${card}.png`;
-  playerCardsContainer.append(cardImg);
-  setTimeout(() => {
-    cardImg.classList.add("active");
-  }, 100);
-  if (playerPoints === 21) {
-    playerWins();
-  } else if (playerPoints > 21) {
-    dealerWins();
-  }
-  return;
-};
-
-
-
-// Esta función me permite crear una carta para el dealer
-const createDealerCard = () => {
-  audioCard.play();
-  const card = takeCard();
-  const cardValue = valueCard(card);
-  dealerPoints += cardValue;
-  dealerScore.innerText = dealerPoints;
-  const cardImg = document.createElement("img");
-  cardImg.src = `assets/cards/${card}.png`;
-  dealerCardsContainer.append(cardImg);
-  setTimeout(() => {
-    cardImg.classList.add("active");
-    dealerCardsContainer.children[1].src = `assets/cards/red_back-alt.png`;
-    if (dealerTurnCheck === true) {
-      dealerCardsContainer.children[1].src = `assets/cards/${
-        deck[deck.length - 1]}.png`;
-      } else if (dealerTurnCheck === true ) {
-        dealerCardsContainer.children[1].src = `assets/cards/${
-          deck[deck.length - 1]}.png`;
-        }
-      
-  }, 100);
-  
-  if (dealerPoints === 21) {
-    dealerWins();
-  } else if (dealerPoints > 21) {
-    playerWins();
-  } else {
-    return;
-  }
-};
-
-
-
-// esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
-const replaceDealerBackCard = () => {
-  const cardImg = dealerCardsContainer.children[1];
-  const cardImgBack = document.createElement("img");
-  cardImgBack.src = `assets/cards/red_back-alt.png`;
-  cardImg.parentNode.replaceChild(cardImgBack, cardImg);
-  setTimeout(() => {
-    cardImgBack.classList.add("active");
-  }, 100);
-};
-
-// esta funcion permite reemplazar la carta
 
 const dealerTurn = () => {
   dealerTurnCheck = true;
+  finishGameCheck = true;
+  dealerScoreContainer.classList.add("active");
   if (dealerPoints < 21 && dealerPoints < playerPoints) {
     createDealerCard();
     setTimeout(() => {
@@ -252,6 +191,74 @@ const dealerTurn = () => {
     }, 700);
   }
 };
+
+// Esta función me permite crear una carta para el jugador
+const createPlayerCard = () => {
+  audioCard.play();
+  const card = takeCard();
+  const cardValue = valueCard(card);
+  playerPoints += cardValue;
+  playerScore.innerText = playerPoints;
+  const cardImg = document.createElement("img");
+  cardImg.src = `assets/cards/${card}.png`;
+  playerCardsContainer.append(cardImg);
+  setTimeout(() => {
+    cardImg.classList.add("active");
+  }, 100);
+  if (playerPoints === 21) {
+    playerWins();
+  } else if (playerPoints > 21) {
+    dealerWins();
+  }
+  return;
+};
+
+// Esta función me permite crear una carta para el dealer
+const createDealerCard = () => {
+  audioCard.play();
+  const card = takeCard();
+  const cardValue = valueCard(card);
+  dealerPoints += cardValue;
+  dealerScore.innerText = dealerPoints;
+  const cardImg = document.createElement("img");
+  cardImg.src = `assets/cards/${card}.png`;
+  dealerCardsContainer.append(cardImg);
+  setTimeout(() => {
+    cardImg.classList.add("active");
+  }, 100);
+  replaceDealerBackCard();
+  if (dealerPoints === 21) {
+    dealerWins();
+  } else if (dealerPoints > 21) {
+    playerWins();
+  } else {
+    return;
+  }
+};
+
+// esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
+const replaceDealerBackCard = () => {
+  const cardImg = dealerCardsContainer.children[1];
+  const cardImgBack = document.createElement("img");
+  cardImgBack.src = `assets/cards/red_back-alt.png`;
+  cardImg.parentNode.replaceChild(cardImgBack, cardImg);
+  setTimeout(() => {
+    cardImgBack.classList.add("active");
+  }, 100);
+};
+
+const replaceDealerFrontCard = () => {
+  const cardImg = dealerCardsContainer.children[1];
+  const cardImgFront = document.createElement("img");
+  cardImgFront.src = `assets/cards/${deck[deck.length - 1]}.png`;
+  cardImg.parentNode.replaceChild(cardImgFront, cardImg);
+  setTimeout(() => {
+    cardImgFront.classList.add("active");
+  }, 100);
+};
+
+// esta funcion permite reemplazar la carta
+
 
 // Esta funcion permite que el dealer tome su turno
 btnStand.addEventListener("click", () => {
@@ -293,6 +300,7 @@ const restartGame = () => {
   playerCardsContainer.classList.add("game-over");
   dealerCardsContainer.classList.add("game-over");
   dealerTurnCheck = false;
+  finishGameCheck = false;
   setTimeout(() => {
     btnsEnabled();
     playerCardsContainer.innerHTML = "";

@@ -119,13 +119,11 @@ btnStartGame.addEventListener("click", () => {
   createDeck();
   setTimeout(() => {
     createPlayerCard();
-    // playerScoreContainer.classList.add("active");
     playerScoreContainer.classList.add("active");
     audioCard.play();
   }, 600);
   setTimeout(() => {
     createDealerCard();
-    // dealerScoreContainer.classList.add("active");
     audioCard.play();
   }, 1300);
   setTimeout(() => {
@@ -204,6 +202,7 @@ const drawEqualGame = () => {
 const finishGame = () => {
   setTimeout(() => {
     audioChip.play();
+    audioCard.play();
     btnsActionHome.classList.add("visible");
     btnStartGame.classList.remove("disabled");
     btnDouble.classList.remove("disabled");
@@ -230,7 +229,7 @@ const finishGame = () => {
       });
     }
     restartGame();
-  }, 1500);
+  }, 2700);
 };
 
 export {
