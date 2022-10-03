@@ -1,5 +1,10 @@
 import { alertMessage } from "./alerts.js";
-import { createDeck, createPlayerCard, createDealerCard } from "./game.js";
+import {
+  createDeck,
+  createPlayerCard,
+  createDealerCard,
+  restartGame,
+} from "./game.js";
 
 const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
@@ -17,6 +22,8 @@ const gameBoardbtns = document.querySelector(".game-board__actions");
 const btnRestartGame = document.getElementById("btn-restart-game");
 const btnStartGame = document.getElementById("btn-start-game");
 const btnDouble = document.getElementById("btn-double");
+const playerCardsContainer = document.querySelector(".player__cards");
+const dealerCardsContainer = document.querySelector(".dealer__cards");
 
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
@@ -37,8 +44,10 @@ const restoreBalance = () => {
 restoreBalance();
 
 
-
 const audio = new Audio("assets/audio/Switch_Click.mp3");
+const audioChip = new Audio("assets/audio/Poker_Chip_Single.mp3");
+const audioCard = new Audio("assets/audio/Card_Deal.mp3");
+
 menuBtn.addEventListener("click", () => {
   audio.play();
 });
@@ -60,8 +69,7 @@ chip.forEach((chip) => {
     selectBet(chip);
     titleHome.classList.add("hidden");
     btnsActionHome.classList.add("visible");
-    const audio = new Audio("assets/audio/Poker_Chip_Single.mp3");
-    audio.play();
+    audioChip.play();
     saveBalance();
     restoreBalance();
     //agregamos la chip seleccionada al contenedor de apuesta
@@ -105,7 +113,7 @@ btnClearBet.addEventListener("click", () => {
   });
 });
 
-const audioCard = new Audio("assets/audio/Card_Deal.mp3");
+
 
 // funcion para iniciar el juego
 btnStartGame.addEventListener("click", () => {
@@ -119,7 +127,7 @@ btnStartGame.addEventListener("click", () => {
   }, 600);
   setTimeout(() => {
     createDealerCard();
-    dealerScoreContainer.classList.add("active");
+    // dealerScoreContainer.classList.add("active");
     audioCard.play();
   }, 1300);
   setTimeout(() => {
@@ -136,15 +144,14 @@ btnStartGame.addEventListener("click", () => {
   menuBtn.classList.add("hidden");
   btnsActionHome.classList.remove("visible");
   chipsContainer.classList.add("hidden");
-  // cardGameBoard.classList.remove("d-none");
   betAmountContainer.classList.add("start-game");
   betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
 
-if (betAmount.innerHTML > betBalance.innerHTML * 1) {
-  btnDouble.classList.add("disabled");
-} else {
-  btnDouble.classList.remove("disabled");
-}
+  if (betAmount.innerHTML > betBalance.innerHTML * 1) {
+    btnDouble.classList.add("disabled");
+  } else {
+    btnDouble.classList.remove("disabled");
+  }
 
   saveBalance();
 });
@@ -180,12 +187,44 @@ btnRestartGame.addEventListener("click", () => {
 const doubleBet = () => {
   audio.play();
   createPlayerCard();
-  //valor de la apuesta por 2 menos el valor de la ficha seleccionada
   betAmount.innerHTML = betAmount.innerHTML * 2;
   betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
   btnDouble.classList.add("disabled");
-
   saveBalance();
 };
 
-export { selectBet, restoreBalance, saveBalance, doubleBet };
+const playerWinGame = () => {
+  betBalance.innerHTML = betBalance.innerHTML * 1 + betAmount.innerHTML * 2;
+  saveBalance();
+};
+
+const drawEqualGame = () => {
+  betBalance.innerHTML = betBalance.innerHTML * 1 + betAmount.innerHTML * 1;
+  saveBalance();
+};
+
+const finishGame = () => {
+  setTimeout(() => {
+    audioChip.play();
+    btnsActionHome.classList.add("visible");
+    btnStartGame.classList.remove("disabled");
+    btnDouble.classList.remove("disabled");
+    gameBoardbtns.classList.remove("visible");
+    menuBtn.classList.remove("hidden");
+    chipsContainer.classList.remove("hidden");
+    betAmountContainer.classList.remove("start-game");
+    playerScoreContainer.classList.remove("active");
+    dealerScoreContainer.classList.remove("active");
+    restartGame();
+  }, 1500);
+};
+
+export {
+  selectBet,
+  restoreBalance,
+  saveBalance,
+  doubleBet,
+  playerWinGame,
+  finishGame,
+  drawEqualGame,
+};

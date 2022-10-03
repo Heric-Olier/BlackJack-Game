@@ -51,6 +51,16 @@
   justify-content: center;
 }
 
+.dealer__cards.game-over {
+  transform: translateX(-50rem);
+  transition: transform 0.35s ease-in-out;
+}
+
+.player__cards.game-over {
+  transform: translateX(-50rem);
+  transition: transform 0.55s ease-in-out;
+}
+
 .dealer__cards img,
 .player__cards img {
   width: 134px;
@@ -62,6 +72,7 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
   image-rendering: optimizeSpeed;
 }
+
 
 .player__cards img:first-child,
 .dealer__cards img:first-child {
@@ -179,6 +190,12 @@
     transform: none;
   }
 }
+
+.player__cards img.game-finish,
+.dealer__cards img.game-finish {
+  transform: translate(-20rem, 0) !important;
+}
+
 
 .dealer__cards img:hover,
 .player__cards img:hover {
