@@ -113,10 +113,7 @@
   margin-left: -50px;
   bottom: 0;
   transform: translate(0, 0);
-  animation: dealer-cardflip 0.45s linear;
 }
-
-
 
 .player__cards img:nth-child(3).active {
   left: 50%;

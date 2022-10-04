@@ -84,8 +84,6 @@ const btnsEnabled = () => {
   btnDouble.classList.remove("disabled");
 };
 
-
-
 // Esta funcion termina el juego player gana
 const playerWins = () => {
   dealerScoreContainer.classList.add("active");
@@ -148,35 +146,6 @@ const valueCard = (card) => {
   return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // Si el valor no es un número, entonces es una letra y le asignamos un valor, si es un número lo convertimos a un número
 };
 
-// Esta funcion permite que el dealer tome su turno
-const dealerTurn = () => {
-  dealerScoreContainer.classList.add("active");
-// repetir hasta que el dealer tenga 17 o más puntos
-  do {
-createDealerCard();
-replaceDealerFrontCard();
-  } while (dealerPoints < 21 && playerPoints <= 21);
-
-  setTimeout(() => {
-    if (dealerPoints === playerPoints) {
-      drawGame();
-      console.log("Draw - Dealer Turn Section");
-    } else if (dealerPoints > 21) {
-      playerWins();
-      console.log("Player Wins - Dealer Turn Section");
-    } else if (playerPoints > dealerPoints ) {
-      playerWins();
-      console.log("Player Wins - Dealer Turn Section");
-    // } else {
-    //   dealerWins();
-    //   console.log("Dealer Wins - Dealer Turn Section");
-    }
-  }, 100);
-
-
-};
-
-
 // Esta función me permite crear una carta para el jugador
 const createPlayerCard = () => {
   audioCard.play();
@@ -194,11 +163,12 @@ const createPlayerCard = () => {
     replaceDealerFrontCard();
     playerWins();
     console.log("Player Wins - Player Create Card Section");
-  } 
+  }
 };
 
 // Esta función me permite crear una carta para el dealer
 const createDealerCard = () => {
+  dealerScoreContainer.classList.add("active");
   audioCard.play();
   const card = takeCard();
   const cardValue = valueCard(card);
@@ -215,9 +185,9 @@ const createDealerCard = () => {
     dealerWins();
     replaceDealerFrontCard();
     console.log("Dealer Wins - Dealer Create Card Section");
-  // } else if (dealerPoints > 21) {
-  //   playerWins();
-  //   console.log("Player Wins - Dealer Create Card Section");
+    // } else if (dealerPoints > 21) {
+    //   playerWins();
+    //   console.log("Player Wins - Dealer Create Card Section");
   } else {
     return;
   }
@@ -240,10 +210,35 @@ const replaceDealerFrontCard = () => {
   cardImgBack.src = `assets/cards/${playedCards[3]}.png`; // Esta es la carta que se reemplaza por la que estaba boca abajo
   cardImg.parentNode.replaceChild(cardImgBack, cardImg);
   setTimeout(() => {
-    cardImgBack.classList.add("flip");
+    cardImgBack.classList.add("active");
   }, 100);
 };
 
+// Esta funcion permite que el dealer tome su turno
+const dealerTurn = () => {
+
+  // repetir hasta que el dealer tenga 17 o más puntos
+  do {
+    createDealerCard();
+    replaceDealerFrontCard();
+  } while (dealerPoints < 21 && playerPoints <= 21);
+
+  setTimeout(() => {
+    if (dealerPoints === playerPoints) {
+      drawGame();
+      console.log("Draw - Dealer Turn Section");
+    } else if (dealerPoints > 21) {
+      playerWins();
+      console.log("Player Wins - Dealer Turn Section");
+    } else if (playerPoints > dealerPoints) {
+      playerWins();
+      console.log("Player Wins - Dealer Turn Section");
+      // } else {
+      //   dealerWins();
+      //   console.log("Dealer Wins - Dealer Turn Section");
+    }
+  }, 100);
+};
 
 // Esta funcion permite reiniciar el juego
 const restartGame = () => {
@@ -264,7 +259,6 @@ const restartGame = () => {
   }, 500);
 };
 
-
 //todo <--- botones listener --->
 
 // Esta función me permite al player tomar una carta
@@ -283,9 +277,14 @@ btnHit.addEventListener("click", () => {
 // Esta función me permite al player plantarse
 btnStand.addEventListener("click", () => {
   audioClick.play();
-  dealerTurn();
-
-}); 
+  if(playerPoints < dealerPoints) {
+    dealerWins();
+  } else {
+    setTimeout(() => {
+    dealerTurn();
+    }, 400);
+  }
+});
 
 // Esta funcion permite doblar la apuesta
 btnDouble.addEventListener("click", () => {
@@ -303,6 +302,5 @@ btnDouble.addEventListener("click", () => {
     playerWins();
   }
 });
-
 
 export { createDeck, createPlayerCard, createDealerCard, restartGame };
