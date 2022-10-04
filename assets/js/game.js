@@ -92,6 +92,8 @@ btnHit.addEventListener("click", () => {
     dealerWins();
   } else if (playerPoints === 21) {
     playerWins();
+  } else {
+    return;
   }
 });
 
@@ -157,6 +159,53 @@ const valueCard = (card) => {
   return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // Si el valor no es un número, entonces es una letra y le asignamos un valor, si es un número lo convertimos a un número
 };
 
+// Esta funcion permite que el dealer tome su turno
+const dealerTurn = () => {
+  dealerScoreContainer.classList.add("active");
+  if (dealerPoints < 21 && dealerPoints < playerPoints) {
+    setTimeout(() => {
+    createDealerCard();
+    }, 600);
+  } else if (playerPoints > 21) {
+    dealerWins();
+    return;
+  } else if (dealerPoints > 21) {
+    playerWins();
+    return;
+  } else if (dealerPoints === 21) {
+    dealerWins();
+    return;
+  } else if (dealerPoints > playerPoints) {
+    dealerWins();
+    return;
+  } else if (dealerPoints < playerPoints) {
+    playerWins();
+    return;
+  } else if (dealerPoints === playerPoints) {
+    } else if (playerPoints <= 21 && playerPoints > dealerPoints) {
+    playerWins();
+    return;
+  } else if (dealerPoints <= 21 && dealerPoints > playerPoints) {
+    dealerWins();
+    return;
+  } else if (dealerPoints === playerPoints) {
+    drawGame();
+    return;
+  }
+};
+
+btnStand.addEventListener("click", () => {
+  audioClick.play();
+  dealerTurn();
+  if (dealerPoints === playerPoints) {
+    drawGame();
+  } else if (dealerPoints > playerPoints && dealerPoints <= 21) {
+    dealerWins();
+  } else if (dealerPoints < playerPoints && playerPoints <= 21) {
+    playerWins();
+  }
+});
+
 // Esta función me permite crear una carta para el jugador
 const createPlayerCard = () => {
   audioCard.play();
@@ -169,75 +218,35 @@ const createPlayerCard = () => {
   playerCardsContainer.append(cardImg);
   setTimeout(() => {
     cardImg.classList.add("active");
-  }, 50);
-
-  if (playerPoints > 21) {
-    dealerTurn(playerPoints);
-    setTimeout(() => {
-    dealerWins();
-    }, 600);
-  } else if (playerPoints === 21) {
-    dealerTurn(playerPoints);
-    setTimeout(() => {
+  }, 100);
+  if (playerPoints === 21 && dealerPoints !== 21) {
     playerWins();
-    }, 600);
-  }
+  } return;
 };
 
 // Esta función me permite crear una carta para el dealer
-// const createDealerCard = () => {
-//   replaceDealerBackCard();
-//   if (dealerPoints === 21) {
-//     dealerWins();
-//   } else if (dealerPoints > 21) {
-//     playerWins();
-//   } else {
-//     return;
-//   }
-// };
-
-const dealerTurn = (minPoints) => {
-  do {
-    audioCard.play();
-
-    const card = takeCard();
-    const cardValue = valueCard(card);
-    dealerPoints += cardValue;
-    dealerScore.innerText = dealerPoints;
-    const cardImg = document.createElement("img");
-    cardImg.src = `assets/cards/${card}.png`;
-    dealerCardsContainer.append(cardImg);
-    console.log({ card });
-    setTimeout(() => {
-      cardImg.classList.add("active");
-    }, 50);
-    replaceDealerBackCard();
-    if (minPoints > 21) {
-      break;
-    }
-  } while (dealerPoints < minPoints && minPoints <= 21);
-
-  if (dealerPoints === minPoints) {
-    drawGame();
-  } else if (minPoints > 21) {
+const createDealerCard = () => {
+  audioCard.play();
+  const card = takeCard();
+  const cardValue = valueCard(card);
+  dealerPoints += cardValue;
+  dealerScore.innerText = dealerPoints;
+  const cardImg = document.createElement("img");
+  cardImg.src = `assets/cards/${card}.png`;
+  dealerCardsContainer.append(cardImg);
+  console.log({ card });
+  setTimeout(() => {
+    cardImg.classList.add("active");
+  }, 100);
+  replaceDealerBackCard();
+  if (dealerPoints === 21) {
     dealerWins();
   } else if (dealerPoints > 21) {
     playerWins();
-  } else if (dealerPoints > minPoints && dealerPoints <= 21) {
-    dealerWins();
+  } else {
+    return;
   }
 };
-
-
-btnStand.addEventListener("click", () => {
-  dealerTurn(playerPoints);
-
-  if (dealerPoints > playerPoints) {
-    dealerWins();
-  }
-  return;
-  
-});
 
 // esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
 const replaceDealerBackCard = () => {
@@ -251,7 +260,6 @@ const replaceDealerBackCard = () => {
 };
 
 const replaceDealerFrontCard = () => {
-  dealerScoreContainer.classList.add("active");
   const cardImg = dealerCardsContainer.children[1];
   const cardImgBack = document.createElement("img");
   cardImgBack.src = `assets/cards/${playedCards[3]}.png`; // Esta es la carta que se reemplaza por la que estaba boca abajo
@@ -267,9 +275,15 @@ btnDouble.addEventListener("click", () => {
   setTimeout(() => {
     doubleBet();
   }, 300);
+  createPlayerCard();
   setTimeout(() => {
-    dealerTurn(playerPoints);
+    dealerTurn();
   }, 1000);
+  if (playerPoints === 21) {
+    playerWins();
+  } else if (playerPoints > dealerPoints && playerPoints <= 21) {
+    playerWins();
+  }
 });
 
 // Esta funcion permite reiniciar el juego
@@ -291,4 +305,4 @@ const restartGame = () => {
   }, 500);
 };
 
-export { createDeck, createPlayerCard, restartGame, dealerTurn };
+export { createDeck, createPlayerCard, createDealerCard, restartGame };

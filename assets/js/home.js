@@ -2,7 +2,7 @@ import { alertMessage } from "./alerts.js";
 import {
   createDeck,
   createPlayerCard,
-  dealerTurn,
+  createDealerCard,
   restartGame,
 } from "./game.js";
 
@@ -121,9 +121,9 @@ btnStartGame.addEventListener("click", () => {
     createPlayerCard();
     playerScoreContainer.classList.add("active");
     audioCard.play();
-  }, 500);
+  }, 600);
   setTimeout(() => {
-    dealerTurn();
+    createDealerCard();
     audioCard.play();
   }, 1300);
   setTimeout(() => {
@@ -131,7 +131,7 @@ btnStartGame.addEventListener("click", () => {
     audioCard.play();
   }, 2000);
   setTimeout(() => {
-    dealerTurn();
+    createDealerCard();
     audioCard.play();
   }, 2600);
   setTimeout(() => {
@@ -182,12 +182,19 @@ btnRestartGame.addEventListener("click", () => {
 // funcion para doblar la apuesta
 const doubleBet = () => {
   audio.play();
-  createPlayerCard();
   betAmount.innerHTML = betAmount.innerHTML * 2;
   betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
   btnDouble.classList.add("disabled");
   saveBalance();
 };
+
+const betAllInn = () => {
+  audioChip.play();
+  betAmount.innerHTML = betBalance.innerHTML;
+  saveBalance();
+};
+
+btnStartGame.onmousedown = betAllInn;
 
 const playerWinGame = () => {
   betBalance.innerHTML = betBalance.innerHTML * 1 + betAmount.innerHTML * 2;

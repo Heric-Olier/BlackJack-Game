@@ -298,6 +298,14 @@
   font-weight: 500;
 }
 
+.btn-start-game-container h1 {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: var(--color-light);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.822);
+  margin-top: -3px;
+}
+
 #btn-hit,
 #btn-stand,
 #btn-double,
