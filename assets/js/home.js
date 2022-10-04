@@ -182,8 +182,9 @@ btnRestartGame.addEventListener("click", () => {
 // funcion para doblar la apuesta
 const doubleBet = () => {
   audio.play();
-  betAmount.innerHTML = betAmount.innerHTML * 2;
-  betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
+let betAmountDouble = betAmount.innerHTML * 2;
+  betAmount.innerHTML = betAmountDouble;
+  console.log({betAmountDouble});
   btnDouble.classList.add("disabled");
   saveBalance();
 };
@@ -197,7 +198,21 @@ const doubleBet = () => {
 // btnStartGame.onmousedown = betAllInn;
 
 const playerWinGame = () => {
-  betBalance.innerHTML = betBalance.innerHTML * 1 + betAmount.innerHTML * 2;
+  //le sumamos el 50% de la apuesta al balance cuando gana
+  let win = betAmount.innerHTML * 1.5;
+  betBalance.innerHTML = betBalance.innerHTML * 1 + win * 1;
+  console.log({ win });
+  setTimeout(() => {
+  swal.fire({
+    icon: "success",
+    title: "You win + $" + win,
+    showConfirmButton: false,
+    timerProgressBar: true,
+    timer: 2200,
+  });
+  }, 600);
+  
+
   saveBalance();
 };
 

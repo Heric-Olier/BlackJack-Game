@@ -93,14 +93,7 @@ const playerWins = () => {
   replaceDealerFrontCard();
   setTimeout(() => {
     finishGame();
-    swal.fire({
-      icon: "success",
-      title: "You win",
-      showConfirmButton: false,
-      timerProgressBar: true,
-      timer: 2200,
-    });
-  }, 600);
+  }, 800);
 };
 
 // Esta funcion termina el juego dealer gana
@@ -118,7 +111,7 @@ const dealerWins = () => {
       timerProgressBar: true,
       timer: 2200,
     });
-  }, 600);
+  }, 800);
 };
 
 // Esta función termina el juego si ambos jugadores empatan
@@ -137,7 +130,7 @@ const drawGame = () => {
       timerProgressBar: true,
       timer: 2200,
     });
-  }, 600);
+  }, 800);
 };
 
 // Esta función me permite valorar una carta
@@ -159,16 +152,18 @@ const createPlayerCard = () => {
   setTimeout(() => {
     cardImg.classList.add("active");
   }, 50);
-  if (playerPoints === 21 && dealerPoints !== 21) {
-    replaceDealerFrontCard();
+  if (playerPoints === 21) {
     playerWins();
-    console.log("Player Wins - Player Create Card Section");
+    finishGame();
+    console.log("BLACKJACK - Player Wins - Player Create Card Section");
+  } else if (playerPoints > 21) {
+    dealerWins();
+    console.log("Dealer Wins - Player Create Card Section");
   }
 };
 
 // Esta función me permite crear una carta para el dealer
 const createDealerCard = () => {
-  dealerScoreContainer.classList.add("active");
   audioCard.play();
   const card = takeCard();
   const cardValue = valueCard(card);
@@ -183,7 +178,7 @@ const createDealerCard = () => {
   replaceDealerBackCard();
   if (dealerPoints === 21) {
     dealerWins();
-    replaceDealerFrontCard();
+
     console.log("Dealer Wins - Dealer Create Card Section");
     // } else if (dealerPoints > 21) {
     //   playerWins();
@@ -216,14 +211,19 @@ const replaceDealerFrontCard = () => {
 
 // Esta funcion permite que el dealer tome su turno
 const dealerTurn = () => {
-
+  dealerScoreContainer.classList.add("active");
   // repetir hasta que el dealer tenga 17 o más puntos
   do {
     createDealerCard();
-    replaceDealerFrontCard();
-  } while (dealerPoints < 21 && playerPoints <= 21);
 
-  setTimeout(() => {
+    if (playerPoints > 21) {
+      console.log("BREAK");
+      break;
+    }
+    
+  } while (dealerPoints <  playerPoints && playerPoints <= 21) {
+
+
     if (dealerPoints === playerPoints) {
       drawGame();
       console.log("Draw - Dealer Turn Section");
@@ -233,12 +233,16 @@ const dealerTurn = () => {
     } else if (playerPoints > dealerPoints) {
       playerWins();
       console.log("Player Wins - Dealer Turn Section");
-      // } else {
-      //   dealerWins();
-      //   console.log("Dealer Wins - Dealer Turn Section");
+    } else if (dealerPoints > playerPoints) {
+      dealerWins();
+      console.log("Dealer Wins - Dealer Turn Section");
+    // } else {
+    //   dealerWins();
+    //   console.log("SIN-CONDICION Dealer Wins - Dealer Turn Section");
     }
-  }, 100);
+  }
 };
+
 
 // Esta funcion permite reiniciar el juego
 const restartGame = () => {
@@ -277,29 +281,32 @@ btnHit.addEventListener("click", () => {
 // Esta función me permite al player plantarse
 btnStand.addEventListener("click", () => {
   audioClick.play();
+  replaceDealerFrontCard();
+
   if(playerPoints < dealerPoints) {
     dealerWins();
   } else {
     setTimeout(() => {
     dealerTurn();
-    }, 400);
+    }, 800);
   }
 });
+
+
 
 // Esta funcion permite doblar la apuesta
 btnDouble.addEventListener("click", () => {
   audioClick.play();
-  setTimeout(() => {
-    doubleBet();
-  }, 300);
   createPlayerCard();
-  setTimeout(() => {
+  replaceDealerFrontCard();
+  doubleBet();
+  if(playerPoints < dealerPoints) {
+    dealerWins();
+    console.log("Dealer Wins - Double Section");
+  } else {
+    setTimeout(() => {
     dealerTurn();
-  }, 1000);
-  if (playerPoints === 21) {
-    playerWins();
-  } else if (playerPoints > dealerPoints && playerPoints <= 21) {
-    playerWins();
+    }, 800);
   }
 });
 

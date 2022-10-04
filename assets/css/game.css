@@ -112,7 +112,7 @@
   left: 50%;
   margin-left: -50px;
   bottom: 0;
-  transform: translate(0, 0);
+  transform: none;
 }
 
 .player__cards img:nth-child(3).active {
