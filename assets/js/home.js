@@ -188,13 +188,13 @@ const doubleBet = () => {
   saveBalance();
 };
 
-const betAllInn = () => {
-  audioChip.play();
-  betAmount.innerHTML = betBalance.innerHTML;
-  saveBalance();
-};
+// const betAllInn = () => {
+//   audioChip.play();
+//   betAmount.innerHTML = betBalance.innerHTML;
+//   saveBalance();
+// };
 
-btnStartGame.onmousedown = betAllInn;
+// btnStartGame.onmousedown = betAllInn;
 
 const playerWinGame = () => {
   betBalance.innerHTML = betBalance.innerHTML * 1 + betAmount.innerHTML * 2;
