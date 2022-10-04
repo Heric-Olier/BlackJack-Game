@@ -2,7 +2,7 @@ import { alertMessage } from "./alerts.js";
 import {
   createDeck,
   createPlayerCard,
-  createDealerCard,
+  dealerTurn,
   restartGame,
 } from "./game.js";
 
@@ -121,9 +121,9 @@ btnStartGame.addEventListener("click", () => {
     createPlayerCard();
     playerScoreContainer.classList.add("active");
     audioCard.play();
-  }, 600);
+  }, 500);
   setTimeout(() => {
-    createDealerCard();
+    dealerTurn();
     audioCard.play();
   }, 1300);
   setTimeout(() => {
@@ -131,7 +131,7 @@ btnStartGame.addEventListener("click", () => {
     audioCard.play();
   }, 2000);
   setTimeout(() => {
-    createDealerCard();
+    dealerTurn();
     audioCard.play();
   }, 2600);
   setTimeout(() => {
