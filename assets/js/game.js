@@ -7,6 +7,8 @@ import {
   drawEqualGame,
   finishGame,
   playerWinGame,
+  moneyTotalWon,
+  moneyTotalLost,
 } from "./home.js";
 
 // Referencias del HTML
@@ -22,6 +24,7 @@ const gameBoardbtns = document.querySelector(".game-board__actions");
 const playerCardsContainer = document.querySelector(".player__cards");
 const dealerCardsContainer = document.querySelector(".dealer__cards");
 const scorePlayerCounter = document.getElementById("score-player");
+const highScore = document.getElementById("high-score");
 
 let deck = []; // Creamos un deck vacío
 let playedCards = []; // Arreglo para guardar las cartas que se han jugado
@@ -31,7 +34,26 @@ const letterSpecials = ["A", "J", "Q", "K"];
 
 let playerPoints = 0;
 let dealerPoints = 0;
-let playerScoreCounterValue = 0;
+let playerScoreCounterValue = 0; // puntuacion del jugador
+let maxAmountPlayerScoreCounter = 0; //puntuacion maxima del jugador
+
+const saveMaxAmountPlayerScoreCounter = () => {
+  localStorage.setItem(
+    "maxAmountPlayerScoreCounter",
+    maxAmountPlayerScoreCounter
+  );
+};
+
+const restoreMaxAmountPlayerScoreCounter = () => {
+  if (localStorage.getItem("maxAmountPlayerScoreCounter")) {
+    maxAmountPlayerScoreCounter = localStorage.getItem(
+      "maxAmountPlayerScoreCounter"
+    );
+    highScore.innerHTML = maxAmountPlayerScoreCounter;
+  }
+};
+
+restoreMaxAmountPlayerScoreCounter();
 
 export const savePlayerScore = () => {
   localStorage.setItem("playerScore", playerScoreCounterValue);
@@ -120,8 +142,12 @@ const btnsEnabled = () => {
 const playerWins = () => {
   dealerScoreContainer.classList.add("active");
   playerScoreCounterValue = Number(playerScoreCounterValue) + 5; // Suma 5 puntos al contador
+  maxAmountPlayerScoreCounter = Number(maxAmountPlayerScoreCounter) + 5; // Suma 5 puntos al contador
+  highScore.innerHTML = maxAmountPlayerScoreCounter;
   scorePlayerCounter.innerText = playerScoreCounterValue;
+  moneyTotalWon();
   savePlayerScore();
+  saveMaxAmountPlayerScoreCounter();
   statisticsCounter("win");
   saveStatistics();
   audioWin.play();
@@ -138,6 +164,7 @@ const dealerWins = () => {
   dealerScoreContainer.classList.add("active");
   audioLose.play();
   btnsDisabled();
+  moneyTotalLost();
   statisticsCounter("lost");
   saveStatistics();
   replaceCardBack(`assets/cards/${playedCards[3]}.png`);
@@ -189,7 +216,10 @@ const createPlayerCard = () => {
   }, 50);
   if (playerPoints === 21) {
     playerScoreCounterValue += 1 * 2 * 2;
+    maxAmountPlayerScoreCounter = Number(maxAmountPlayerScoreCounter) + 5; // Suma 5 puntos al contador
+    highScore.innerHTML = maxAmountPlayerScoreCounter;
     scorePlayerCounter.innerText = playerScoreCounterValue;
+    saveMaxAmountPlayerScoreCounter();
     savePlayerScore();
     audioWin.play();
     btnsDisabled();

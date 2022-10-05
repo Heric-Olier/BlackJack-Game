@@ -29,6 +29,7 @@ const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
 const scorePlayerContainer = document.querySelector(".player__score-counter");
 
+
 const fixDecimal = (number) => {
   return parseFloat(number.toFixed(2));
 };
@@ -55,6 +56,17 @@ const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 menuBtn.addEventListener("click", () => {
   audio.play();
 });
+
+const moneyTotalWon = () => {
+  const moneyWon = document.getElementById("money-won");
+  moneyWon.innerHTML = fixDecimal(betBalance.innerHTML - restaureBetBalance);
+};
+
+const moneyTotalLost = () => {
+  const moneyLost = document.getElementById("money-lost");
+  moneyLost.innerHTML = fixDecimal(restaureBetBalance - betBalance.innerHTML);
+};
+
 
 // funcion para seleccionar la apuesta
 const selectBet = (chip) => {
@@ -208,7 +220,7 @@ const doubleBet = () => {
 
 const playerWinGame = () => {
   //le sumamos el 50% de la apuesta al balance cuando gana
-  let win = betAmount.innerHTML * 1.5;
+  let win = betAmount.innerHTML * 2 + betAmount.innerHTML * 0.5;
   betBalance.innerHTML = betBalance.innerHTML * 1 + win * 1;
   console.log({ win });
   setTimeout(() => {
@@ -273,4 +285,6 @@ export {
   drawEqualGame,
   saveStatistics,
   statisticsCounter,
+  moneyTotalWon,
+  moneyTotalLost,
 };
