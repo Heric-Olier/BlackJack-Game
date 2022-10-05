@@ -24,6 +24,7 @@ const letterSpecials = ["A", "J", "Q", "K"];
 
 let playerPoints = 0;
 let dealerPoints = 0;
+let playerScoreCounterValue = 0;
 
 // Esta función crea una nueva baraja
 const createDeck = () => {
@@ -87,6 +88,8 @@ const btnsEnabled = () => {
 // Esta funcion termina el juego player gana
 const playerWins = () => {
   dealerScoreContainer.classList.add("active");
+  playerScoreCounterValue += 1;
+  playerScoreCounter.innerText = playerScoreCounterValue; 
   audioWin.play();
   btnsDisabled();
   playerWinGame();
@@ -154,11 +157,10 @@ const createPlayerCard = () => {
   }, 50);
   if (playerPoints === 21) {
     playerWins();
-    finishGame();
     console.log("BLACKJACK - Player Wins - Player Create Card Section");
-  } else if (playerPoints > 21) {
-    dealerWins();
-    console.log("Dealer Wins - Player Create Card Section");
+  // } else if (playerPoints > 21) {
+  //   dealerWins();
+  //   console.log("Dealer Wins - Player Create Card Section");
   }
 };
 
@@ -212,11 +214,11 @@ const replaceDealerFrontCard = () => {
 // Esta funcion permite que el dealer tome su turno
 const dealerTurn = () => {
   dealerScoreContainer.classList.add("active");
-  // repetir hasta que el dealer tenga 17 o más puntos
   do {
     createDealerCard();
 
     if (playerPoints > 21) {
+      dealerWins();
       console.log("BREAK");
       break;
     }
@@ -230,7 +232,7 @@ const dealerTurn = () => {
     } else if (dealerPoints > 21) {
       playerWins();
       console.log("Player Wins - Dealer Turn Section");
-    } else if (playerPoints > dealerPoints) {
+    } else if (playerPoints > dealerPoints && playerPoints <= 21) {
       playerWins();
       console.log("Player Wins - Dealer Turn Section");
     } else if (dealerPoints > playerPoints) {
@@ -271,8 +273,10 @@ btnHit.addEventListener("click", () => {
   createPlayerCard();
   if (playerPoints > 21) {
     dealerWins();
+    console.log("Dealer Wins - Hit Button Section");
   } else if (playerPoints === 21) {
     playerWins();
+    console.log("Player Wins - Hit Button Section");
   } else {
     return;
   }
@@ -285,6 +289,7 @@ btnStand.addEventListener("click", () => {
 
   if(playerPoints < dealerPoints) {
     dealerWins();
+    console.log("Dealer Wins - Stand Section");
   } else {
     setTimeout(() => {
     dealerTurn();
@@ -309,5 +314,8 @@ btnDouble.addEventListener("click", () => {
     }, 800);
   }
 });
+
+
+
 
 export { createDeck, createPlayerCard, createDealerCard, restartGame };

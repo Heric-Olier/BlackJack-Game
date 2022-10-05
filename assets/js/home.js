@@ -31,6 +31,7 @@ const dealerScoreContainer = document.querySelector(".dealer__score");
 betBalance.innerHTML = 2000;
 let restaureBetBalance = betBalance.innerHTML;
 
+
 // guardamos el valor del balance en localstorage
 const saveBalance = () => {
   localStorage.setItem("balance", betBalance.innerHTML);
@@ -115,24 +116,19 @@ btnClearBet.addEventListener("click", () => {
 // funcion para iniciar el juego
 btnStartGame.addEventListener("click", () => {
   audio.play();
-
   createDeck();
   setTimeout(() => {
     createPlayerCard();
     playerScoreContainer.classList.add("active");
-    audioCard.play();
   }, 600);
   setTimeout(() => {
     createDealerCard();
-    audioCard.play();
   }, 1300);
   setTimeout(() => {
     createPlayerCard();
-    audioCard.play();
   }, 2000);
   setTimeout(() => {
     createDealerCard();
-    audioCard.play();
   }, 2600);
   setTimeout(() => {
     gameBoardbtns.classList.add("visible");
