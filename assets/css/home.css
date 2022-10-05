@@ -82,6 +82,48 @@ main {
   }
 }
 
+.player__score-counter {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.699),
+    rgba(0, 0, 0, 0.712)
+  );
+  border: 3px solid rgb(5 119 50);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.747);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  transform: scale(1);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.level__score {
+  font-size: 0.9rem;
+  color: var(--color-light);
+  margin: 0;
+  font-weight: 300;
+}
+
+#score-player {
+  color: var(--color-light);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: -6px;
+}
+
+.player__score-counter.hidden {
+  transform: scale(0);
+  opacity: 0;
+}
+
 .menu-btn {
   color: var(--color-dark);
   background-color: var(--color-light);
@@ -427,3 +469,30 @@ main {
   color: #06462c;
   font-weight: bold;
 }
+
+.screen__loading{
+  display: none;
+}
+
+.screen__loading.show {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-image: url(../images/background-blackjack-loading.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.progress {
+  width: 20rem;
+  height: 0.7rem !important;
+  margin-top: 10rem;
+}
+

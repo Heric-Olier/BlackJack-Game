@@ -15,6 +15,7 @@ const dealerScore = document.getElementById("dealer-score");
 const gameBoardbtns = document.querySelector(".game-board__actions");
 const playerCardsContainer = document.querySelector(".player__cards");
 const dealerCardsContainer = document.querySelector(".dealer__cards");
+const scorePlayerCounter = document.getElementById("score-player");
 
 let deck = []; // Creamos un deck vacío
 let playedCards = []; // Arreglo para guardar las cartas que se han jugado
@@ -88,8 +89,8 @@ const btnsEnabled = () => {
 // Esta funcion termina el juego player gana
 const playerWins = () => {
   dealerScoreContainer.classList.add("active");
-  playerScoreCounterValue += 1;
-  playerScoreCounter.innerText = playerScoreCounterValue; 
+  playerScoreCounterValue += 1 * 2 * 2;
+  scorePlayerCounter.innerText = playerScoreCounterValue; 
   audioWin.play();
   btnsDisabled();
   playerWinGame();

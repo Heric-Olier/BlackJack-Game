@@ -27,6 +27,7 @@ const dealerCardsContainer = document.querySelector(".dealer__cards");
 
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
+const scorePlayerContainer = document.querySelector(".player__score-counter");
 
 betBalance.innerHTML = 2000;
 let restaureBetBalance = betBalance.innerHTML;
@@ -134,6 +135,7 @@ btnStartGame.addEventListener("click", () => {
     gameBoardbtns.classList.add("visible");
   }, 2800);
   menuBtn.classList.add("hidden");
+  scorePlayerContainer.classList.add("hidden");
   btnsActionHome.classList.remove("visible");
   chipsContainer.classList.add("hidden");
   betAmountContainer.classList.add("start-game");
@@ -226,6 +228,7 @@ const finishGame = () => {
     btnDouble.classList.remove("disabled");
     gameBoardbtns.classList.remove("visible");
     menuBtn.classList.remove("hidden");
+    scorePlayerContainer.classList.remove("hidden");
     chipsContainer.classList.remove("hidden");
     betAmountContainer.classList.remove("start-game");
     playerScoreContainer.classList.remove("active");
@@ -249,6 +252,8 @@ const finishGame = () => {
     restartGame();
   }, 2700);
 };
+
+
 
 export {
   selectBet,
