@@ -1,7 +1,13 @@
 import "./home.js";
 import * as underscore from "./underscore-min.js";
 import { alertMessage } from "./alerts.js";
-import { doubleBet, drawEqualGame, finishGame, playerWinGame } from "./home.js";
+import { statisticsCounter, saveStatistics } from "./game-statistics.js";
+import {
+  doubleBet,
+  drawEqualGame,
+  finishGame,
+  playerWinGame,
+} from "./home.js";
 
 // Referencias del HTML
 const btnHit = document.getElementById("btn-hit");
@@ -26,6 +32,24 @@ const letterSpecials = ["A", "J", "Q", "K"];
 let playerPoints = 0;
 let dealerPoints = 0;
 let playerScoreCounterValue = 0;
+
+export const savePlayerScore = () => {
+  localStorage.setItem("playerScore", playerScoreCounterValue);
+};
+
+export const restorePlayerScore = () => {
+  if (localStorage.getItem("playerScore")) {
+    playerScoreCounterValue = localStorage.getItem("playerScore");
+    scorePlayerCounter.innerHTML = playerScoreCounterValue;
+  }
+};
+restorePlayerScore();
+
+export const restartPlayerScore = () => {
+  playerScoreCounterValue = 0;
+  scorePlayerCounter.innerHTML = playerScoreCounterValue;
+  localStorage.removeItem("playerScore");
+};
 
 // Esta función crea una nueva baraja
 const createDeck = () => {
@@ -66,6 +90,12 @@ const takeCard = () => {
   return card;
 };
 
+// Esta función me permite valorar una carta
+const valueCard = (card) => {
+  const value = card.substring(0, card.length - 1); // Obtenemos el valor de la carta
+  return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // Si el valor no es un número, entonces es una letra y le asignamos un valor, si es un número lo convertimos a un número
+};
+
 // Audios del juego
 const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 const audioClick = new Audio("assets/audio/Switch_Click.mp3");
@@ -89,12 +119,15 @@ const btnsEnabled = () => {
 // Esta funcion termina el juego player gana
 const playerWins = () => {
   dealerScoreContainer.classList.add("active");
-  playerScoreCounterValue += 1 * 2 * 2;
-  scorePlayerCounter.innerText = playerScoreCounterValue; 
+  playerScoreCounterValue = Number(playerScoreCounterValue) + 5; // Suma 5 puntos al contador
+  scorePlayerCounter.innerText = playerScoreCounterValue;
+  savePlayerScore();
+  statisticsCounter("win");
+  saveStatistics();
   audioWin.play();
   btnsDisabled();
   playerWinGame();
-  replaceDealerFrontCard();
+  replaceCardBack(`assets/cards/${playedCards[3]}.png`);
   setTimeout(() => {
     finishGame();
   }, 800);
@@ -105,7 +138,9 @@ const dealerWins = () => {
   dealerScoreContainer.classList.add("active");
   audioLose.play();
   btnsDisabled();
-  replaceDealerFrontCard();
+  statisticsCounter("lost");
+  saveStatistics();
+  replaceCardBack(`assets/cards/${playedCards[3]}.png`);
   setTimeout(() => {
     finishGame();
     swal.fire({
@@ -123,7 +158,9 @@ const drawGame = () => {
   dealerScoreContainer.classList.add("active");
   audioLose.play();
   btnsDisabled();
-  replaceDealerFrontCard();
+  statisticsCounter("draw");
+  saveStatistics();
+  replaceCardBack(`assets/cards/${playedCards[3]}.png`);
   setTimeout(() => {
     drawEqualGame();
     finishGame();
@@ -135,12 +172,6 @@ const drawGame = () => {
       timer: 2200,
     });
   }, 800);
-};
-
-// Esta función me permite valorar una carta
-const valueCard = (card) => {
-  const value = card.substring(0, card.length - 1); // Obtenemos el valor de la carta
-  return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // Si el valor no es un número, entonces es una letra y le asignamos un valor, si es un número lo convertimos a un número
 };
 
 // Esta función me permite crear una carta para el jugador
@@ -157,11 +188,30 @@ const createPlayerCard = () => {
     cardImg.classList.add("active");
   }, 50);
   if (playerPoints === 21) {
-    playerWins();
+    playerScoreCounterValue += 1 * 2 * 2;
+    scorePlayerCounter.innerText = playerScoreCounterValue;
+    savePlayerScore();
+    audioWin.play();
+    btnsDisabled();
+    playerWinGame();
+    setTimeout(() => {
+      finishGame();
+    }, 800);
     console.log("BLACKJACK - Player Wins - Player Create Card Section");
-  // } else if (playerPoints > 21) {
-  //   dealerWins();
-  //   console.log("Dealer Wins - Player Create Card Section");
+  } else if (playerPoints > 21) {
+    audioLose.play();
+    btnsDisabled();
+    setTimeout(() => {
+      finishGame();
+      swal.fire({
+        icon: "error",
+        title: "You lost",
+        showConfirmButton: false,
+        timerProgressBar: true,
+        timer: 2200,
+      });
+    }, 800);
+    console.log("Dealer Wins - Player Create Card Section");
   }
 };
 
@@ -177,11 +227,11 @@ const createDealerCard = () => {
   dealerCardsContainer.append(cardImg);
   setTimeout(() => {
     cardImg.classList.add("active");
+    replaceCardBack(`assets/cards/red_back-alt.png`);
   }, 50);
-  replaceDealerBackCard();
   if (dealerPoints === 21) {
+    replaceCardBack(`assets/cards/${playedCards[3]}.png`);
     dealerWins();
-
     console.log("Dealer Wins - Dealer Create Card Section");
     // } else if (dealerPoints > 21) {
     //   playerWins();
@@ -190,6 +240,14 @@ const createDealerCard = () => {
     return;
   }
 };
+
+const replaceCardBack = (img) => {
+  dealerCardsContainer.children[1].src = img;
+};
+
+// const replaceCardFront = (img) => {
+//   dealerCardsContainer.children[1].src = img;
+// };
 
 // esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
 const replaceDealerBackCard = () => {
@@ -214,38 +272,33 @@ const replaceDealerFrontCard = () => {
 
 // Esta funcion permite que el dealer tome su turno
 const dealerTurn = () => {
-  dealerScoreContainer.classList.add("active");
-  do {
-    createDealerCard();
-
-    if (playerPoints > 21) {
-      dealerWins();
-      console.log("BREAK");
-      break;
-    }
-    
-  } while (dealerPoints <  playerPoints && playerPoints <= 21) {
-
-
-    if (dealerPoints === playerPoints) {
-      drawGame();
-      console.log("Draw - Dealer Turn Section");
-    } else if (dealerPoints > 21) {
-      playerWins();
-      console.log("Player Wins - Dealer Turn Section");
-    } else if (playerPoints > dealerPoints && playerPoints <= 21) {
-      playerWins();
-      console.log("Player Wins - Dealer Turn Section");
-    } else if (dealerPoints > playerPoints) {
-      dealerWins();
-      console.log("Dealer Wins - Dealer Turn Section");
-    // } else {
-    //   dealerWins();
-    //   console.log("SIN-CONDICION Dealer Wins - Dealer Turn Section");
-    }
+  if (dealerPoints === 21) {
+    dealerWins();
+    console.log("Dealer Wins - Dealer Turn Section");
   }
+  // creamos una funcion que se ejecute cada 1 segundo hasta que el dealer tenga 17 puntos o mas
+  const interval = setInterval(() => {
+    if (dealerPoints >= playerPoints && dealerPoints >= 17) {
+      clearInterval(interval);
+      replaceCardBack(`assets/cards/${playedCards[3]}.png`);
+      if (dealerPoints > 21) {
+        playerWins();
+        console.log("Player Wins - Dealer Turn Section");
+      } else if (playerPoints < dealerPoints) {
+        dealerWins();
+        console.log("Dealer Wins - Dealer Turn Section");
+      } else if (dealerPoints < playerPoints) {
+        playerWins();
+        console.log("Player Wins - Dealer Turn Section");
+      } else {
+        drawGame();
+        console.log("Draw - Dealer Turn Section");
+      }
+    } else {
+      createDealerCard();
+    }
+  }, 800);
 };
-
 
 // Esta funcion permite reiniciar el juego
 const restartGame = () => {
@@ -285,38 +338,38 @@ btnHit.addEventListener("click", () => {
 
 // Esta función me permite al player plantarse
 btnStand.addEventListener("click", () => {
+  replaceCardBack(`assets/cards/${playedCards[3]}.png`);
+  setTimeout(() => {
+    dealerScoreContainer.classList.add("active");
+  }, 200);
   audioClick.play();
-  replaceDealerFrontCard();
 
-  if(playerPoints < dealerPoints) {
+  if (playerPoints < dealerPoints) {
     dealerWins();
     console.log("Dealer Wins - Stand Section");
   } else {
-    setTimeout(() => {
     dealerTurn();
-    }, 800);
   }
 });
-
-
 
 // Esta funcion permite doblar la apuesta
 btnDouble.addEventListener("click", () => {
   audioClick.play();
-  createPlayerCard();
-  replaceDealerFrontCard();
   doubleBet();
-  if(playerPoints < dealerPoints) {
+  createPlayerCard();
+  if (playerPoints > 21) {
     dealerWins();
-    console.log("Dealer Wins - Double Section");
+    console.log("Dealer Wins - Double Button Section");
+  } else if (playerPoints === 21) {
+    playerWins();
+    console.log("Player Wins - Double Button Section");
   } else {
+    replaceCardBack(`assets/cards/${playedCards[3]}.png`);
     setTimeout(() => {
+      dealerScoreContainer.classList.add("active");
+    }, 200);
     dealerTurn();
-    }, 800);
   }
 });
-
-
-
 
 export { createDeck, createPlayerCard, createDealerCard, restartGame };

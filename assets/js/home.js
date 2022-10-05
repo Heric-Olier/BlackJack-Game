@@ -1,9 +1,11 @@
 import { alertMessage } from "./alerts.js";
+import { statisticsCounter, saveStatistics } from "./game-statistics.js";
 import {
   createDeck,
   createPlayerCard,
   createDealerCard,
   restartGame,
+  restartPlayerScore,
 } from "./game.js";
 
 const body = document.querySelector("body");
@@ -22,16 +24,17 @@ const gameBoardbtns = document.querySelector(".game-board__actions");
 const btnRestartGame = document.getElementById("btn-restart-game");
 const btnStartGame = document.getElementById("btn-start-game");
 const btnDouble = document.getElementById("btn-double");
-const playerCardsContainer = document.querySelector(".player__cards");
-const dealerCardsContainer = document.querySelector(".dealer__cards");
-
+const scorePlayerCounter = document.getElementById("score-player");
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
 const scorePlayerContainer = document.querySelector(".player__score-counter");
 
-betBalance.innerHTML = 2000;
-let restaureBetBalance = betBalance.innerHTML;
+const fixDecimal = (number) => {
+  return parseFloat(number.toFixed(2));
+};
 
+betBalance.innerHTML = fixDecimal(2000);
+let restaureBetBalance = betBalance.innerHTML;
 
 // guardamos el valor del balance en localstorage
 const saveBalance = () => {
@@ -114,8 +117,12 @@ btnClearBet.addEventListener("click", () => {
   });
 });
 
+
+
 // funcion para iniciar el juego
 btnStartGame.addEventListener("click", () => {
+  statisticsCounter("played");
+  saveStatistics();
   audio.play();
   createDeck();
   setTimeout(() => {
@@ -153,6 +160,8 @@ btnStartGame.addEventListener("click", () => {
 // funcion para reiniciar el juego
 btnRestartGame.addEventListener("click", () => {
   audio.play();
+  statisticsCounter("restart");
+  saveStatistics();
   // menuBtn.classList.remove("hidden");
   btnStartGame.classList.remove("disabled");
   titleHome.classList.remove("hidden");
@@ -175,14 +184,16 @@ btnRestartGame.addEventListener("click", () => {
     chip.style.pointerEvents = "auto";
   });
   saveBalance();
+  restartPlayerScore();
 });
 
 // funcion para doblar la apuesta
 const doubleBet = () => {
   audio.play();
-let betAmountDouble = betAmount.innerHTML * 2;
+  audioChip.play();
+  let betAmountDouble = betAmount.innerHTML * 2;
   betAmount.innerHTML = betAmountDouble;
-  console.log({betAmountDouble});
+  console.log({ betAmountDouble });
   btnDouble.classList.add("disabled");
   saveBalance();
 };
@@ -201,15 +212,14 @@ const playerWinGame = () => {
   betBalance.innerHTML = betBalance.innerHTML * 1 + win * 1;
   console.log({ win });
   setTimeout(() => {
-  swal.fire({
-    icon: "success",
-    title: "You win + $" + win,
-    showConfirmButton: false,
-    timerProgressBar: true,
-    timer: 2200,
-  });
+    swal.fire({
+      icon: "success",
+      title: "You win + $" + win,
+      showConfirmButton: false,
+      timerProgressBar: true,
+      timer: 2200,
+    });
   }, 600);
-  
 
   saveBalance();
 };
@@ -253,8 +263,6 @@ const finishGame = () => {
   }, 2700);
 };
 
-
-
 export {
   selectBet,
   restoreBalance,
@@ -263,4 +271,6 @@ export {
   playerWinGame,
   finishGame,
   drawEqualGame,
+  saveStatistics,
+  statisticsCounter,
 };
