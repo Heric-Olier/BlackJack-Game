@@ -1,3 +1,4 @@
+
 import { alertMessage } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
 import {
