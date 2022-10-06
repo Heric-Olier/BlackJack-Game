@@ -17,9 +17,11 @@
     width: 18px !important;
 }
 
-#FCS_mcedaa7dfpyp8qsnh7q9dq43s771fnkf_btSee {
+#FCS_mcedaa7dfpyp8qsnh7q9dq43s771fnkf_btSee,
+#FCS_mcedaa7dfpyp8qsnh7q9dq43s771fnkf_divCac {
     display: none !important;
 }
+
 
 .visitor-container {
     position: relative;
