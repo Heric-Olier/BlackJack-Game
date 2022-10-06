@@ -1,7 +1,5 @@
-# Blacjack Game
-[]: # Author: [Heric](
- 
----
+# Blacjack Game 
+
 
 ## Readme in progress ...
 
@@ -11,7 +9,9 @@ Link del proyecto abajo 👇
 
 ### Tecnologias utilizadas:
 
-<img src="https://cdn-icons-png.flaticon.com/512/174/174854.png" width='30px' > <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" width='30px' > <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" width='30px' > <img src="https://cdn.icon-icons.com/icons2/1088/PNG/512/1485282157-adobe-photoshop-raster-graphics-editor-cc-creative-cloud_78285.png" width='33px' >
+<img src="https://cdn-icons-png.flaticon.com/512/174/174854.png" width='30px' > <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" width='30px' > <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" width='30px' > <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/512px-Bootstrap_logo.svg.png" width='30px' > <img src="https://cdn.icon-icons.com/icons2/1088/PNG/512/1485282157-adobe-photoshop-raster-graphics-editor-cc-creative-cloud_78285.png" width='33px' > 
+
+
 
 ---
 
@@ -30,8 +30,8 @@ Link del proyecto abajo 👇
 
 ---
 
-![](https://i.imgur.com/PP6gLZC.jpg)
 ![](https://i.imgur.com/HGT0Prn.jpg)
+![](https://i.imgur.com/PP6gLZC.jpg)
 
 ---
 
