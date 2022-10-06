@@ -1,5 +1,4 @@
 # ♠️ Blackjack Game ♠️
-[]: # Author: [Heric Olier](
 
 Un juego de Blackjack hecho en Javascript, HTML, CSS y Bootstrap, En el que el usuario tendra que vencer al dealer para ganar el juego acercandote lo mas posible a 21 sin pasarse.
 El usuario Puede escoger la cantidad de dinero que
