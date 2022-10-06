@@ -20,6 +20,11 @@ Resumen proceso de desarrollo:
 - [x] Crear el mazo de cartas
 - [x] Crear el dealer
 - [x] Crear el jugador
+- [x] Crear la logica de la apuesta
+- [x] Crear la logica del juego
+- [x] Crear la logica del Dealer
+- [x] Crear la logica de la partida
+- [x] Mejorar el diseño del juego
 - [x] Crear el boton de pedir carta
 - [x] Crear el boton de plantarse
 - [x] Crear el boton de reiniciar
@@ -39,7 +44,7 @@ Resumen proceso de desarrollo:
 - [x] Añadir efectos de movimiento a las cartas
 - [x] carta de la casa boca abajo
 - [x] Balance de dinero del jugador almacenado en el local storage
-- [x] Estadisticas de diferentes datos del juego almacenadas en el local storage
+- [x] Estadisticas de diferentes datos del juego almacenadas en el local storage (partidas ganadas, perdidas, empatadas, reinicios, etc)
 - [x] Puntuacion del jugador almacenada en el local storage
 - [x] Diseño de algunos elementos con Photoshop
 - [x] Diseño responsive para diferentes dispositivos

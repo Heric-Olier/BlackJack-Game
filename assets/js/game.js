@@ -20,7 +20,6 @@ const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
 const playerScore = document.getElementById("player-score");
 const dealerScore = document.getElementById("dealer-score");
-const gameBoardbtns = document.querySelector(".game-board__actions");
 const playerCardsContainer = document.querySelector(".player__cards");
 const dealerCardsContainer = document.querySelector(".dealer__cards");
 const scorePlayerCounter = document.getElementById("score-player");
@@ -94,7 +93,7 @@ const createDeck = () => {
   }
 
   deck = _.shuffle(deck); // Barajamos el deck
-  console.log(deck);
+  // console.log(deck);
   return deck; // Retornamos el deck
 };
 
@@ -108,7 +107,7 @@ const takeCard = () => {
       title: "No cards left in the deck.",
     });
   }
-  // console.log({ playedCards });
+
   return card;
 };
 
@@ -227,7 +226,7 @@ const createPlayerCard = () => {
     setTimeout(() => {
       finishGame();
     }, 800);
-    console.log("BLACKJACK - Player Wins - Player Create Card Section");
+    // console.log("BLACKJACK - Player Wins - Player Create Card Section");
   } else if (playerPoints > 21) {
     audioLose.play();
     btnsDisabled();
@@ -241,7 +240,7 @@ const createPlayerCard = () => {
         timer: 2200,
       });
     }, 800);
-    console.log("Dealer Wins - Player Create Card Section");
+    // console.log("Dealer Wins - Player Create Card Section");
   }
 };
 
@@ -262,7 +261,7 @@ const createDealerCard = () => {
   if (dealerPoints === 21) {
     replaceCardBack(`assets/cards/${playedCards[3]}.png`);
     dealerWins();
-    console.log("Dealer Wins - Dealer Create Card Section");
+    // console.log("Dealer Wins - Dealer Create Card Section");
     // } else if (dealerPoints > 21) {
     //   playerWins();
     //   console.log("Player Wins - Dealer Create Card Section");
@@ -271,34 +270,11 @@ const createDealerCard = () => {
   }
 };
 
+// Esta función me permite reemplazar la carta de atrás por la carta del dealer
 const replaceCardBack = (img) => {
   dealerCardsContainer.children[1].src = img;
 };
 
-// const replaceCardFront = (img) => {
-//   dealerCardsContainer.children[1].src = img;
-// };
-
-// esta funcion permite reemplazar la segundar carta del dealer por la carta boca abajo
-const replaceDealerBackCard = () => {
-  const cardImg = dealerCardsContainer.children[1];
-  const cardImgBack = document.createElement("img");
-  cardImgBack.src = `assets/cards/red_back-alt.png`;
-  cardImg.parentNode.replaceChild(cardImgBack, cardImg);
-  setTimeout(() => {
-    cardImgBack.classList.add("active");
-  }, 100);
-};
-
-const replaceDealerFrontCard = () => {
-  const cardImg = dealerCardsContainer.children[1];
-  const cardImgBack = document.createElement("img");
-  cardImgBack.src = `assets/cards/${playedCards[3]}.png`; // Esta es la carta que se reemplaza por la que estaba boca abajo
-  cardImg.parentNode.replaceChild(cardImgBack, cardImg);
-  setTimeout(() => {
-    cardImgBack.classList.add("active");
-  }, 100);
-};
 
 // Esta funcion permite que el dealer tome su turno
 const dealerTurn = () => {
@@ -313,16 +289,16 @@ const dealerTurn = () => {
       replaceCardBack(`assets/cards/${playedCards[3]}.png`);
       if (dealerPoints > 21) {
         playerWins();
-        console.log("Player Wins - Dealer Turn Section");
+        // console.log("Player Wins - Dealer Turn Section");
       } else if (playerPoints < dealerPoints) {
         dealerWins();
-        console.log("Dealer Wins - Dealer Turn Section");
+        // console.log("Dealer Wins - Dealer Turn Section");
       } else if (dealerPoints < playerPoints) {
         playerWins();
-        console.log("Player Wins - Dealer Turn Section");
+        // console.log("Player Wins - Dealer Turn Section");
       } else {
         drawGame();
-        console.log("Draw - Dealer Turn Section");
+        // console.log("Draw - Dealer Turn Section");
       }
     } else {
       createDealerCard();
@@ -339,7 +315,7 @@ const restartGame = () => {
   dealerScore.innerText = 0;
   playerCardsContainer.classList.add("game-over");
   dealerCardsContainer.classList.add("game-over");
-  // console.clear();
+  console.clear();
   setTimeout(() => {
     btnsEnabled();
     playerCardsContainer.innerHTML = "";
@@ -357,10 +333,10 @@ btnHit.addEventListener("click", () => {
   createPlayerCard();
   if (playerPoints > 21) {
     dealerWins();
-    console.log("Dealer Wins - Hit Button Section");
+    // console.log("Dealer Wins - Hit Button Section");
   } else if (playerPoints === 21) {
     playerWins();
-    console.log("Player Wins - Hit Button Section");
+    // console.log("Player Wins - Hit Button Section");
   } else {
     return;
   }
@@ -376,7 +352,7 @@ btnStand.addEventListener("click", () => {
 
   if (playerPoints < dealerPoints) {
     dealerWins();
-    console.log("Dealer Wins - Stand Section");
+    // console.log("Dealer Wins - Stand Section");
   } else {
     dealerTurn();
   }
@@ -389,10 +365,10 @@ btnDouble.addEventListener("click", () => {
   createPlayerCard();
   if (playerPoints > 21) {
     dealerWins();
-    console.log("Dealer Wins - Double Button Section");
+    // console.log("Dealer Wins - Double Button Section");
   } else if (playerPoints === 21) {
     playerWins();
-    console.log("Player Wins - Double Button Section");
+    // console.log("Player Wins - Double Button Section");
   } else {
     replaceCardBack(`assets/cards/${playedCards[3]}.png`);
     setTimeout(() => {
