@@ -1,4 +1,4 @@
-# Blacjack Game 
+# Blackjack Game 
 
 
 ## Readme in progress ...
