@@ -73,6 +73,11 @@
   image-rendering: optimizeSpeed;
 }
 
+.dealer__cards img.hidden,
+.player__cards img.hidden {
+  left: 100%;
+  margin-left: -86px;
+}
 
 .player__cards img:first-child,
 .dealer__cards img:first-child {
