@@ -8,7 +8,7 @@ body {
   background-size: cover;
   background-position: center;
   position: relative;
-  user-select: none;
+  /* user-select: none; */
 }
 
 body.game-start {
@@ -75,12 +75,6 @@ main {
   margin-top: 20px;
   transition: all 0.3s ease;
 }
-/* reduce the size of the logo in small devices */
-@media (max-width: 320px) {
-  .logo {
-    width: 13rem;
-  }
-}
 
 .player__score-counter {
   position: absolute;
@@ -143,7 +137,7 @@ main {
   font-weight: bold;
   z-index: 3;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-  transition: all 0.45s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .menu-btn.hidden,
@@ -160,7 +154,24 @@ main {
 .help-btn {
   padding: 6px 10px;
   top: 94px;
+}
 
+.languaje-change-btn {
+  position: absolute;
+  right: 3px;
+  top: 144px;
+  z-index: 3;
+}
+
+.languaje-change-btn img {
+  width: 32.5px;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.languaje-change-btn img:hover {
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5)) brightness(0.6);
 }
 
 .fa-times {

@@ -211,7 +211,7 @@ const createPlayerCard = () => {
   cardImg.src = `assets/cards/${card}.png`;
   playerCardsContainer.append(cardImg);
   setTimeout(() => {
-    cardImg.classList.add("active");
+    cardImg.classList.add("hidden");
   }, 50);
   if (playerPoints === 21) {
     playerScoreCounterValue += 1 * 2 * 2;
@@ -255,7 +255,7 @@ const createDealerCard = () => {
   cardImg.src = `assets/cards/${card}.png`;
   dealerCardsContainer.append(cardImg);
   setTimeout(() => {
-    cardImg.classList.add("active");
+    cardImg.classList.add("hidden");
     replaceCardBack(`assets/cards/red_back-alt.png`);
   }, 50);
   if (dealerPoints === 21) {
