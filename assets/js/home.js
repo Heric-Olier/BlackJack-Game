@@ -1,6 +1,3 @@
-
-import "./change-language.js";
-
 import { alertMessage } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
 import {
@@ -10,9 +7,6 @@ import {
   restartGame,
   restartPlayerScore,
 } from "./game.js";
-
-
-
 
 const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
@@ -35,19 +29,6 @@ const scorePlayerCounter = document.getElementById("score-player");
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
 const scorePlayerContainer = document.querySelector(".player__score-counter");
-const playerCardsContainer = document.querySelector(".player__cards");
-const dealerCardsContainer = document.querySelector(".dealer__cards");
-
-
-window.addEventListener("load", () => {
-  console.log( "Welcome to your Blackjack Game" );
-  createDeck();
-  createPlayerCard();
-  createDealerCard();
-  createPlayerCard();
-  createDealerCard();
- console.clear();
-});
 
 
 const fixDecimal = (number) => {
@@ -169,22 +150,17 @@ btnStartGame.addEventListener("click", () => {
   audio.play();
   createDeck();
   setTimeout(() => {
-    playerCardsContainer.children[0
-    ].classList.add("active");
-    audioCard.play();
+    createPlayerCard();
     playerScoreContainer.classList.add("active");
   }, 600);
   setTimeout(() => {
-    dealerCardsContainer.children[0].classList.add("active");
-    audioCard.play();
+    createDealerCard();
   }, 1300);
   setTimeout(() => {
-    playerCardsContainer.children[1].classList.add("active");
-    audioCard.play();
+    createPlayerCard();
   }, 2000);
   setTimeout(() => {
-    dealerCardsContainer.children[1].classList.add("active"); 
-    audioCard.play();
+    createDealerCard();
   }, 2600);
   setTimeout(() => {
     gameBoardbtns.classList.add("visible");
