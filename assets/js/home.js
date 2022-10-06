@@ -14,6 +14,7 @@ const betAmount = document.getElementById("bet-amount-home");
 const betBalance = document.getElementById("bet-balance");
 const cardGameBoard = document.getElementById("card__game-board");
 const menuBtn = document.getElementById("menu-btn");
+const helpBtn = document.getElementById("help-btn");
 const chips = document.querySelectorAll(".chip");
 const chipsContainer = document.querySelector(".chips-container");
 const titleHome = document.querySelector(".title-home");
@@ -53,9 +54,20 @@ const audio = new Audio("assets/audio/Switch_Click.mp3");
 const audioChip = new Audio("assets/audio/Poker_Chip_Single.mp3");
 const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 
-menuBtn.addEventListener("click", () => {
+
+
+const audioCliclBtns = () => {
   audio.play();
+};
+
+const btnsclick = document.querySelectorAll(".btn-action-menu");
+btnsclick.forEach((btn) => {
+  console.log({ btn });
+  btn.addEventListener("click", audioCliclBtns);
 });
+
+
+
 
 const moneyTotalWon = () => {
   const moneyWon = document.getElementById("money-won");
@@ -154,6 +166,7 @@ btnStartGame.addEventListener("click", () => {
     gameBoardbtns.classList.add("visible");
   }, 2800);
   menuBtn.classList.add("hidden");
+  helpBtn.classList.add("hidden");
   scorePlayerContainer.classList.add("hidden");
   btnsActionHome.classList.remove("visible");
   chipsContainer.classList.add("hidden");
@@ -250,6 +263,7 @@ const finishGame = () => {
     btnDouble.classList.remove("disabled");
     gameBoardbtns.classList.remove("visible");
     menuBtn.classList.remove("hidden");
+    helpBtn.classList.remove("hidden");
     scorePlayerContainer.classList.remove("hidden");
     chipsContainer.classList.remove("hidden");
     betAmountContainer.classList.remove("start-game");

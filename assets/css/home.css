@@ -124,7 +124,8 @@ main {
   opacity: 0;
 }
 
-.menu-btn {
+.menu-btn,
+.help-btn {
   color: var(--color-dark);
   background-color: var(--color-light);
   border-radius: 50%;
@@ -145,13 +146,21 @@ main {
   transition: all 0.45s ease-in-out;
 }
 
-.menu-btn.hidden {
+.menu-btn.hidden,
+.help-btn.hidden {
   transform: scale(0);
   opacity: 0;
 }
 
-.menu-btn:hover {
+.menu-btn:hover,
+.help-btn:hover {
   filter: brightness(0.6);
+}
+
+.help-btn {
+  padding: 6px 10px;
+  top: 80px;
+
 }
 
 .fa-times {
