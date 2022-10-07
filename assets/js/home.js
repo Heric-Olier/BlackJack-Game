@@ -1,3 +1,5 @@
+import "./change-language.js";
+
 import { alertMessage } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
 import {
@@ -6,6 +8,9 @@ import {
   createDealerCard,
   restartGame,
   restartPlayerScore,
+  activePlayerCards,
+  activeDealerCards,
+  createCardsInitial,
 } from "./game.js";
 
 const body = document.querySelector("body");
@@ -29,7 +34,15 @@ const scorePlayerCounter = document.getElementById("score-player");
 const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
 const scorePlayerContainer = document.querySelector(".player__score-counter");
+const playerCardsContainer = document.querySelector(".player__cards");
+const dealerCardsContainer = document.querySelector(".dealer__cards");
 
+
+window.addEventListener("load", () => {
+  console.log("Welcome to your Blackjack Game");
+  createCardsInitial();
+  //  console.clear();
+});
 
 const fixDecimal = (number) => {
   return parseFloat(number.toFixed(2));
@@ -54,8 +67,6 @@ const audio = new Audio("assets/audio/Switch_Click.mp3");
 const audioChip = new Audio("assets/audio/Poker_Chip_Single.mp3");
 const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 
-
-
 const audioCliclBtns = () => {
   audio.play();
 };
@@ -66,9 +77,6 @@ btnsclick.forEach((btn) => {
   btn.addEventListener("click", audioCliclBtns);
 });
 
-
-
-
 const moneyTotalWon = () => {
   const moneyWon = document.getElementById("money-won");
   moneyWon.innerHTML = fixDecimal(betBalance.innerHTML - restaureBetBalance);
@@ -78,7 +86,6 @@ const moneyTotalLost = () => {
   const moneyLost = document.getElementById("money-lost");
   moneyLost.innerHTML = fixDecimal(restaureBetBalance - betBalance.innerHTML);
 };
-
 
 // funcion para seleccionar la apuesta
 const selectBet = (chip) => {
@@ -141,26 +148,27 @@ btnClearBet.addEventListener("click", () => {
   });
 });
 
-
-
 // funcion para iniciar el juego
 btnStartGame.addEventListener("click", () => {
   statisticsCounter("played");
   saveStatistics();
   audio.play();
-  createDeck();
   setTimeout(() => {
-    createPlayerCard();
-    playerScoreContainer.classList.add("active");
+    activePlayerCards(0); // activamos la primera carta del jugador
+
   }, 600);
   setTimeout(() => {
-    createDealerCard();
+    activeDealerCards(0); // activamos la primera carta del dealer
+
   }, 1300);
   setTimeout(() => {
-    createPlayerCard();
+    activePlayerCards(1); // activamos la segunda carta del jugador
+    playerScoreContainer.classList.add("active");
+
   }, 2000);
   setTimeout(() => {
-    createDealerCard();
+    activeDealerCards(1); // activamos la segunda carta del dealer
+
   }, 2600);
   setTimeout(() => {
     gameBoardbtns.classList.add("visible");
