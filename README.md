@@ -45,6 +45,7 @@ Resumen proceso de desarrollo:
 - [x] carta de la casa boca abajo
 - [x] Balance de dinero del jugador almacenado en el local storage
 - [x] Estadisticas de diferentes datos del juego almacenadas en el local storage (partidas ganadas, perdidas, empatadas, reinicios, etc)
+- [x] Registro de máxima puntuación obtenida antes de cada reinicio de juego (reinicio manual)
 - [x] Puntuacion del jugador almacenada en el local storage
 - [x] Diseño de algunos elementos con Photoshop
 - [x] Diseño responsive para diferentes dispositivos

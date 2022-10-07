@@ -155,13 +155,15 @@ const btnsEnabled = () => {
 // Esta funcion termina el juego player gana
 const playerWins = () => {
   dealerScoreContainer.classList.add("active");
-  playerScoreCounterValue += 5 * 1;  
-  maxAmountPlayerScoreCounter = maxAmountPlayerScoreCounter += 5 * 1;
-  highScore.innerHTML = maxAmountPlayerScoreCounter;
-  scorePlayerCounter.innerText = playerScoreCounterValue;
-  moneyTotalWon();
+  playerScoreCounterValue = Number(playerScoreCounterValue) + 5;
+  scorePlayerCounter.innerHTML = playerScoreCounterValue;
   savePlayerScore();
-  saveMaxAmountPlayerScoreCounter();
+  if (playerScoreCounterValue > maxAmountPlayerScoreCounter) {
+    maxAmountPlayerScoreCounter = playerScoreCounterValue;
+    highScore.innerHTML = maxAmountPlayerScoreCounter;
+    saveMaxAmountPlayerScoreCounter();
+  }
+  moneyTotalWon();
   statisticsCounter("win");
   saveStatistics();
   audioWin.play();
@@ -253,10 +255,10 @@ const activePlayerCards = (cardPosition) => {
   const cardsPlayer = playerCardsContainer.children;
   cardsPlayer[cardPosition].classList.add("active");
   if (playerPoints === 21) {
-    playerScoreCounterValue += 5 * 1;  
-    maxAmountPlayerScoreCounter = maxAmountPlayerScoreCounter += 5 * 1;
-    highScore.innerHTML = maxAmountPlayerScoreCounter;
-    scorePlayerCounter.innerText = playerScoreCounterValue;
+    // playerScoreCounterValue = playerScoreCounterValue + 5 * 1;
+    // maxAmountPlayerScoreCounter = maxAmountPlayerScoreCounter + 5 * 1;
+    // highScore.innerHTML = maxAmountPlayerScoreCounter;
+    // scorePlayerCounter.innerText = playerScoreCounterValue;
     saveMaxAmountPlayerScoreCounter();
     savePlayerScore();
     setTimeout(() => {
@@ -289,7 +291,7 @@ const activeDealerCards = (cardPosition) => {
   cardsDealer[cardPosition].classList.add("active");
  
   if (dealerPoints === 21) {
-    replaceCardBack(`assets/cards/${playedCards[3]}.png`);
+    flipCardBack();
     dealerWins();
     // console.log("Dealer Wins - Dealer Create Card Section");
     // } else if (dealerPoints > 21) {
@@ -300,16 +302,12 @@ const activeDealerCards = (cardPosition) => {
   }
 };
 
-// Esta función me permite reemplazar la carta de atrás por la carta del dealer
-const replaceCardBack = (img) => {
-  dealerCardsContainer.children[1].src = img;
-};
-
 const replaceBackDealerCard = () => {
   dealerCardsContainer.children[1].src = `assets/cards/red_back-alt.png`;
 };
 
 const flipCardBack = () => {
+  audioCard.play();
   dealerCardsContainer.children[1].src = `assets/cards/${playedCards[3]}.png`;
   dealerCardsContainer.children[1].classList.add("flip-vertical-left");
   dealerCardsContainer.children[1].classList.add("active");
@@ -361,18 +359,23 @@ const dealerTurn = () => {
 // Esta función me permite al player tomar una carta
 btnHit.addEventListener("click", () => {
   audioClick.play();
+  btnDouble.classList.add("disabled");
 createPlayerCard();
 setTimeout(() => {
   activePlayerCards(2);
   activePlayerCards(3);
   activePlayerCards(4);
   activePlayerCards(5);
-}, 200);
+}, 100);
   if (playerPoints > 21) {
+    setTimeout(() => {
     dealerWins();
+    }, 600);
     // console.log("Dealer Wins - Hit Button Section");
   } else if (playerPoints === 21) {
+    setTimeout(() => {
     playerWins();
+    }, 600);
     // console.log("Player Wins - Hit Button Section");
   } else {
     return;
@@ -391,19 +394,24 @@ btnStand.addEventListener("click", () => {
     dealerWins();
     // console.log("Dealer Wins - Stand Section");
   } else {
+    setTimeout(() => {
     dealerTurn();
+    }, 200);
   }
 });
 
 // Esta funcion permite doblar la apuesta
 btnDouble.addEventListener("click", () => {
   audioClick.play();
+  setTimeout(() => {
   doubleBet();
-  createPlayerCard();
+  }, 400);
+  createPlayerCard()
   setTimeout(() => {
     activePlayerCards(2);
     activePlayerCards(3);
-  }, 50);
+  }, 800);
+
   if (playerPoints > 21) {
     dealerWins();
     // console.log("Dealer Wins - Double Button Section");
@@ -411,11 +419,12 @@ btnDouble.addEventListener("click", () => {
     playerWins();
     // console.log("Player Wins - Double Button Section");
   } else {
-    flipCardBack();
     setTimeout(() => {
+    flipCardBack();
       dealerScoreContainer.classList.add("active");
-    }, 200);
-    dealerTurn();
+    dealerTurn(); 
+    }, 800);
+
   }
 });
 

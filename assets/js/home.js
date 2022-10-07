@@ -226,6 +226,7 @@ const doubleBet = () => {
   audioChip.play();
   let betAmountDouble = betAmount.innerHTML * 2;
   betAmount.innerHTML = betAmountDouble;
+  betBalance.innerHTML = betBalance.innerHTML - betAmount.innerHTML;
   console.log({ betAmountDouble });
   btnDouble.classList.add("disabled");
   saveBalance();

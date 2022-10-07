@@ -89,7 +89,7 @@
   width: 134px;
   position: absolute;
   left: 100%;
-  margin-left: -46px;
+  margin-left: 300px;
   transition: cubic-bezier(0.075, 0.82, 0.165, 1.2) 0.5s all;
   border-radius: 12px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.452);
@@ -98,7 +98,7 @@
 .dealer__cards img.hidden,
 .player__cards img.hidden {
   left: 100%;
-  margin-left: -46px;
+  margin-left: 300px;
 }
 
 .player__cards img:first-child,

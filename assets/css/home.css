@@ -108,9 +108,9 @@ main {
 
 #score-player {
   color: var(--color-light);
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin: -6px;
+  margin: -7px;
 }
 
 .player__score-counter.hidden {
