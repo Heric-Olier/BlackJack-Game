@@ -141,7 +141,8 @@ main {
 }
 
 .menu-btn.hidden,
-.help-btn.hidden {
+.help-btn.hidden,
+.languaje-change-btn.hidden {
   transform: scale(0);
   opacity: 0;
 }
@@ -168,6 +169,8 @@ main {
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  border: 2px solid var(--color-light);
+  border-radius: 50%;
 }
 
 .languaje-change-btn img:hover {
