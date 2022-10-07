@@ -367,7 +367,7 @@ setTimeout(() => {
   activePlayerCards(3);
   activePlayerCards(4);
   activePlayerCards(5);
-}, 50);
+}, 200);
   if (playerPoints > 21) {
     dealerWins();
     // console.log("Dealer Wins - Hit Button Section");
