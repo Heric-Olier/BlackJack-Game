@@ -99,7 +99,7 @@ const createDeck = () => {
   }
 
   deck = _.shuffle(deck); // Barajamos el deck
-  console.log(deck);
+  // console.log(deck);
   return deck; // Retornamos el deck
 };
 
@@ -113,8 +113,6 @@ const createCardsInitial = () => {
   createDealerCard();
   replaceBackDealerCard();
   
-  
-  console.log("Create Cards Initial");
 };
 
 
@@ -225,7 +223,6 @@ const drawGame = () => {
 
 // Esta función me permite crear una carta para el jugador
 const createPlayerCard = () => {
-  console.log("Create player card");
   const card = takeCard();
   const cardValue = valueCard(card);
   playerPoints += cardValue;
@@ -241,7 +238,6 @@ const createPlayerCard = () => {
 
 // Esta función me permite crear una carta para el dealer
 const createDealerCard = () => {
-  console.log("create Dealer Card");
   const card = takeCard();
   const cardValue = valueCard(card);
   dealerPoints += cardValue;

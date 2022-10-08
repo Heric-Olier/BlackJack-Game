@@ -40,7 +40,6 @@ const languageChangeBtn = document.querySelector(".languaje-change-btn");
 
 
 window.addEventListener("load", () => {
-  console.log("Welcome to your Blackjack Game");
   createCardsInitial();
   //  console.clear();
 });
@@ -74,7 +73,6 @@ const audioCliclBtns = () => {
 
 const btnsclick = document.querySelectorAll(".btn-action-menu");
 btnsclick.forEach((btn) => {
-  console.log({ btn });
   btn.addEventListener("click", audioCliclBtns);
 });
 
