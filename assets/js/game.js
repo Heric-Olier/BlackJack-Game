@@ -3,6 +3,10 @@ import * as underscore from "./underscore-min.js";
 import { alertMessage } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
 import {
+  savePlayerScore,
+  saveMaxAmountPlayerScoreCounter,
+} from "./local-storage-items.js";
+import {
   doubleBet,
   drawEqualGame,
   finishGame,
@@ -11,7 +15,6 @@ import {
   moneyTotalLost,
 } from "./home.js";
 
-// Referencias del HTML
 const btnHit = document.getElementById("btn-hit");
 const btnStand = document.getElementById("btn-stand");
 const btnDouble = document.getElementById("btn-double");
@@ -26,57 +29,24 @@ const scorePlayerCounter = document.getElementById("score-player");
 const highScore = document.getElementById("high-score");
 const betAmountCenter = document.querySelector(".bet-amount-center");
 
-let deck = []; // Creamos un deck vacío
-let playedCards = []; // Arreglo para guardar las cartas que se han jugado
+// Audios del juego
+const audioCard = new Audio("assets/audio/Card_Deal.mp3");
+const audioClick = new Audio("assets/audio/Switch_Click.mp3");
+const audioWin = new Audio("assets/audio/Win_Sound.mp3");
+const audioLose = new Audio("assets/audio/Lose_Sound.mp3");
+
+// Creamos un deck vacío
+let deck = [];
+
+// Arreglo para guardar las cartas que se han jugado, esto nos sive para luego identificar la carta boca abajo del dealer,
+// y luego reemplazarla por la carta boca arriba, ya que las cartas se eliminan del deck principal al ser jugadas y no se puede identificar
+let playedCards = [];
 
 const typesofCards = ["C", "D", "H", "S"];
 const letterSpecials = ["A", "J", "Q", "K"];
 
 let playerPoints = 0;
 let dealerPoints = 0;
-let playerScoreCounterValue = 0; // puntuacion del jugador
-let maxAmountPlayerScoreCounter = 0; //puntuacion maxima del jugador
-
-const saveMaxAmountPlayerScoreCounter = () => {
-  localStorage.setItem(
-    "maxAmountPlayerScoreCounter",
-    maxAmountPlayerScoreCounter
-  );
-};
-
-const restoreMaxAmountPlayerScoreCounter = () => {
-  const btnResetHighScore = document.getElementById("reset-score");
-  if (localStorage.getItem("maxAmountPlayerScoreCounter")) {
-    maxAmountPlayerScoreCounter = localStorage.getItem(
-      "maxAmountPlayerScoreCounter"
-    );
-    highScore.innerHTML = maxAmountPlayerScoreCounter;
-  }
-  btnResetHighScore.addEventListener("click", () => {
-    localStorage.removeItem("maxAmountPlayerScoreCounter");
-    maxAmountPlayerScoreCounter = 0;
-  });
-};
-
-restoreMaxAmountPlayerScoreCounter();
-
-export const savePlayerScore = () => {
-  localStorage.setItem("playerScore", playerScoreCounterValue);
-};
-
-export const restorePlayerScore = () => {
-  if (localStorage.getItem("playerScore")) {
-    playerScoreCounterValue = localStorage.getItem("playerScore");
-    scorePlayerCounter.innerHTML = playerScoreCounterValue;
-  }
-};
-restorePlayerScore();
-
-export const restartPlayerScore = () => {
-  playerScoreCounterValue = 0;
-  scorePlayerCounter.innerHTML = playerScoreCounterValue;
-  localStorage.removeItem("playerScore");
-};
 
 // Esta función crea una nueva baraja
 const createDeck = () => {
@@ -103,7 +73,7 @@ const createDeck = () => {
   return deck; // Retornamos el deck
 };
 
-// funcion para crear 2 cartas del jugador y 2 del dealer al iniciar el juego
+// funcion para crear 2 cartas del jugador y 2 del dealer al recargar la pagina o al momento en que el juego se reinicia
 const createCardsInitial = () => {
   createDeck();
   createPlayerCard();
@@ -112,6 +82,10 @@ const createCardsInitial = () => {
   createDealerCard();
   replaceBackDealerCard();
 };
+
+window.addEventListener("load", () => {
+  createCardsInitial();
+});
 
 // Esta función me permite tomar una carta
 const takeCard = () => {
@@ -123,7 +97,6 @@ const takeCard = () => {
       title: "No cards left in the deck.",
     });
   }
-
   return card;
 };
 
@@ -133,37 +106,13 @@ const valueCard = (card) => {
   return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // Si el valor no es un número, entonces es una letra y le asignamos un valor, si es un número lo convertimos a un número
 };
 
-// Audios del juego
-const audioCard = new Audio("assets/audio/Card_Deal.mp3");
-const audioClick = new Audio("assets/audio/Switch_Click.mp3");
-const audioWin = new Audio("assets/audio/Win_Sound.mp3");
-const audioLose = new Audio("assets/audio/Lose_Sound.mp3");
 
-// deshabilitar botones
-const btnsDisabled = () => {
-  btnHit.classList.add("disabled");
-  btnStand.classList.add("disabled");
-  btnDouble.classList.add("disabled");
-};
 
-// habilitar botones
-const btnsEnabled = () => {
-  btnHit.classList.remove("disabled");
-  btnStand.classList.remove("disabled");
-  btnDouble.classList.remove("disabled");
-};
 
 // Esta funcion termina el juego player gana
 const playerWins = () => {
   dealerScoreContainer.classList.add("active");
-  playerScoreCounterValue = Number(playerScoreCounterValue) + 5;
-  scorePlayerCounter.innerHTML = playerScoreCounterValue;
-  savePlayerScore();
-  if (playerScoreCounterValue > maxAmountPlayerScoreCounter) {
-    maxAmountPlayerScoreCounter = playerScoreCounterValue;
-    highScore.innerHTML = maxAmountPlayerScoreCounter;
-    saveMaxAmountPlayerScoreCounter();
-  }
+  saveMaxAmountPlayerScoreCounter();
   moneyTotalWon();
   statisticsCounter("win");
   saveStatistics();
@@ -247,7 +196,6 @@ const createDealerCard = () => {
   }, 50);
 };
 
-
 const activePlayerCards = (cardPosition) => {
   audioCard.play();
   const cardsPlayer = playerCardsContainer.children;
@@ -270,8 +218,6 @@ const activeDealerCards = (cardPosition) => {
     return;
   }
 };
-
-
 
 const replaceBackDealerCard = () => {
   dealerCardsContainer.children[1].src = `assets/cards/red_back-alt.png`;
@@ -321,6 +267,21 @@ const dealerTurn = () => {
 };
 
 //todo <--- botones listener --->
+
+// deshabilitar botones
+const btnsDisabled = () => {
+  btnHit.classList.add("disabled");
+  btnStand.classList.add("disabled");
+  btnDouble.classList.add("disabled");
+};
+
+// habilitar botones
+const btnsEnabled = () => {
+  btnHit.classList.remove("disabled");
+  btnStand.classList.remove("disabled");
+  btnDouble.classList.remove("disabled");
+};
+
 
 // Esta función me permite al player tomar una carta
 btnHit.addEventListener("click", () => {
@@ -427,8 +388,6 @@ const activePlayerCardsValidation = () => {
   }
 };
 
-
-
 export {
   createDeck,
   createPlayerCard,
@@ -436,6 +395,5 @@ export {
   restartGame,
   activePlayerCards,
   activeDealerCards,
-  createCardsInitial,
   activePlayerCardsValidation,
 };

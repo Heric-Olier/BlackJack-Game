@@ -2,15 +2,14 @@ import "./change-language.js";
 
 import { alertMessage } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
+import { restartPlayerScore } from "./local-storage-items.js";
 import {
   createDeck,
   createPlayerCard,
   createDealerCard,
   restartGame,
-  restartPlayerScore,
   activePlayerCards,
   activeDealerCards,
-  createCardsInitial,
   activePlayerCardsValidation,
 } from "./game.js";
 
@@ -39,11 +38,6 @@ const playerCardsContainer = document.querySelector(".player__cards");
 const dealerCardsContainer = document.querySelector(".dealer__cards");
 const languageChangeBtn = document.querySelector(".languaje-change-btn");
 
-
-window.addEventListener("load", () => {
-  createCardsInitial();
-  //  console.clear();
-});
 
 const fixDecimal = (number) => {
   return parseFloat(number.toFixed(2));
