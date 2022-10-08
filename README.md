@@ -47,14 +47,15 @@ Resumen proceso de desarrollo:
 - [x] Estadisticas de diferentes datos del juego almacenadas en el local storage (partidas ganadas, perdidas, empatadas, reinicios, etc)
 - [x] Registro de máxima puntuación obtenida antes de cada reinicio de juego (reinicio manual)
 - [x] Puntuacion del jugador almacenada en el local storage
+- [x] Selector de idioma (español e ingles)
 - [x] Diseño de algunos elementos con Photoshop
 - [x] Diseño responsive para diferentes dispositivos
 
 ---
 
-![](https://i.imgur.com/HGT0Prn.jpg)
+![](https://i.imgur.com/n97hSaZ.jpg)
 ![](https://i.imgur.com/PP6gLZC.jpg)
-![](https://i.imgur.com/UuGggMQ.jpg)
+![](https://i.imgur.com/MmMWHbR.jpg)
 
 ---
 
