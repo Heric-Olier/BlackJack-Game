@@ -103,7 +103,6 @@ const createDeck = () => {
   return deck; // Retornamos el deck
 };
 
-
 // funcion para crear 2 cartas del jugador y 2 del dealer al iniciar el juego
 const createCardsInitial = () => {
   createDeck();
@@ -112,9 +111,7 @@ const createCardsInitial = () => {
   createPlayerCard();
   createDealerCard();
   replaceBackDealerCard();
-  
 };
-
 
 // Esta función me permite tomar una carta
 const takeCard = () => {
@@ -173,7 +170,7 @@ const playerWins = () => {
   audioWin.play();
   btnsDisabled();
   playerWinGame();
-flipCardBack();
+  flipCardBack();
   setTimeout(() => {
     finishGame();
   }, 800);
@@ -187,7 +184,7 @@ const dealerWins = () => {
   moneyTotalLost();
   statisticsCounter("lost");
   saveStatistics();
-  flipCardBack()
+  flipCardBack();
   setTimeout(() => {
     finishGame();
     swal.fire({
@@ -233,7 +230,6 @@ const createPlayerCard = () => {
   setTimeout(() => {
     cardImg.classList.add("hidden");
   }, 50);
-  
 };
 
 // Esta función me permite crear una carta para el dealer
@@ -249,52 +245,20 @@ const createDealerCard = () => {
     cardImg.classList.add("hidden");
     // replaceCardBack(`assets/cards/red_back-alt.png`);
   }, 50);
-  
 };
+
 
 const activePlayerCards = (cardPosition) => {
   audioCard.play();
   const cardsPlayer = playerCardsContainer.children;
   cardsPlayer[cardPosition].classList.add("active");
-  if (playerPoints === 21) {
-    scorePlayerCounter.innerHTML = playerScoreCounterValue;
-  savePlayerScore();
-  if (playerScoreCounterValue > maxAmountPlayerScoreCounter) {
-    maxAmountPlayerScoreCounter = playerScoreCounterValue;
-    highScore.innerHTML = maxAmountPlayerScoreCounter;
-    saveMaxAmountPlayerScoreCounter();
-  }
-    saveMaxAmountPlayerScoreCounter();
-    savePlayerScore();
-    setTimeout(() => {
-    audioWin.play();
-    btnsDisabled();
-    playerWinGame();
-      // finishGame();
-    }, 1200);
-    // console.log("BLACKJACK - Player Wins - Player Create Card Section");
-  } else if (playerPoints > 21) {
-    audioLose.play();
-    btnsDisabled();
-    setTimeout(() => {
-      // finishGame();
-      swal.fire({
-        icon: "error",
-        title: "You lost",
-        showConfirmButton: false,
-        timerProgressBar: true,
-        timer: 2200,
-      });
-    }, 800);
-    // console.log("Dealer Wins - Player Create Card Section");
-  }
 };
 
 const activeDealerCards = (cardPosition) => {
   audioCard.play();
   const cardsDealer = dealerCardsContainer.children;
   cardsDealer[cardPosition].classList.add("active");
- 
+
   if (dealerPoints === 21) {
     flipCardBack();
     dealerWins();
@@ -307,6 +271,8 @@ const activeDealerCards = (cardPosition) => {
   }
 };
 
+
+
 const replaceBackDealerCard = () => {
   dealerCardsContainer.children[1].src = `assets/cards/red_back-alt.png`;
 };
@@ -316,7 +282,6 @@ const flipCardBack = () => {
   dealerCardsContainer.children[1].src = `assets/cards/${playedCards[3]}.png`;
   dealerCardsContainer.children[1].classList.add("flip-vertical-left");
   dealerCardsContainer.children[1].classList.add("active");
-
 };
 
 // Esta funcion permite que el dealer tome su turno
@@ -346,18 +311,14 @@ const dealerTurn = () => {
     } else {
       createDealerCard();
       setTimeout(() => {
-      activeDealerCards(2);
-      activeDealerCards(3);
-      activeDealerCards(4);
-      activeDealerCards(5);
+        activeDealerCards(2);
+        activeDealerCards(3);
+        activeDealerCards(4);
+        activeDealerCards(5);
       }, 200);
     }
   }, 800);
 };
-
-
-
-
 
 //todo <--- botones listener --->
 
@@ -365,21 +326,21 @@ const dealerTurn = () => {
 btnHit.addEventListener("click", () => {
   audioClick.play();
   btnDouble.classList.add("disabled");
-createPlayerCard();
-setTimeout(() => {
-  activePlayerCards(2);
-  activePlayerCards(3);
-  activePlayerCards(4);
-  activePlayerCards(5);
-}, 100);
+  createPlayerCard();
+  setTimeout(() => {
+    activePlayerCards(2);
+    activePlayerCards(3);
+    activePlayerCards(4);
+    activePlayerCards(5);
+  }, 100);
   if (playerPoints > 21) {
     setTimeout(() => {
-    dealerWins();
+      dealerWins();
     }, 600);
     // console.log("Dealer Wins - Hit Button Section");
   } else if (playerPoints === 21) {
     setTimeout(() => {
-    playerWins();
+      playerWins();
     }, 600);
     // console.log("Player Wins - Hit Button Section");
   } else {
@@ -400,7 +361,7 @@ btnStand.addEventListener("click", () => {
     // console.log("Dealer Wins - Stand Section");
   } else {
     setTimeout(() => {
-    dealerTurn();
+      dealerTurn();
     }, 200);
   }
 });
@@ -410,9 +371,9 @@ btnDouble.addEventListener("click", () => {
   betAmountCenter.classList.add("pulse");
   audioClick.play();
   setTimeout(() => {
-  doubleBet();
+    doubleBet();
   }, 400);
-  createPlayerCard()
+  createPlayerCard();
   setTimeout(() => {
     activePlayerCards(2);
     activePlayerCards(3);
@@ -426,11 +387,10 @@ btnDouble.addEventListener("click", () => {
     // console.log("Player Wins - Double Button Section");
   } else {
     setTimeout(() => {
-    flipCardBack();
+      flipCardBack();
       dealerScoreContainer.classList.add("active");
-    dealerTurn(); 
+      dealerTurn();
     }, 800);
-
   }
 });
 
@@ -451,9 +411,23 @@ const restartGame = () => {
     dealerCardsContainer.innerHTML = "";
     playerCardsContainer.classList.remove("game-over");
     dealerCardsContainer.classList.remove("game-over");
-    createCardsInitial(); 
+    createCardsInitial();
   }, 500);
 };
+
+const activePlayerCardsValidation = () => {
+  if (playerPoints === 21) {
+    playerWins();
+    // console.log("BLACKJACK - Player Wins - Player Create Card Section");
+  } else if (playerPoints > 21) {
+    dealerWins();
+    // console.log("Dealer Wins - Player Create Card Section");
+  } else {
+    return;
+  }
+};
+
+
 
 export {
   createDeck,
@@ -463,4 +437,5 @@ export {
   activePlayerCards,
   activeDealerCards,
   createCardsInitial,
+  activePlayerCardsValidation,
 };

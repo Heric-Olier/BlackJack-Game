@@ -11,6 +11,7 @@ import {
   activePlayerCards,
   activeDealerCards,
   createCardsInitial,
+  activePlayerCardsValidation,
 } from "./game.js";
 
 const body = document.querySelector("body");
@@ -154,6 +155,7 @@ btnStartGame.addEventListener("click", () => {
   audio.play();
   setTimeout(() => {
     activePlayerCards(0); // activamos la primera carta del jugador
+    activePlayerCardsValidation();
 
   }, 600);
   setTimeout(() => {
@@ -162,6 +164,7 @@ btnStartGame.addEventListener("click", () => {
   }, 1300);
   setTimeout(() => {
     activePlayerCards(1); // activamos la segunda carta del jugador
+    activePlayerCardsValidation();
     playerScoreContainer.classList.add("active");
 
   }, 2000);
