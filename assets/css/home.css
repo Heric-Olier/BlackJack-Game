@@ -140,11 +140,6 @@ main {
   transition: all 0.3s ease-in-out;
 }
 
-.menu-btn.hidden,
-.help-btn.hidden {
-  transform: scale(0);
-  opacity: 0;
-}
 
 .menu-btn:hover,
 .help-btn:hover {
@@ -161,18 +156,43 @@ main {
   right: 3px;
   top: 144px;
   z-index: 3;
+  transform: scale(1);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
 }
 
 .languaje-change-btn img {
+  position: absolute;
+  right: 3px;
   width: 32.5px;
-  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.342));
+  border: 2px solid var(--color-light);
+  border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+
+#btn-spanish.hidden {
+  transform: scale(0);
+  opacity: 0;
+}
+
+#btn-english.hidden {
+  transform: scale(0);
+  opacity: 0;
 }
 
 .languaje-change-btn img:hover {
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5)) brightness(0.6);
 }
+
+.menu-btn.hidden,
+.help-btn.hidden,
+.languaje-change-btn.hidden {
+  transform: scale(0);
+  opacity: 0;
+}
+
 
 .fa-times {
   font-size: 30px;
@@ -216,6 +236,27 @@ main {
 
 .chip img:nth-last-child(2) {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.678);
+}
+
+.bet-amount-center.pulse {
+  animation: pulse2 1.5s infinite;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.685));
+}
+
+@keyframes pulse2 {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.chip img:hover {
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.678)) brightness(0.9);
 }
 
 .chips-container {
@@ -487,7 +528,8 @@ main {
   background-color: #d6ebd6;
 }
 
-.modal-body p {
+.modal-body p,
+.modal-body span {
   font-size: 1rem;
   font-weight: 500;
 }

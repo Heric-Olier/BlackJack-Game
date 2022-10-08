@@ -1,3 +1,4 @@
+
 const gamesPlayed = document.getElementById("games-played");
 const gamesWon = document.getElementById("games-won");
 const gamesLost = document.getElementById("games-lost");
@@ -49,6 +50,7 @@ const restoreStatistics = () => {
   if (localStorage.getItem("gamesRestarts")) {
     gamesRestarts.innerHTML = localStorage.getItem("gamesRestarts");
   }
+ 
   // removemos el localstorage si el valor es NaN
   if (isNaN(gamesPlayed.innerHTML)) { localStorage.removeItem("gamesPlayed"); }
   if (isNaN(gamesWon.innerHTML)) { localStorage.removeItem("gamesWon"); }
@@ -58,6 +60,7 @@ const restoreStatistics = () => {
   
 };
 
+
 restoreStatistics();
 
-export { statisticsCounter, saveStatistics };
+export { statisticsCounter, saveStatistics, restoreStatistics };

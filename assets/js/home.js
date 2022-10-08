@@ -36,6 +36,7 @@ const dealerScoreContainer = document.querySelector(".dealer__score");
 const scorePlayerContainer = document.querySelector(".player__score-counter");
 const playerCardsContainer = document.querySelector(".player__cards");
 const dealerCardsContainer = document.querySelector(".dealer__cards");
+const languageChangeBtn = document.querySelector(".languaje-change-btn");
 
 
 window.addEventListener("load", () => {
@@ -174,6 +175,7 @@ btnStartGame.addEventListener("click", () => {
     gameBoardbtns.classList.add("visible");
   }, 2800);
   menuBtn.classList.add("hidden");
+  languageChangeBtn.classList.add("hidden");
   helpBtn.classList.add("hidden");
   scorePlayerContainer.classList.add("hidden");
   btnsActionHome.classList.remove("visible");
@@ -273,6 +275,7 @@ const finishGame = () => {
     gameBoardbtns.classList.remove("visible");
     menuBtn.classList.remove("hidden");
     helpBtn.classList.remove("hidden");
+    languageChangeBtn.classList.remove("hidden");
     scorePlayerContainer.classList.remove("hidden");
     chipsContainer.classList.remove("hidden");
     betAmountContainer.classList.remove("start-game");
