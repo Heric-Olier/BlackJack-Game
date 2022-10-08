@@ -45,12 +45,17 @@ const saveMaxAmountPlayerScoreCounter = () => {
 };
 
 const restoreMaxAmountPlayerScoreCounter = () => {
+  const btnResetHighScore = document.getElementById("reset-score");
   if (localStorage.getItem("maxAmountPlayerScoreCounter")) {
     maxAmountPlayerScoreCounter = localStorage.getItem(
       "maxAmountPlayerScoreCounter"
     );
     highScore.innerHTML = maxAmountPlayerScoreCounter;
   }
+  btnResetHighScore.addEventListener("click", () => {
+    localStorage.removeItem("maxAmountPlayerScoreCounter");
+    maxAmountPlayerScoreCounter = 0;
+  });
 };
 
 restoreMaxAmountPlayerScoreCounter();

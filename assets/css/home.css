@@ -8,7 +8,7 @@ body {
   background-size: cover;
   background-position: center;
   position: relative;
-  /* user-select: none; */
+  user-select: none;
 }
 
 body.game-start {
@@ -532,6 +532,26 @@ main {
 .modal-body span {
   font-size: 1rem;
   font-weight: 500;
+}
+
+#reset-score {
+  border: none;
+  background-color: #d6ebd6;
+  color: var(--color-dark);
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 0.24rem 0.6rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+#reset-score:hover {
+  background-color: #06462c;
+  color: var(--color-light);
+}
+
+#reset-score:focus {
+  outline: none;
 }
 
 .footer__content-copyright p {
