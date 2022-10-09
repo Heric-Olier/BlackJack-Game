@@ -9,7 +9,6 @@ import {
   gameEndConditionIntialCards,
 } from "./game.js";
 
-const body = document.querySelector("body");
 const betAmountContainer = document.querySelector(".bet-amount-container");
 const betAmount = document.getElementById("bet-amount-home");
 const betBalance = document.getElementById("bet-balance");
@@ -34,7 +33,6 @@ const playerCardsContainer = document.querySelector(".player__cards");
 const dealerCardsContainer = document.querySelector(".dealer__cards");
 const languageChangeBtn = document.querySelector(".languaje-change-btn");
 
-
 const fixDecimal = (number) => {
   return parseFloat(number.toFixed(2));
 };
@@ -54,12 +52,12 @@ const restoreBalance = () => {
 };
 restoreBalance();
 
-const audio = new Audio("assets/audio/Switch_Click.mp3");
+const audioClick = new Audio("assets/audio/Switch_Click.mp3");
 const audioChip = new Audio("assets/audio/Poker_Chip_Single.mp3");
 const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 
 const audioCliclBtns = () => {
-  audio.play();
+  audioClick.play();
 };
 
 const btnsclick = document.querySelectorAll(".btn-action-menu");
@@ -126,7 +124,7 @@ chip.forEach((chip) => {
 
 // funcion para limpiar la apuesta
 btnClearBet.addEventListener("click", () => {
-  audio.play();
+  audioClick.play();
   betChipContainer.innerHTML = restaureBetAmountContainer;
   setTimeout(() => {
     betAmount.innerHTML = restaureBetAmount;
@@ -144,23 +142,20 @@ btnClearBet.addEventListener("click", () => {
 btnStartGame.addEventListener("click", () => {
   statisticsCounter("played"); // contador de partidas jugadas
   saveStatistics();
-  audio.play();
+  audioClick.play();
   gameEndConditionIntialCards();
   setTimeout(() => {
     activeCards(0, playerCardsContainer);
   }, 600);
   setTimeout(() => {
     activeCards(0, dealerCardsContainer);
-
   }, 1300);
   setTimeout(() => {
     activeCards(1, playerCardsContainer);
     playerScoreContainer.classList.add("active");
-
   }, 2000);
   setTimeout(() => {
     activeCards(1, dealerCardsContainer);
-
   }, 2600);
   setTimeout(() => {
     gameBoardbtns.classList.add("visible");
@@ -185,7 +180,7 @@ btnStartGame.addEventListener("click", () => {
 
 // funcion para reiniciar el juego
 btnRestartGame.addEventListener("click", () => {
-  audio.play();
+  audioClick.play();
   statisticsCounter("restart");
   saveStatistics();
   // menuBtn.classList.remove("hidden");
@@ -215,7 +210,7 @@ btnRestartGame.addEventListener("click", () => {
 
 // funcion para doblar la apuesta
 const doubleBet = () => {
-  audio.play();
+  audioClick.play();
   audioChip.play();
   let betAmountDouble = betAmount.innerHTML * 2;
   betAmount.innerHTML = betAmountDouble;
@@ -241,7 +236,7 @@ const playerWinGame = () => {
   setTimeout(() => {
     swal.fire({
       icon: "success",
-      title: "You win + $" + win,
+      title: "♠️ You win + $" + win + " ♠️",
       showConfirmButton: false,
       timerProgressBar: true,
       timer: 2000,
@@ -264,8 +259,7 @@ const validatePlayerMoney = () => {
     alertMessage.fire({
       timer: 3000,
       icon: "error",
-      title:
-        "Insufficient funds to play, please restart the game in the menu.",
+      title: "Insufficient funds to play, please restart the game in the menu.",
     });
   }
 };

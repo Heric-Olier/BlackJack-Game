@@ -3,10 +3,7 @@ import * as underscore from "./underscore-min.js";
 import { alertMessage, alertLose } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
 import { btnsEnabled, btnsDisabled } from "./game-buttons-actions.js";
-import {
-  savePlayerScore,
-  saveMaxAmountPlayerScoreCounter,
-} from "./local-storage-items.js";
+import { saveMaxAmountPlayerScoreCounter } from "./local-storage-items.js";
 import {
   drawEqualGame,
   finishGame,
@@ -83,7 +80,6 @@ const createCardsInitial = () => {
     createCard("dealer");
   }
   dealerCardsContainer.children[1].src = "./assets/cards/red_back-alt.png";
-  console.log({ "cartas jugadas": playedCards });
 };
 
 // Esta función me permite tomar una carta
@@ -181,6 +177,7 @@ const activeCards = (cardPosition, container) => {
 const gameEndConditionIntialCards = () => {
   if (playerPoints === 21) {
     setTimeout(() => {
+      alertLose("♠️ Blackjack ♠️");
       finishGameCase("player");
     }, 2600);
     // console.log("Player Wins - Game End Condition Section");
@@ -213,7 +210,6 @@ const flipCardBack = () => {
 const dealerTurn = () => {
   if (dealerPoints === 21) {
     finishGameCase("dealer");
-    console.log("Dealer Wins - Dealer Turn Section");
   }
   // creamos una funcion que se ejecute cada 1 segundo hasta que el dealer tenga 17 puntos o mas
   const interval = setInterval(() => {
