@@ -2,12 +2,12 @@ import "./home.js";
 import * as underscore from "./underscore-min.js";
 import { alertMessage, alertLose } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
+import { btnsEnabled, btnsDisabled } from "./game-buttons-actions.js";
 import {
   savePlayerScore,
   saveMaxAmountPlayerScoreCounter,
 } from "./local-storage-items.js";
 import {
-  doubleBet,
   drawEqualGame,
   finishGame,
   playerWinGame,
@@ -16,23 +16,15 @@ import {
   validatePlayerMoney,
 } from "./home.js";
 
-const btnHit = document.getElementById("btn-hit");
-const btnStand = document.getElementById("btn-stand");
-const btnDouble = document.getElementById("btn-double");
-const btnDeal = document.getElementById("btn-start-game");
-const playerScoreContainer = document.querySelector(".player__score");
 const dealerScoreContainer = document.querySelector(".dealer__score");
 const playerScore = document.getElementById("player-score");
 const dealerScore = document.getElementById("dealer-score");
 const playerCardsContainer = document.querySelector(".player__cards");
 const dealerCardsContainer = document.querySelector(".dealer__cards");
-const scorePlayerCounter = document.getElementById("score-player");
-const highScore = document.getElementById("high-score");
 const betAmountCenter = document.querySelector(".bet-amount-center");
 
 // Audios del juego
 const audioCard = new Audio("assets/audio/Card_Deal.mp3");
-const audioClick = new Audio("assets/audio/Switch_Click.mp3");
 const audioWin = new Audio("assets/audio/Win_Sound.mp3");
 const audioLose = new Audio("assets/audio/Lose_Sound.mp3");
 
@@ -75,7 +67,7 @@ const createDeck = () => {
   }
 
   deck = _.shuffle(deck); // Barajamos el deck
-  console.log(deck);
+  // console.log(deck);
   return deck; // Retornamos el deck
 };
 
@@ -115,8 +107,10 @@ const valueCard = (card) => {
 
 // Esta funcion me permite terminar y reiniciar el juego cuando el player gana o pierde o empata
 // evaluando los diferentes casos se pueden ejecutar diferentes funciones
-const finishGameCase = ( winner = "player" ) => {
-  switch (winner) { // switch para evaluar el ganador y ejecutar la funcion correspondiente
+const finishGameCase = (winner = "player") => {
+  switch (
+    winner // switch para evaluar el ganador y ejecutar la funcion correspondiente
+  ) {
     case "player": // si el ganador es el player
       playerWinGame();
       saveMaxAmountPlayerScoreCounter();
@@ -145,12 +139,12 @@ const finishGameCase = ( winner = "player" ) => {
         alertLose("Draw");
       }, 800);
       break;
-  } 
+  }
   dealerScoreContainer.classList.add("active"); // mostramos el puntaje del dealer
-  btnsDisabled(); 
+  btnsDisabled();
   saveStatistics();
   setTimeout(() => {
-  flipCardBack();
+    flipCardBack();
   }, 300);
 };
 
@@ -187,7 +181,7 @@ const activeCards = (cardPosition, container) => {
 const gameEndConditionIntialCards = () => {
   if (playerPoints === 21) {
     setTimeout(() => {
-     finishGameCase("player");
+      finishGameCase("player");
     }, 2600);
     // console.log("Player Wins - Game End Condition Section");
   } else if (playerPoints > 21) {
@@ -207,7 +201,7 @@ const gameEndConditionIntialCards = () => {
   }
 };
 
-// Esta funcion me permite reemplazar la carta del dealer por la carta oculta que se muestra al iniciar el juego
+// Esta funcion me permite reemplazar la carta del dealer por la carta oculta al iniciar el juego
 const flipCardBack = () => {
   audioCard.play();
   dealerCardsContainer.children[1].src = `assets/cards/${playedCards[3]}.png`;
@@ -228,16 +222,12 @@ const dealerTurn = () => {
       flipCardBack();
       if (dealerPoints > 21) {
         finishGameCase("player");
-        // console.log("Player Wins - Dealer Turn Section");
       } else if (playerPoints < dealerPoints) {
         finishGameCase("dealer");
-        // console.log("Dealer Wins - Dealer Turn Section");
       } else if (dealerPoints < playerPoints) {
         finishGameCase("player");
-        // console.log("Player Wins - Dealer Turn Section");
       } else {
         finishGameCase("draw");
-        // console.log("Draw - Dealer Turn Section");
       }
     } else {
       createCard("dealer");
@@ -250,97 +240,8 @@ const dealerTurn = () => {
   }, 800);
 };
 
-//todo <--- botones listener --->
-
-// deshabilitar botones
-const btnsDisabled = () => {
-  btnHit.classList.add("disabled");
-  btnStand.classList.add("disabled");
-  btnDouble.classList.add("disabled");
-};
-
-// habilitar botones
-const btnsEnabled = () => {
-  btnHit.classList.remove("disabled");
-  btnStand.classList.remove("disabled");
-  btnDouble.classList.remove("disabled");
-};
-
-// Esta función me permite al player tomar una carta
-btnHit.addEventListener("click", () => {
-  audioClick.play();
-  btnDouble.classList.add("disabled");
-  createCard("player");
-  setTimeout(() => {
-    for (let i = 0; i < playerCardsContainer.children.length; i++) {
-      activeCards(i, playerCardsContainer);
-    }
-  }, 100);
-  if (playerPoints > 21) {
-    setTimeout(() => {
-      finishGameCase("dealer");
-    }, 600);
-    // console.log("Dealer Wins - Hit Button Section");
-  } else if (playerPoints === 21) {
-    setTimeout(() => {
-      finishGameCase("player");
-    }, 600);
-    // console.log("Player Wins - Hit Button Section");
-  } else {
-    return;
-  }
-});
-
-// Esta función me permite al player plantarse
-btnStand.addEventListener("click", () => {
-  flipCardBack();
-  setTimeout(() => {
-    dealerScoreContainer.classList.add("active");
-  }, 200);
-  audioClick.play();
-
-  if (playerPoints < dealerPoints) {
-    setTimeout(() => {
-      finishGameCase("dealer");
-    }, 200);
-    // console.log("Dealer Wins - Stand Section");
-  } else {
-    setTimeout(() => {
-      dealerTurn();
-    }, 200);
-  }
-});
-
-// Esta funcion permite doblar la apuesta
-btnDouble.addEventListener("click", () => {
-  betAmountCenter.classList.add("pulse");
-  audioClick.play();
-  setTimeout(() => {
-    doubleBet();
-  }, 400);
-  createCard("player");
-  setTimeout(() => {
-    for (let i = 0; i < playerCardsContainer.children.length; i++) {
-      activeCards(i, playerCardsContainer);
-    }
-  }, 800);
-
-  if (playerPoints > 21) {
-   finishGameCase("dealer");
-    // console.log("Dealer Wins - Double Button Section");
-  } else if (playerPoints === 21) {
-    finishGameCase("player");
-    // console.log("Player Wins - Double Button Section");
-  } else {
-    setTimeout(() => {
-      flipCardBack();
-      dealerScoreContainer.classList.add("active");
-      dealerTurn();
-    }, 800);
-  }
-});
-
-// Esta funcion permite reiniciar el juego
+// Esta funcion permite reiniciar el juego y volver a empezar con las cartas iniciales
+//y los puntajes en 0 y los botones habilitados de nuevo
 const restartGame = () => {
   playedCards = [];
   playerPoints = 0;
@@ -362,4 +263,15 @@ const restartGame = () => {
   }, 500);
 };
 
-export { createDeck, restartGame, activeCards, gameEndConditionIntialCards };
+export {
+  createDeck,
+  restartGame,
+  activeCards,
+  gameEndConditionIntialCards,
+  playerPoints,
+  dealerPoints,
+  flipCardBack,
+  finishGameCase,
+  dealerTurn,
+  createCard,
+};
