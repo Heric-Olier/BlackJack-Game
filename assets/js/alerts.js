@@ -10,4 +10,13 @@
       }
     })
 
-    export { alertMessage }
+    function alertLose(message) {
+      Swal.fire({
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+
+    export { alertMessage, alertLose }

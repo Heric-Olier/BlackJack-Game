@@ -1,6 +1,6 @@
 import "./home.js";
 import * as underscore from "./underscore-min.js";
-import { alertMessage } from "./alerts.js";
+import { alertMessage, alertLose } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
 import {
   savePlayerScore,
@@ -13,6 +13,7 @@ import {
   playerWinGame,
   moneyTotalWon,
   moneyTotalLost,
+  validatePlayerMoney,
 } from "./home.js";
 
 const btnHit = document.getElementById("btn-hit");
@@ -34,6 +35,11 @@ const audioCard = new Audio("assets/audio/Card_Deal.mp3");
 const audioClick = new Audio("assets/audio/Switch_Click.mp3");
 const audioWin = new Audio("assets/audio/Win_Sound.mp3");
 const audioLose = new Audio("assets/audio/Lose_Sound.mp3");
+
+// llamamos la funcion para crear las cartas iniciales al recargar la pagina
+window.addEventListener("load", () => {
+  createCardsInitial();
+});
 
 // Creamos un deck vacío
 let deck = [];
@@ -69,23 +75,24 @@ const createDeck = () => {
   }
 
   deck = _.shuffle(deck); // Barajamos el deck
-  // console.log(deck);
+  console.log(deck);
   return deck; // Retornamos el deck
 };
 
-// funcion para crear 2 cartas del jugador y 2 del dealer al recargar la pagina o al momento en que el juego se reinicia
+// Creamos la funcion para crear 2 cartas del jugador y 2 del dealer al recargar la pagina o al momento en que el juego se reinicia
+// la idea es que las primeras 4 cartas se creen en el momento en que se recarga la pagina o se reinicia el juego
+// las cartas siempre estan ocultas, solo se muestran cuando se inicia el juego, esto lo hacemos con la funcion activeCards
+// en principio no lo habia implementado asi, pero me di cuenta que las cartas se demoraban en renderizar y se perdian un poco las animaciones
+// por eso lo implemente de esta manera
 const createCardsInitial = () => {
   createDeck();
-  createPlayerCard();
-  createDealerCard();
-  createPlayerCard();
-  createDealerCard();
-  replaceBackDealerCard();
+  for (let i = 0; i < 2; i++) {
+    createCard("player");
+    createCard("dealer");
+  }
+  dealerCardsContainer.children[1].src = "./assets/cards/red_back-alt.png";
+  console.log({ "cartas jugadas": playedCards });
 };
-
-window.addEventListener("load", () => {
-  createCardsInitial();
-});
 
 // Esta función me permite tomar una carta
 const takeCard = () => {
@@ -100,129 +107,107 @@ const takeCard = () => {
   return card;
 };
 
-// Esta función me permite valorar una carta
+// Esta función me permite obtener el valor de la carta
 const valueCard = (card) => {
   const value = card.substring(0, card.length - 1); // Obtenemos el valor de la carta
   return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // Si el valor no es un número, entonces es una letra y le asignamos un valor, si es un número lo convertimos a un número
 };
 
-
-
-
-// Esta funcion termina el juego player gana
-const playerWins = () => {
-  dealerScoreContainer.classList.add("active");
-  saveMaxAmountPlayerScoreCounter();
-  moneyTotalWon();
-  statisticsCounter("win");
+// Esta funcion me permite terminar y reiniciar el juego cuando el player gana o pierde o empata
+// evaluando los diferentes casos se pueden ejecutar diferentes funciones
+const finishGameCase = ( winner = "player" ) => {
+  switch (winner) { // switch para evaluar el ganador y ejecutar la funcion correspondiente
+    case "player": // si el ganador es el player
+      playerWinGame();
+      saveMaxAmountPlayerScoreCounter();
+      moneyTotalWon();
+      statisticsCounter("win");
+      audioWin.play();
+      setTimeout(() => {
+        finishGame();
+      }, 800);
+      break;
+    case "dealer": // si el ganador es el dealer
+      audioLose.play();
+      moneyTotalLost();
+      statisticsCounter("lost");
+      setTimeout(() => {
+        finishGame();
+        alertLose("You Lost");
+      }, 800);
+      break;
+    case "draw":
+      audioLose.play();
+      drawEqualGame();
+      statisticsCounter("draw");
+      setTimeout(() => {
+        finishGame();
+        alertLose("Draw");
+      }, 800);
+      break;
+  } 
+  dealerScoreContainer.classList.add("active"); // mostramos el puntaje del dealer
+  btnsDisabled(); 
   saveStatistics();
-  audioWin.play();
-  btnsDisabled();
-  playerWinGame();
-  flipCardBack();
   setTimeout(() => {
-    finishGame();
-  }, 800);
+  flipCardBack();
+  }, 300);
 };
 
-// Esta funcion termina el juego dealer gana
-const dealerWins = () => {
-  dealerScoreContainer.classList.add("active");
-  audioLose.play();
-  btnsDisabled();
-  moneyTotalLost();
-  statisticsCounter("lost");
-  saveStatistics();
-  flipCardBack();
-  setTimeout(() => {
-    finishGame();
-    swal.fire({
-      icon: "error",
-      title: "You lost",
-      showConfirmButton: false,
-      timerProgressBar: true,
-      timer: 2200,
-    });
-  }, 800);
-};
-
-// Esta función termina el juego si ambos jugadores empatan
-const drawGame = () => {
-  dealerScoreContainer.classList.add("active");
-  audioLose.play();
-  btnsDisabled();
-  statisticsCounter("draw");
-  saveStatistics();
-  flipCardBack();
-  setTimeout(() => {
-    drawEqualGame();
-    finishGame();
-    swal.fire({
-      icon: "info",
-      title: "Draw",
-      showConfirmButton: false,
-      timerProgressBar: true,
-      timer: 2200,
-    });
-  }, 800);
-};
-
-// Esta función me permite crear una carta para el jugador
-const createPlayerCard = () => {
+// Esta función me permite crear una carta tanto para el jugador como para el dealer dependiendo del parámetro que le pase
+// Si el parámetro es player, entonces sumamos los puntos al jugador, si no, los sumamos al dealer
+const createCard = (whoPlay) => {
   const card = takeCard();
   const cardValue = valueCard(card);
-  playerPoints += cardValue;
-  playerScore.innerText = playerPoints;
+  whoPlay === "player"
+    ? (playerPoints += cardValue)
+    : (dealerPoints += cardValue);
+  whoPlay === "player"
+    ? (playerScore.innerText = playerPoints)
+    : (dealerScore.innerText = dealerPoints);
   const cardImg = document.createElement("img");
   cardImg.src = `assets/cards/${card}.png`;
-  playerCardsContainer.append(cardImg);
+  whoPlay === "player"
+    ? playerCardsContainer.append(cardImg)
+    : dealerCardsContainer.append(cardImg);
   setTimeout(() => {
     cardImg.classList.add("hidden");
   }, 50);
 };
 
-// Esta función me permite crear una carta para el dealer
-const createDealerCard = () => {
-  const card = takeCard();
-  const cardValue = valueCard(card);
-  dealerPoints += cardValue;
-  dealerScore.innerText = dealerPoints;
-  const cardImg = document.createElement("img");
-  cardImg.src = `assets/cards/${card}.png`;
-  dealerCardsContainer.append(cardImg);
-  setTimeout(() => {
-    cardImg.classList.add("hidden");
-    // replaceCardBack(`assets/cards/red_back-alt.png`);
-  }, 50);
+// Esta función me permite Activar las cartas del jugador y del dealer de acuerdo al parametro que le pase
+const activeCards = (cardPosition, container) => {
+  audioCard.play();
+  const cards = container.children;
+  cards[cardPosition].classList.add("active");
 };
 
-const activePlayerCards = (cardPosition) => {
-  audioCard.play();
-  const cardsPlayer = playerCardsContainer.children;
-  cardsPlayer[cardPosition].classList.add("active");
-};
-
-const activeDealerCards = (cardPosition) => {
-  audioCard.play();
-  const cardsDealer = dealerCardsContainer.children;
-  cardsDealer[cardPosition].classList.add("active");
-
-  if (dealerPoints === 21) {
-    flipCardBack();
-    dealerWins();
-    // console.log("Dealer Wins - Dealer Create Card Section");
-    // } else if (dealerPoints > 21) {
-    //   playerWins();
-    //   console.log("Player Wins - Dealer Create Card Section");
+// Esta función me permite controlar cuando el jugador gana o pierde solo con las 4 cartas iniciales
+// que se acivan automaticamente al iniciar el juego
+const gameEndConditionIntialCards = () => {
+  if (playerPoints === 21) {
+    setTimeout(() => {
+     finishGameCase("player");
+    }, 2600);
+    // console.log("Player Wins - Game End Condition Section");
+  } else if (playerPoints > 21) {
+    setTimeout(() => {
+      finishGameCase("dealer");
+    }, 1200);
+    // console.log("Dealer Wins - Game End Condition Section");
+  } else if (dealerPoints === 21) {
+    setTimeout(() => {
+      flipCardBack();
+    }, 2200);
+    setTimeout(() => {
+      finishGameCase("dealer");
+    }, 2800);
   } else {
     return;
   }
 };
 
-const replaceBackDealerCard = () => {
-  dealerCardsContainer.children[1].src = `assets/cards/red_back-alt.png`;
-};
-
+// Esta funcion me permite reemplazar la carta del dealer por la carta oculta que se muestra al iniciar el juego
 const flipCardBack = () => {
   audioCard.play();
   dealerCardsContainer.children[1].src = `assets/cards/${playedCards[3]}.png`;
@@ -233,7 +218,7 @@ const flipCardBack = () => {
 // Esta funcion permite que el dealer tome su turno
 const dealerTurn = () => {
   if (dealerPoints === 21) {
-    dealerWins();
+    finishGameCase("dealer");
     console.log("Dealer Wins - Dealer Turn Section");
   }
   // creamos una funcion que se ejecute cada 1 segundo hasta que el dealer tenga 17 puntos o mas
@@ -242,25 +227,24 @@ const dealerTurn = () => {
       clearInterval(interval);
       flipCardBack();
       if (dealerPoints > 21) {
-        playerWins();
+        finishGameCase("player");
         // console.log("Player Wins - Dealer Turn Section");
       } else if (playerPoints < dealerPoints) {
-        dealerWins();
+        finishGameCase("dealer");
         // console.log("Dealer Wins - Dealer Turn Section");
       } else if (dealerPoints < playerPoints) {
-        playerWins();
+        finishGameCase("player");
         // console.log("Player Wins - Dealer Turn Section");
       } else {
-        drawGame();
+        finishGameCase("draw");
         // console.log("Draw - Dealer Turn Section");
       }
     } else {
-      createDealerCard();
+      createCard("dealer");
       setTimeout(() => {
-        activeDealerCards(2);
-        activeDealerCards(3);
-        activeDealerCards(4);
-        activeDealerCards(5);
+        for (let i = 0; i < dealerCardsContainer.children.length; i++) {
+          activeCards(i, dealerCardsContainer);
+        }
       }, 200);
     }
   }, 800);
@@ -282,26 +266,24 @@ const btnsEnabled = () => {
   btnDouble.classList.remove("disabled");
 };
 
-
 // Esta función me permite al player tomar una carta
 btnHit.addEventListener("click", () => {
   audioClick.play();
   btnDouble.classList.add("disabled");
-  createPlayerCard();
+  createCard("player");
   setTimeout(() => {
-    activePlayerCards(2);
-    activePlayerCards(3);
-    activePlayerCards(4);
-    activePlayerCards(5);
+    for (let i = 0; i < playerCardsContainer.children.length; i++) {
+      activeCards(i, playerCardsContainer);
+    }
   }, 100);
   if (playerPoints > 21) {
     setTimeout(() => {
-      dealerWins();
+      finishGameCase("dealer");
     }, 600);
     // console.log("Dealer Wins - Hit Button Section");
   } else if (playerPoints === 21) {
     setTimeout(() => {
-      playerWins();
+      finishGameCase("player");
     }, 600);
     // console.log("Player Wins - Hit Button Section");
   } else {
@@ -318,7 +300,9 @@ btnStand.addEventListener("click", () => {
   audioClick.play();
 
   if (playerPoints < dealerPoints) {
-    dealerWins();
+    setTimeout(() => {
+      finishGameCase("dealer");
+    }, 200);
     // console.log("Dealer Wins - Stand Section");
   } else {
     setTimeout(() => {
@@ -334,17 +318,18 @@ btnDouble.addEventListener("click", () => {
   setTimeout(() => {
     doubleBet();
   }, 400);
-  createPlayerCard();
+  createCard("player");
   setTimeout(() => {
-    activePlayerCards(2);
-    activePlayerCards(3);
+    for (let i = 0; i < playerCardsContainer.children.length; i++) {
+      activeCards(i, playerCardsContainer);
+    }
   }, 800);
 
   if (playerPoints > 21) {
-    dealerWins();
+   finishGameCase("dealer");
     // console.log("Dealer Wins - Double Button Section");
   } else if (playerPoints === 21) {
-    playerWins();
+    finishGameCase("player");
     // console.log("Player Wins - Double Button Section");
   } else {
     setTimeout(() => {
@@ -367,6 +352,7 @@ const restartGame = () => {
   betAmountCenter.classList.remove("pulse");
   console.clear();
   setTimeout(() => {
+    validatePlayerMoney();
     btnsEnabled();
     playerCardsContainer.innerHTML = "";
     dealerCardsContainer.innerHTML = "";
@@ -376,24 +362,4 @@ const restartGame = () => {
   }, 500);
 };
 
-const activePlayerCardsValidation = () => {
-  if (playerPoints === 21) {
-    playerWins();
-    // console.log("BLACKJACK - Player Wins - Player Create Card Section");
-  } else if (playerPoints > 21) {
-    dealerWins();
-    // console.log("Dealer Wins - Player Create Card Section");
-  } else {
-    return;
-  }
-};
-
-export {
-  createDeck,
-  createPlayerCard,
-  createDealerCard,
-  restartGame,
-  activePlayerCards,
-  activeDealerCards,
-  activePlayerCardsValidation,
-};
+export { createDeck, restartGame, activeCards, gameEndConditionIntialCards };

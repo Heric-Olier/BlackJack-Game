@@ -4,13 +4,9 @@ import { alertMessage } from "./alerts.js";
 import { statisticsCounter, saveStatistics } from "./game-statistics.js";
 import { restartPlayerScore } from "./local-storage-items.js";
 import {
-  createDeck,
-  createPlayerCard,
-  createDealerCard,
   restartGame,
-  activePlayerCards,
-  activeDealerCards,
-  activePlayerCardsValidation,
+  activeCards,
+  gameEndConditionIntialCards,
 } from "./game.js";
 
 const body = document.querySelector("body");
@@ -142,28 +138,28 @@ btnClearBet.addEventListener("click", () => {
   });
 });
 
-// funcion para iniciar el juego
+// funcion para iniciar el juego, ocultar el menu y mostrar el tablero de juego
+// en esta funcion se llama a la funcion para ir activando las cartas con la funcion activeCards
+// las cartas se van activando intervalo de milisegundos para que se aprecie el efecto de que se van repartiendo
 btnStartGame.addEventListener("click", () => {
-  statisticsCounter("played");
+  statisticsCounter("played"); // contador de partidas jugadas
   saveStatistics();
   audio.play();
+  gameEndConditionIntialCards();
   setTimeout(() => {
-    activePlayerCards(0); // activamos la primera carta del jugador
-    activePlayerCardsValidation();
-
+    activeCards(0, playerCardsContainer);
   }, 600);
   setTimeout(() => {
-    activeDealerCards(0); // activamos la primera carta del dealer
+    activeCards(0, dealerCardsContainer);
 
   }, 1300);
   setTimeout(() => {
-    activePlayerCards(1); // activamos la segunda carta del jugador
-    activePlayerCardsValidation();
+    activeCards(1, playerCardsContainer);
     playerScoreContainer.classList.add("active");
 
   }, 2000);
   setTimeout(() => {
-    activeDealerCards(1); // activamos la segunda carta del dealer
+    activeCards(1, dealerCardsContainer);
 
   }, 2600);
   setTimeout(() => {
@@ -239,7 +235,7 @@ const doubleBet = () => {
 
 const playerWinGame = () => {
   //le sumamos el 50% de la apuesta al balance cuando gana
-  let win = betAmount.innerHTML * 2 + betAmount.innerHTML * 0.5;
+  let win = betAmount.innerHTML * 2;
   betBalance.innerHTML = betBalance.innerHTML * 1 + win * 1;
   console.log({ win });
   setTimeout(() => {
@@ -248,7 +244,7 @@ const playerWinGame = () => {
       title: "You win + $" + win,
       showConfirmButton: false,
       timerProgressBar: true,
-      timer: 2200,
+      timer: 2000,
     });
   }, 600);
 
@@ -258,6 +254,20 @@ const playerWinGame = () => {
 const drawEqualGame = () => {
   betBalance.innerHTML = betBalance.innerHTML * 1 + betAmount.innerHTML * 1;
   saveBalance();
+};
+
+const validatePlayerMoney = () => {
+  if (betAmount.innerHTML > betBalance.innerHTML * 1) {
+    betAmount.innerHTML = betBalance.innerHTML * 1;
+  } else if (betBalance.innerHTML === 0 || betBalance.innerHTML < 0) {
+    btnStartGame.classList.add("disabled");
+    alertMessage.fire({
+      timer: 3000,
+      icon: "error",
+      title:
+        "Insufficient funds to play, please restart the game in the menu.",
+    });
+  }
 };
 
 const finishGame = () => {
@@ -280,18 +290,7 @@ const finishGame = () => {
       chip.style.pointerEvents = "auto";
       chip.style.userSelect = "auto";
     });
-
-    if (betAmount.innerHTML > betBalance.innerHTML * 1) {
-      betAmount.innerHTML = betBalance.innerHTML * 1;
-    } else if (betBalance.innerHTML == 0 || betBalance.innerHTML < 0) {
-      btnStartGame.classList.add("disabled");
-      alertMessage.fire({
-        timer: 3500,
-        icon: "error",
-        title:
-          "Insufficient funds to play, please restart the game in the menu.",
-      });
-    }
+    validatePlayerMoney();
     restartGame();
   }, 2700);
 };
@@ -308,4 +307,5 @@ export {
   statisticsCounter,
   moneyTotalWon,
   moneyTotalLost,
+  validatePlayerMoney,
 };

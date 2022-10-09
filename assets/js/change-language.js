@@ -56,6 +56,7 @@ const restoreLanguage = () => {
         "El boton 'Doblar' es doblar tu apuesta, y recibir una y solo una carta más.";
       modalHelpBody[5].innerHTML =
         "Si te pasas de 21 pierdes, y el crupier gana sin importar la mano del crupier.";
+      modalHelpBody[6].innerHTML = "Si te quedas sin fichas siempre puedes reiniciar el juego con el boton 'Reiniciar Juego' en la sección de ajustes.";
         
         
 
@@ -95,6 +96,7 @@ const restoreLanguage = () => {
         "To 'Double Down' is to double your bet, and receive one and only one more card.";
       modalHelpBody[5].innerHTML =
         "If you go over 21 you bust, and the dealer wins regardless of the dealer's hand.";
+      modalHelpBody[6].innerHTML = "If you run out of chips you can always restart the game with the 'Restart Game' button in the settings section.";
     }
   }
 };
@@ -136,6 +138,7 @@ const changeLanguage = (language) => {
       "El boton 'Doblar' es doblar tu apuesta, y recibir una y solo una carta más.";
     modalHelpBody[5].innerHTML =
       "Si te pasas de 21 pierdes, y el crupier gana sin importar la mano del crupier.";
+    modalHelpBody[6].innerHTML = "Si te quedas sin fichas siempre puedes reiniciar el juego con el boton 'Reiniciar Juego' en la sección de ajustes.";
 
     saveLanguage(language);
   } else if (language === "english") {
@@ -174,6 +177,7 @@ const changeLanguage = (language) => {
       "To 'Double Down' is to double your bet, and receive one and only one more card.";
     modalHelpBody[5].innerHTML =
       "If you go over 21 you bust, and the dealer wins regardless of the dealer's hand.";
+    modalHelpBody[6].innerHTML = "If you run out of chips you can always restart the game with the 'Restart Game' button in the settings section.";
 
     saveLanguage(language);
   }
