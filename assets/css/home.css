@@ -140,7 +140,6 @@ main {
   z-index: 3;
 }
 
-
 .menu-btn:hover,
 .help-btn:hover {
   filter: brightness(0.6);
@@ -162,14 +161,14 @@ main {
 }
 
 .languaje-change-btn img {
+  border-radius: 50%;
+  border: 2px solid var(--color-light);
+  cursor: pointer;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.342));
   position: absolute;
   right: 3px;
-  width: 32.5px;
-  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.342));
-  border: 2px solid var(--color-light);
-  border-radius: 50%;
-  cursor: pointer;
   transition: all 0.3s ease-in-out;
+  width: 32.5px;
 }
 
 #btn-spanish.hidden {
@@ -192,7 +191,6 @@ main {
   transform: scale(0);
   opacity: 0;
 }
-
 
 .fa-times {
   font-size: 30px;
@@ -260,12 +258,12 @@ main {
 }
 
 .chips-container {
-  position: absolute;
-  width: 100%;
   margin-top: 20px;
   opacity: 1;
+  position: absolute;
   transform: translate(0, 0);
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .chips-container.hidden {
@@ -301,11 +299,11 @@ main {
     rgba(0, 0, 0, 0.712)
   );
 
+  border-radius: 50px;
   border: 1px solid rgb(5 119 50);
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.747);
-  border-radius: 50px;
-  padding: 0 7px;
   margin: 0 auto;
+  padding: 0 7px;
   position: relative;
   top: 26px;
   width: 220px;
@@ -329,10 +327,10 @@ main {
 
 .bet-amount span,
 .bet-balance span {
+  color: var(--color-light);
   font-size: 1.24rem;
   font-weight: 500;
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.651);
-  color: var(--color-light);
   transition: all 0.3s ease;
 }
 
@@ -353,13 +351,13 @@ main {
 }
 
 .bet-amount-container {
+  align-items: center;
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
-  align-items: center;
   position: absolute;
-  width: 100%;
   transition: all 0.45s ease-in-out;
+  width: 100%;
 }
 
 .bet-amount-container.start-game {
@@ -372,12 +370,12 @@ main {
 }
 
 .bet-chip-container {
-  display: flex;
-  position: absolute;
-  flex-direction: column-reverse;
-  justify-content: center;
   align-items: center;
   bottom: 18rem;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  position: absolute;
   width: 100%;
 }
 
@@ -429,11 +427,11 @@ main {
 }
 
 .title-home__text {
-  font-size: 1.6rem;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  position: absolute;
   bottom: 5rem;
+  font-size: 1.6rem;
   left: 50%;
+  position: absolute;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   transform: translateX(-50%);
 }
 
