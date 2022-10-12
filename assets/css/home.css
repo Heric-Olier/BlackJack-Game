@@ -31,11 +31,11 @@ header {
 }
 
 main {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
+  justify-content: center;
 }
 
 .navbar {
@@ -77,26 +77,26 @@ main {
 }
 
 .player__score-counter {
+  left: 5px;
   position: absolute;
   top: 40px;
-  left: 5px;
   background-image: linear-gradient(
     to right,
     rgba(0, 0, 0, 0.699),
     rgba(0, 0, 0, 0.712)
   );
+  align-items: center;
+  border-radius: 50%;
   border: 3px solid rgb(5 119 50);
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.747);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  transform: scale(1);
-  opacity: 1;
-  transition: all 0.3s ease;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  height: 60px;
+  justify-content: center;
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.3s ease;
+  width: 60px;
 }
 
 .level__score {
@@ -120,24 +120,24 @@ main {
 
 .menu-btn,
 .help-btn {
-  color: var(--color-dark);
   background-color: var(--color-light);
   border-radius: 50%;
-  padding: 6px 8px;
-  transition: all 0.3s ease;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  color: var(--color-dark);
   cursor: pointer;
-  position: absolute;
-  right: 5px;
-  top: 40px;
-  transform: scale(1);
-  opacity: 1;
-  visibility: visible;
-  text-align: center;
   font-size: 1.2rem;
   font-weight: bold;
-  z-index: 3;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  padding: 6px 8px;
+  position: absolute;
+  right: 5px;
+  text-align: center;
+  top: 40px;
+  transform: scale(1);
   transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
+  visibility: visible;
+  z-index: 3;
 }
 
 
