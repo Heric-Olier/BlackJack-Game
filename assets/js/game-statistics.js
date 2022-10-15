@@ -1,4 +1,3 @@
-
 const gamesPlayed = document.getElementById("games-played");
 const gamesWon = document.getElementById("games-won");
 const gamesLost = document.getElementById("games-lost");
@@ -50,16 +49,24 @@ const restoreStatistics = () => {
   if (localStorage.getItem("gamesRestarts")) {
     gamesRestarts.innerHTML = localStorage.getItem("gamesRestarts");
   }
- 
-  // removemos el localstorage si el valor es NaN
-  if (isNaN(gamesPlayed.innerHTML)) { localStorage.removeItem("gamesPlayed"); }
-  if (isNaN(gamesWon.innerHTML)) { localStorage.removeItem("gamesWon"); }
-  if (isNaN(gamesLost.innerHTML)) { localStorage.removeItem("gamesLost"); }
-  if (isNaN(gamesDraw.innerHTML)) { localStorage.removeItem("gamesDraw"); }
-  if (isNaN(gamesRestarts.innerHTML)) { localStorage.removeItem("gamesRestarts"); }
-  
-};
 
+  // removemos el localstorage si el valor es NaN
+  if (isNaN(gamesPlayed.innerHTML)) {
+    localStorage.removeItem("gamesPlayed");
+  }
+  if (isNaN(gamesWon.innerHTML)) {
+    localStorage.removeItem("gamesWon");
+  }
+  if (isNaN(gamesLost.innerHTML)) {
+    localStorage.removeItem("gamesLost");
+  }
+  if (isNaN(gamesDraw.innerHTML)) {
+    localStorage.removeItem("gamesDraw");
+  }
+  if (isNaN(gamesRestarts.innerHTML)) {
+    localStorage.removeItem("gamesRestarts");
+  }
+};
 
 restoreStatistics();
 
